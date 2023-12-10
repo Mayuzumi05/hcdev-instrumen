@@ -13,31 +13,37 @@
 <body>
     <div class="container-fluid">
         <div class="row containerMain">
-            <div class="col col-lg-6">
-                <img class="logo-login"src="img/logo.png" alt="" height=64px>
-                <div class="login-form">
-                    <p class="h4" style="text-align:center;color:#404252">Masuk</p>
-                    <p class="h6" style="text-align:center;color:#B3B5BD">Selamat datang! Masukkan nama pengguna dan kata sandi anda</p>
-                    <form action="{{route('postlogin')}}" method="post">
-                        {{ csrf_field() }}
-                        <p class="h6" style="color:#404252;margin:48px 0 8px 0">Nama Pengguna</p>
-                        <input type="text" class="nama-pengguna" name="username" placeholder="Masukkan nama pengguna anda">
-                        <p class="h6" style="color:#404252;margin:16px 0 8px 0">Kata Sandi</p>
-                        <input type="password" class="nama-pengguna" name="password" placeholder="Masukkan kata sandi anda" id="myInput">
-                        <div style="display:flex;margin:8px 0px 0px 16px;">
-                            <input type="checkbox" onclick="myFunction()" class="body-1">
-                            <p class="body-1" style="margin: 0px 4px;color:#777986">Perlihatkan kata sandi</p>
-                        </div>
-                        <button type="submit" class="btn-login">
-                            <a class="h6" style="text-decoration:none" href="#">Masuk</a>
-                        </button>
-                        <div class="belum-memiliki-akun">
-                            <p class="h6" style="color:#777986;">Belum memiliki akun?</p>
-                            <a class="h6" style="color:#31C453;margin-left:4px;text-decoration:none" href="register">Daftar</a>
-                        </div>
-                    </form>
+            <div class="col col-lg-6 leftContainer">
+                <div class="petroContainer">
+                    <img class="logo-login"src="img/logo.png" alt="" height=48px>
                 </div>
-                <p class="body-1" style="color:#777986;">© 2023 Petrokimia Gresik</p>
+
+                <div class="formContainerOuter">
+                    <div class="login-form formContainerInner">
+                        <p class="h4" style="text-align:center;color:#404252">Masuk</p>
+                        <p class="body-2" style="text-align:center;color:#B3B5BD">Selamat datang! Masukkan nama pengguna dan kata sandi anda</p>
+                        <form action="{{route('postlogin')}}" method="post">
+                            {{ csrf_field() }}
+                            <p class="body-1" style="color:#404252;margin:24px 0 8px 0">Nama Pengguna</p>
+                            <input type="text" class="nama-pengguna" name="username" placeholder="Masukkan nama pengguna anda">
+                            <p class="body-1" style="color:#404252;margin:16px 0 8px 0">Kata Sandi</p>
+                            <input type="password" class="nama-pengguna" name="password" placeholder="Masukkan kata sandi anda" id="myInput">
+                            <div style="display:flex;margin:16px 0px 0px 8px;">
+                                <input type="checkbox" onclick="myFunction()" class="body-1">
+                                <p class="body-2" style="margin: 0px 4px;color:#777986">Perlihatkan kata sandi</p>
+                            </div>
+                            <button type="submit" class="btn-login">
+                                <a class="h6" style="text-decoration:none" href="#">Masuk</a>
+                            </button>
+                            <div class="belum-memiliki-akun">
+                                <p class="body-2" style="color:#777986;">Belum memiliki akun?</p>
+                                <a class="body-2" style="color:#31C453;margin-left:4px;text-decoration:none" href="register">Daftar</a>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+
+                <p class="caption copyrightContainer" style="color:#777986;">© 2023 Petrokimia Gresik</p>
             </div>
             <div class="d-none d-lg-block col-lg-6" style="padding:0px;">
                 <div id="container">
