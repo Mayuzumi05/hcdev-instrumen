@@ -445,9 +445,15 @@ input:focus{
   cursor: pointer;
 }
 
+.detailAkunContainer{
+  display: flex;
+  flex-direction: row;
+  background-color: orange;
+}
+
 .detail-akun {
   border-radius: 8px;
-  background-color: white;
+  width: 100%;
   padding: 40px;
   box-shadow: 0px 12px 42px -4px rgba(24, 39, 75, 0.12), 0px 8px 18px -6px rgba(24, 39, 75, 0.12);
 }
@@ -455,7 +461,8 @@ input:focus{
 .ubah-kata-sandi {
   border-radius: 8px;
   background-color: white;
-  padding: 40px;
+  height: 50%;
+  padding: 32px;
   margin-left: 24px;
   box-shadow: 0px 12px 42px -4px rgba(24, 39, 75, 0.12), 0px 8px 18px -6px rgba(24, 39, 75, 0.12);
 }
@@ -471,15 +478,20 @@ input:focus{
 .btn-ubah-sandi {
   border: 0px;
   border-radius: 8px;
-  padding: 16px 32px;
-  margin-top: 24px;
+  padding: 16px 24px;
+  margin-top: 16px;
   background-color: #E8F9DD;
   color: #1B954C;
   height: auto;
+  margin-left: auto;
+  margin-right: auto;
 }
 
 .isi-pengaturan {
   padding: 32px 0 16px 0;
+  display: flex;
+  flex-direction: row;
+  width: 100%;
 }
 
 .edit-profile {
@@ -665,6 +677,19 @@ input:focus{
 .copyrightContainer{
   margin-bottom: 20px;
   padding-left: 20px;
+}
+
+#pilihInputModal {
+  width: fit-content;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.input-satuan {
+  padding: 16px;
+  background-color: #1B954C;
+  border-radius: 8px;
+  cursor: pointer;
 }
 
 /* .plus, .minus{

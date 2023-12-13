@@ -151,7 +151,7 @@
                 <p class="body-1">Pengaturan</p>
             </div>
             <div class="isi-pengaturan">
-                <div style="display:flex;">
+                <div style="detailAkunContainer">
                     <div class="detail-akun">
                         <p class="h5">Detail Akun</p>
                         <div style="display:flex;align-items:center;">
@@ -168,36 +168,36 @@
                                 <input type="text" class="input-form" name="" id="" style="margin-top:8px;" value="{{ auth()->user()->email }}">
                             </div>
                         </div>
-                    </div>
-                    <div class="ubah-kata-sandi">
-                        <p class="h5">Ubah Kata Sandi</p>
-                        <p class="body-1" style="margin-top:16px;color:#8F959D;">Ubah Kata Sandi anda dengan kapanpun<br>dengan memasukkan kata sandi baru</p>
-                        <div style="align-items:center;">
-                            <button class="btn-ubah-sandi" data-bs-toggle="modal" data-bs-target="#ubahKataSandiModal">Ubah Kata Sandi</button>
+                        <div style="display:flex;margin-top:8px;">
+                            <div>
+                                <p class="body-2">Nama</p>
+                                <input type="text" class="input-form" name="" id="" style="margin-top:8px;" value="{{ auth()->user()->name }}">
+                            </div>
+                            <div style="margin-left:16px;">
+                                <p class="body-2">No. Telepon</p>
+                                <input type="text" class="input-form" name="" id="" style="margin-top:8px;" value="{{ auth()->user()->no_telepon }}">
+                            </div>
+                        </div>
+                        <div style="display:flex;margin-top:8px;">
+                            <div>
+                                <p class="body-2">NIK</p>
+                                <input type="text" class="input-form" name="" id="" style="margin-top:8px;" value="{{ auth()->user()->NIK }}">
+                            </div>
+                            <div style="margin-left:16px;">
+                                <p class="body-2">Unit Bagian</p>
+                                <input type="text" class="input-form" name="" id="" style="margin-top:8px;" value="{{ auth()->user()->unit_bagian }}">
+                            </div>
+                        </div>
+                        <div>
+                            <button class="btn-ubah-sandi" data-bs-toggle="modal" data-bs-target="#ubahDetailAkunModal">Ubah Detail Akun</button>
                         </div>
                     </div>
                 </div>
-                <div class="data-pribadi">
-                    <p class="h5">Data Pribadi</p>
-                    <div style="display:flex;margin-top:24px;">
-                        <div>
-                            <p class="body-2">Nama</p>
-                            <input type="text" class="input-form" name="" id="" style="margin-top:8px;" value="{{ auth()->user()->name }}">
-                        </div>
-                        <div style="margin-left:16px;">
-                            <p class="body-2">No. Telepon</p>
-                            <input type="text" class="input-form" name="" id="" style="margin-top:8px;" value="{{ auth()->user()->no_telepon }}">
-                        </div>
-                    </div>
-                    <div style="display:flex;margin-top:8px;">
-                        <div>
-                            <p class="body-2">NIK</p>
-                            <input type="text" class="input-form" name="" id="" style="margin-top:8px;" value="{{ auth()->user()->NIK }}">
-                        </div>
-                        <div style="margin-left:16px;">
-                            <p class="body-2">Unit Bagian</p>
-                            <input type="text" class="input-form" name="" id="" style="margin-top:8px;" value="{{ auth()->user()->unit_bagian }}">
-                        </div>
+                <div class="ubah-kata-sandi">
+                    <p class="h5">Ubah Kata Sandi</p>
+                    <p class="body-1" style="margin-top:16px;color:#8F959D;">Ubah kata sandi anda kapanpun<br>dengan memasukkan kata sandi baru</p>
+                    <div>
+                        <button class="btn-ubah-sandi" data-bs-toggle="modal" data-bs-target="#ubahKataSandiModal{{ auth()->user()->id }}">Ubah Kata Sandi</button>
                     </div>
                 </div>
             </div>
@@ -233,6 +233,51 @@
                 </div>
             </div>
         </div>
+        @foreach (auth()->user() as $b)
+        <div class="modal fade" id="ubahDetailAkunModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                <div class="modal-body">
+                    <div style="display:flex;justify-content:space-between;margin:16px 0 16px 0">
+                        <h5 class="modal-title" id="exampleModalLabel">Ubah Detail Akun</h5>
+                        <img src="img/close-icon.svg" style="width:24px;cursor:pointer;" data-bs-dismiss="modal" aria-label="Close" alt="">
+                    </div>
+                    <form method="POST" action="/setting/update/{{auth()->user()->id}}">
+                        @csrf
+                        <div class="form-group">
+                            <label for="recipient-name" class="col-form-label">Nama pengguna</label>
+                            <input type="text" class="form-control" id="recipient-name" name="username" value="{{ auth()->user()->username }}">
+                        </div>
+                        <div class="form-group">
+                            <label for="recipient-name" class="col-form-label">Email</label>
+                            <input type="text" class="form-control" id="recipient-name" name="email" value="{{ auth()->user()->email }}">
+                        </div>
+                        <div class="form-group">
+                            <label for="recipient-name" class="col-form-label">Nama</label>
+                            <input type="text" class="form-control" id="recipient-name" name="name" value="{{ auth()->user()->name }}">
+                        </div>
+                        <div class="form-group">
+                            <label for="recipient-name" class="col-form-label">Nomor Telepon</label>
+                            <input type="text" class="form-control" id="recipient-name" name="no_telepon" value="{{ auth()->user()->no_telepon }}">
+                        </div>
+                        <div class="form-group">
+                            <label for="recipient-name" class="col-form-label">NIK</label>
+                            <input type="text" class="form-control" id="recipient-name" name="NIK" value="{{ auth()->user()->NIK }}">
+                        </div>
+                        <div class="form-group">
+                            <label for="recipient-name" class="col-form-label">Unit Bagian</label>
+                            <input type="text" class="form-control" id="recipient-name" name="unit_bagian" value="{{ auth()->user()->unit_bagian }}">
+                        </div>    
+                        <div style="margin:24px 0 8px 0;display:flex;direction:rtl;">
+                            <button type="submit" class="btn-simpan" data-bs-toggle="modal" data-bs-target="#simpanModal">Simpan</button>
+                            <button type="button" class="btn-kembali" data-bs-dismiss="modal">Kembali</button>
+                        </div>
+                    </form>
+                </div>
+                </div>
+            </div>
+        </div>
+        @endforeach
         <div class="modal fade" id="hapusModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
             <div class="modal-dialog modal-dialog-centered" role="document">
                 <div class="modal-content">

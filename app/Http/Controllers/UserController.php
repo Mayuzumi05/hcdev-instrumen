@@ -32,6 +32,22 @@ class UserController extends Controller
         return redirect('/login')->with('success', 'Data berhasil disimpan');
     }
 
+    public function update(Request $request, $id){
+        
+        User::where('id', $id)
+            ->where('id', $id)
+                ->update([
+                    'name' => $request->name,
+                    'NIK' => $request->NIK,
+                    'no_telepon' => $request->no_telepon,
+                    'email' => $request->email,
+                    'unit_bagian' => $request->unit_bagian,
+                    'username' => $request->username,
+                ]);
+        
+        return redirect('/setting')->with('success', 'Data Berhasil Diubah');
+    }
+
     // public function update(Request $request, $id) {
         
     //     User::where('id', $id)->where('id', $id)->update([
