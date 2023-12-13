@@ -162,9 +162,13 @@
                             <img src="img/filter.svg" style="height:24px;width:24px;" alt="">
                         </button>
                     </div>
-                    <div>
-                        <button class="btn-tambah-data" data-bs-toggle="modal" data-bs-target="#tambahBarangModal">
-                            <img src="img/plus.svg" alt="">
+                    <div style="display:flex">
+                        <button class="btn-tambah-data">
+                            <img src="img/download.svg" style="margin-right:8px;" alt="">
+                            <p class="body-2">Export Data</p>
+                        </button>
+                        <button class="btn-tambah-data" style="margin-left:16px;" data-bs-toggle="modal" data-bs-target="#pilihInputModal">
+                            <img src="img/plus.svg" style="margin-right:8px;" alt="">
                             <p class="body-2">Tambah Data</p>
                         </button>
                     </div>
@@ -304,6 +308,32 @@
                 </div>
             </div>
         </div>
+        <div class="modal fade" id="pilihInputModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">    
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                <div class="modal-body" style="padding:24px;">
+                    <div style="display:flex;justify-content:space-between;">
+                        <p class="h6" style="margin-bottom:0;line-height:24px;">Pilih Metode</p>
+                        <img src="img/close-icon.svg" style="width:24px;cursor:pointer;" data-bs-dismiss="modal" aria-label="Close" alt="">
+                    </div>
+                    <div style="display:flex;margin-top:16px;">
+                        <div class="input-satuan" data-bs-toggle="modal" data-bs-target="#tambahBarangModal">
+                            <div style="width:32px;margin:0 auto 8px auto;">
+                                <img src="img/icon_plus.svg" alt="">
+                            </div>
+                            <p class="body-2" style="color:white;">Input satuan</p>
+                        </div>
+                        <div class="input-satuan" style="margin-left:16px;" data-bs-toggle="modal" data-bs-target="#importExcelModal">
+                            <div style="width:32px;margin:0 auto 8px auto;">
+                                <img src="img/arrow-up.svg" alt="">
+                            </div>
+                            <p class="body-2" style="color:white;">Import excel</p>
+                        </div>
+                    </div>
+                </div>
+                </div>
+            </div>
+        </div>
         <div class="modal fade" id="tambahBarangModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
             <div class="modal-dialog" role="document">
                 <div class="modal-content">
@@ -355,6 +385,31 @@
                         <button type="button" class="btn-kembali" data-bs-dismiss="modal">Kembali</button>
                     </div>
                 </div>
+                </div>
+            </div>
+        </div>
+        <div class="modal fade" id="importExcelModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">    
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-body" style="padding:24px;">
+                        <div style="display:flex;justify-content:space-between;">
+                            <p class="h6" style="margin-bottom:0;line-height:24px;">Pilih file</p>
+                            <img src="img/close-icon.svg" style="width:24px;cursor:pointer;" data-bs-dismiss="modal" aria-label="Close" alt="">
+                        </div>
+                        <form>
+                            <div style="display:flex;margin:24px 0 16px 0;">
+                                <p class="body-2">Template File : </p>
+                                <a class="body-2" href="excel/Data Barang SA II.xlsx" style="text-decoration:none;" download>&emsp;Download Template</a>
+                            </div>
+                            <div class="form-group">
+                                <input type="file" class="form-control" id="recipient-name">
+                            </div>
+                        </form>
+                        <div style="margin:24px 0 8px 0;display:flex;direction:rtl;">
+                            <button type="button" class="btn-simpan" data-bs-toggle="modal" data-bs-target="#simpanModal">Simpan</button>
+                            <button type="button" class="btn-kembali" data-bs-dismiss="modal">Kembali</button>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>

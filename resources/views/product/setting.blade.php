@@ -197,7 +197,7 @@
                     <p class="h5">Ubah Kata Sandi</p>
                     <p class="body-1" style="margin-top:16px;color:#8F959D;">Ubah kata sandi anda kapanpun<br>dengan memasukkan kata sandi baru</p>
                     <div>
-                        <button class="btn-ubah-sandi" data-bs-toggle="modal" data-bs-target="#ubahKataSandiModal{{ auth()->user()->id }}">Ubah Kata Sandi</button>
+                        <button class="btn-ubah-sandi" data-bs-toggle="modal" data-bs-target="#ubahKataSandiModal">Ubah Kata Sandi</button>
                     </div>
                 </div>
             </div>
@@ -233,7 +233,6 @@
                 </div>
             </div>
         </div>
-        @foreach (auth()->user() as $b)
         <div class="modal fade" id="ubahDetailAkunModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
             <div class="modal-dialog" role="document">
                 <div class="modal-content">
@@ -277,7 +276,6 @@
                 </div>
             </div>
         </div>
-        @endforeach
         <div class="modal fade" id="hapusModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
             <div class="modal-dialog modal-dialog-centered" role="document">
                 <div class="modal-content">

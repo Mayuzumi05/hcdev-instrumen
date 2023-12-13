@@ -43,6 +43,16 @@
                     </div>
                 </div>
 
+                @if ($errors->any())
+                    <div class="alert alert-danger">
+                        <ul>
+                            @foreach ($errors->all() as $error)
+                                <li>{{ $error }}</li>
+                            @endforeach
+                        </ul>
+                    </div>
+                @endif
+
                 <p class="caption copyrightContainer" style="color:#777986;">© 2023 Petrokimia Gresik</p>
             </div>
             <div class="d-none d-lg-block col-lg-6" style="padding:0px;">

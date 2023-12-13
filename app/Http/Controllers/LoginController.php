@@ -15,7 +15,7 @@ class LoginController extends Controller
             return redirect('/home');
         }
 
-        return redirect('/login');
+        return redirect('/login')->with('error', 'Something went wrong!');
     }
 
     public function logout(Request $request){
