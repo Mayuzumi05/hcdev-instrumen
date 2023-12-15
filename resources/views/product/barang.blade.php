@@ -180,59 +180,45 @@
                                 <input type="checkbox" onclick="toggle(this);">
                             </th>
                             <th scope="col">No.</th>
-                            <th scope="col">Kode</th>
+                            <th scope="col">Material Number</th>
                             <th scope="col">Nama Barang</th>
-                            <th scope="col">Variabel</th>
+                            <th scope="col">Deskripsi</th>
                             <th scope="col">Jumlah</th>
+                            <th scope="col">Lokasi</th>
+                            <th scope="col">Aksi</th>
                         </tr>
                     </thead>
                     <tbody id="barang-table" style="cursor:pointer;">
-                        <tr data-bs-toggle="modal" data-bs-target="#detailBarangModal">
+                        @php
+                            $no = 1;
+                        @endphp
+                        @foreach ($barang as $item)
+                        <tr data-bs-toggle="modal" data-bs-target="#detailBarangModal{{ $item->id }}">
                             <td>
                                 <input type="checkbox" name="check-tbl">
                             </td>
-                            <td scope="row">1</td>
-                            <td>IB-1</td>
-                            <td>PI LOKAL 25KG (GAUGE PRESS;100MM;0-25KG/CM2;1/2NPT;BTM)</td>
-                            <td>Pressure</td>
-                            <td>15</td>
-                        </tr>
-                        <tr data-bs-toggle="modal" data-bs-target="#detailBarangModal">
+                            <td scope="row">{{ $no ++ }}</td>
+                            <td>{{ $item->material_number }}</td>
+                            <td>{{ $item->nama_barang }}</td>
+                            <td>{{ $item->deskripsi }}</td>
+                            <td>{{ $item->jumlah_barang }}</td>
+                            <td>{{ $item->lokasi }}</td>
                             <td>
-                                <input type="checkbox" name="check-tbl">
+                                <img src="img/view-icon.svg" style="cursor:pointer;" alt="">
+                                @if (auth()->user()->unit_bagian == $item->lokasi)
+                                <img src="img/edit-icon.svg" style="cursor:pointer;" data-bs-toggle="modal" data-bs-target="#editBarangModal{{ $item->id }}" alt="">
+                                <img src="img/delete-icon.svg" style="cursor:pointer;" data-bs-toggle="modal" data-bs-target="#hapusModal{{ $item->id }}" alt="">
+                                @endif
                             </td>
-                            <td scope="row">2</td>
-                            <td>IB-2</td>
-                            <td>PI LOKAL 25KG (GAUGE PRESS;100MM;0-25KG/CM2;1/2NPT;BTM)</td>
-                            <td>Pressure</td>
-                            <td>17</td>
                         </tr>
-                        <tr data-bs-toggle="modal" data-bs-target="#detailBarangModal">
-                            <td>
-                                <input type="checkbox" name="check-tbl">
-                            </td>
-                            <td scope="row">3</td>
-                            <td>IB-3</td>
-                            <td>PI LOKAL 25KG (GAUGE PRESS;100MM;0-25KG/CM2;1/2NPT;BTM)</td>
-                            <td>Pressure</td>
-                            <td>8</td>
-                        </tr>
-                        <tr data-bs-toggle="modal" data-bs-target="#detailBarangModal">
-                            <td>
-                                <input type="checkbox" name="check-tbl">
-                            </td>
-                            <td scope="row">4</td>
-                            <td>IB-4</td>
-                            <td>PI LOKAL 25KG (GAUGE PRESS;100MM;0-25KG/CM2;1/2NPT;BTM)</td>
-                            <td>Pressure</td>
-                            <td>2</td>
-                        </tr>
+                        @endforeach
                     </tbody>
                 </table>
             </div>
             <p class="body-2" style="margin:32px 0 0 0;text-align: center;color:#777986;">Copyright @Petrokimia Gresik 2023. All Rights Reserved.</p>
         </div>
-        <div class="modal fade" id="detailBarangModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        @foreach ($barang as $b)
+        <div class="modal fade" id="detailBarangModal{{ $b->id }}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
             <div class="modal-dialog" role="document">
                 <div class="modal-content">
                 <div class="modal-body" style="padding:24px;">
@@ -241,42 +227,54 @@
                         <img src="img/close-icon.svg" style="width:24px;cursor:pointer;" data-bs-dismiss="modal" aria-label="Close" alt="">
                     </div>
                     <div style="display:flex;justify-content:space-between;margin:16px 0 24px 0;">
-                        <form>
+                        <div>
                             <div class="form-group">
-                                <label for="recipient-name" class="col-form-label">Kode</label>
-                                <input type="text" class="form-control" id="recipient-name">
+                                <label for="recipient-name" class="col-form-label">Material Number</label>
+                                <input type="text" class="form-control" name="material_number" value="{{ $b->material_number }}" id="recipient-name" disabled>
                             </div>
                             <div class="form-group">
                                 <label for="recipient-name" class="col-form-label">Nama Barang</label>
-                                <textarea class="form-control" id="message-text"></textarea>
+                                <input type="text" class="form-control" name="nama_barang" value="{{ $b->nama_barang }}" id="recipient-name" disabled>
                             </div>
-                            <div class="form-group">
-                                <label for="recipient-name" class="col-form-label">Variabel</label>
-                                <input type="text" class="form-control" id="recipient-name">
-                            </div>
-                            <div class="form-group">
-                                <label for="recipient-name" class="col-form-label">Tipe</label>
-                                <input type="text" class="form-control" id="recipient-name">
-                            </div>
-                        </form>
-                        <form>
                             <div class="form-group">
                                 <label for="recipient-name" class="col-form-label">Range Pengukuran</label>
-                                <input type="text" class="form-control" id="recipient-name">
+                                <input type="text" class="form-control" name="range_pengukuran" value="{{ $b->range_pengukuran }}" id="recipient-name" disabled>
                             </div>
                             <div class="form-group">
-                                <label for="recipient-name" class="col-form-label">Dimensi(Satuan)</label>
-                                <input type="text" class="form-control" id="recipient-name">
+                                <label for="recipient-name" class="col-form-label">Satuan Pengukuran</label>
+                                <input type="text" class="form-control" name="satuan_pengukuran" value="{{ $b->satuan_pengukuran }}" id="recipient-name" disabled>
+                            </div>
+                            <div class="form-group">
+                                <label for="recipient-name" class="col-form-label">Kondisi</label>
+                                <input type="text" class="form-control" name="kondisi" value="{{ $b->kondisi }}" id="recipient-name" disabled>
                             </div>
                             <div class="form-group">
                                 <label for="recipient-name" class="col-form-label">Merk</label>
-                                <input type="text" class="form-control" id="recipient-name">
+                                <input type="text" class="form-control" name="merk" value="{{ $b->merk }}" id="recipient-name" disabled>
+                            </div>
+                        </div>
+                        <div>
+                            <div class="form-group">
+                                <label for="recipient-name" class="col-form-label">Deskripsi</label>
+                                <textarea class="form-control" name="deskripsi" value="{{ $b->deskripsi }}" id="message-text" disabled>{{ $b->deskripsi }}</textarea>
                             </div>
                             <div class="form-group">
-                                <label for="recipient-name" class="col-form-label">Jumlah Total</label>
-                                <input type="text" class="form-control" id="recipient-name">
+                                <label for="recipient-name" class="col-form-label">Tipe</label>
+                                <input type="text" class="form-control" name="tipe" value="{{ $b->tipe }}" id="recipient-name" disabled>
                             </div>
-                        </form>
+                            <div class="form-group">
+                                <label for="recipient-name" class="col-form-label">Jumlah Barang</label>
+                                <input type="text" class="form-control" name="jumlah_barang" value="{{ $b->jumlah_barang }}" id="recipient-name" disabled>
+                            </div>
+                            <div class="form-group">
+                                <label for="recipient-name" class="col-form-label">Satuan Barang</label>
+                                <input type="text" class="form-control" name="id_satuan_barang" value="{{ $b->id_satuan_barang }}" id="recipient-name" disabled>
+                            </div>
+                            <div class="form-group">
+                                <label for="recipient-name" class="col-form-label">Lokasi</label>
+                                <input type="text" class="form-control" name="lokasi" value="{{ $b->lokasi }}" id="recipient-name" disabled>
+                            </div>
+                        </div>
                     </div>
                     <p class="body-1">Barcode Barang</p>
                     <div style="display:flex;align-items:center;margin:16px 0 24px 0">
@@ -308,6 +306,7 @@
                 </div>
             </div>
         </div>
+        @endforeach
         <div class="modal fade" id="pilihInputModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">    
             <div class="modal-dialog" role="document">
                 <div class="modal-content">
@@ -338,52 +337,67 @@
             <div class="modal-dialog" role="document">
                 <div class="modal-content">
                 <div class="modal-body" style="padding:24px;">
-                    <div style="display:flex;justify-content:space-between;">
-                        <p class="h6" style="margin-bottom:0;line-height:24px;">Input Data Barang</p>
-                        <img src="img/close-icon.svg" style="width:24px;cursor:pointer;" data-bs-dismiss="modal" aria-label="Close" alt="">
-                    </div>
-                    <div style="display:flex;justify-content:space-between;margin:16px 0 24px 0;">
-                        <form>
-                            <div class="form-group">
-                                <label for="recipient-name" class="col-form-label">Kode</label>
-                                <input type="text" class="form-control" id="recipient-name">
+                    <form  method="POST" action="/barang/store">
+                        @csrf
+                        <div style="display:flex;justify-content:space-between;">
+                            <p class="h6" style="margin-bottom:0;line-height:24px;">Input Data Barang</p>
+                            <img src="img/close-icon.svg" style="width:24px;cursor:pointer;" data-bs-dismiss="modal" aria-label="Close" alt="">
+                        </div>
+                        <div style="display:flex;justify-content:space-between;margin:16px 0 24px 0;">
+                            <div>
+                                <div class="form-group">
+                                    <label for="recipient-name" class="col-form-label">Material Number</label>
+                                    <input type="text" class="form-control" name="material_number" id="recipient-name">
+                                </div>
+                                <div class="form-group">
+                                    <label for="recipient-name" class="col-form-label">Nama Barang</label>
+                                    <input type="text" class="form-control" name="nama_barang" id="recipient-name">
+                                </div>
+                                <div class="form-group">
+                                    <label for="recipient-name" class="col-form-label">Range Pengukuran</label>
+                                    <input type="text" class="form-control" name="range_pengukuran" id="recipient-name">
+                                </div>
+                                <div class="form-group">
+                                    <label for="recipient-name" class="col-form-label">Satuan Pengukuran</label>
+                                    <input type="text" class="form-control" name="satuan_pengukuran" id="recipient-name">
+                                </div>
+                                <div class="form-group">
+                                    <label for="recipient-name" class="col-form-label">Kondisi</label>
+                                    <input type="text" class="form-control" name="kondisi" id="recipient-name">
+                                </div>
+                                <div class="form-group">
+                                    <label for="recipient-name" class="col-form-label">Merk</label>
+                                    <input type="text" class="form-control" name="merk" id="recipient-name">
+                                </div>
                             </div>
-                            <div class="form-group">
-                                <label for="recipient-name" class="col-form-label">Nama Barang</label>
-                                <textarea class="form-control" id="message-text"></textarea>
+                            <div>
+                                <div class="form-group">
+                                    <label for="recipient-name" class="col-form-label">Deskripsi</label>
+                                    <textarea class="form-control" name="deskripsi" id="message-text"></textarea>
+                                </div>
+                                <div class="form-group">
+                                    <label for="recipient-name" class="col-form-label">Tipe</label>
+                                    <input type="text" class="form-control" name="tipe" id="recipient-name">
+                                </div>
+                                <div class="form-group">
+                                    <label for="recipient-name" class="col-form-label">Jumlah Barang</label>
+                                    <input type="text" class="form-control" name="jumlah_barang" id="recipient-name">
+                                </div>
+                                <div class="form-group">
+                                    <label for="recipient-name" class="col-form-label">Satuan Barang</label>
+                                    <input type="text" class="form-control" name="id_satuan_barang" id="recipient-name">
+                                </div>
+                                <div class="form-group">
+                                    <label for="recipient-name" class="col-form-label">Lokasi</label>
+                                    <input type="text" class="form-control" name="lokasi" id="recipient-name">
+                                </div>
                             </div>
-                            <div class="form-group">
-                                <label for="recipient-name" class="col-form-label">Variabel</label>
-                                <input type="text" class="form-control" id="recipient-name">
-                            </div>
-                            <div class="form-group">
-                                <label for="recipient-name" class="col-form-label">Tipe</label>
-                                <input type="text" class="form-control" id="recipient-name">
-                            </div>
-                        </form>
-                        <form>
-                            <div class="form-group">
-                                <label for="recipient-name" class="col-form-label">Range Pengukuran</label>
-                                <input type="text" class="form-control" id="recipient-name">
-                            </div>
-                            <div class="form-group">
-                                <label for="recipient-name" class="col-form-label">Dimensi(Satuan)</label>
-                                <input type="text" class="form-control" id="recipient-name">
-                            </div>
-                            <div class="form-group">
-                                <label for="recipient-name" class="col-form-label">Merk</label>
-                                <input type="text" class="form-control" id="recipient-name">
-                            </div>
-                            <div class="form-group">
-                                <label for="recipient-name" class="col-form-label">Jumlah Total</label>
-                                <input type="text" class="form-control" id="recipient-name">
-                            </div>
-                        </form>
-                    </div>
-                    <div style="margin:24px 0 8px 0;display:flex;direction:rtl;">
-                        <button type="button" class="btn-simpan" data-bs-toggle="modal" data-bs-target="#simpanModal">Simpan</button>
-                        <button type="button" class="btn-kembali" data-bs-dismiss="modal">Kembali</button>
-                    </div>
+                        </div>
+                        <div style="margin:24px 0 8px 0;display:flex;direction:rtl;">
+                            <button type="submit" class="btn-simpan" data-bs-toggle="modal" data-bs-target="#simpanModal">Simpan</button>
+                            <button type="button" class="btn-kembali" data-bs-dismiss="modal">Kembali</button>
+                        </div>
+                    </form>
                 </div>
                 </div>
             </div>
@@ -413,6 +427,97 @@
                 </div>
             </div>
         </div>
+        @foreach ($barang as $c)
+        <div class="modal fade" id="editBarangModal{{ $c->id }}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                <div class="modal-body" style="padding:24px;">
+                    <div style="display:flex;justify-content:space-between;">
+                        <p class="h6" style="margin-bottom:0;line-height:24px;">Edit Data Barang</p>
+                        <img src="img/close-icon.svg" style="width:24px;cursor:pointer;" data-bs-dismiss="modal" aria-label="Close" alt="">
+                    </div>
+                    <form method="POST" action="barang/update/{{$c->id}}">
+                        @csrf
+                        <div style="display:flex;justify-content:space-between;margin:16px 0 24px 0;">
+                            <div>
+                                <div class="form-group">
+                                    <label for="recipient-name" class="col-form-label">Material Number</label>
+                                    <input type="text" class="form-control" name="material_number" value="{{ $c->material_number }}" id="recipient-name">
+                                </div>
+                                <div class="form-group">
+                                    <label for="recipient-name" class="col-form-label">Nama Barang</label>
+                                    <input type="text" class="form-control" name="nama_barang" value="{{ $c->nama_barang }}" id="recipient-name">
+                                </div>
+                                <div class="form-group">
+                                    <label for="recipient-name" class="col-form-label">Range Pengukuran</label>
+                                    <input type="text" class="form-control" name="range_pengukuran" value="{{ $c->range_pengukuran }}" id="recipient-name">
+                                </div>
+                                <div class="form-group">
+                                    <label for="recipient-name" class="col-form-label">Satuan Pengukuran</label>
+                                    <input type="text" class="form-control" name="satuan_pengukuran" value="{{ $c->satuan_pengukuran }}" id="recipient-name">
+                                </div>
+                                <div class="form-group">
+                                    <label for="recipient-name" class="col-form-label">Kondisi</label>
+                                    <input type="text" class="form-control" name="kondisi" value="{{ $c->kondisi }}" id="recipient-name">
+                                </div>
+                                <div class="form-group">
+                                    <label for="recipient-name" class="col-form-label">Merk</label>
+                                    <input type="text" class="form-control" name="merk" value="{{ $c->merk }}" id="recipient-name">
+                                </div>
+                            </div>
+                            <div>
+                                <div class="form-group">
+                                    <label for="recipient-name" class="col-form-label">Deskripsi</label>
+                                    <textarea class="form-control" name="deskripsi" value="{{ $b->deskripsi }}" id="message-text">{{ $c->deskripsi }}</textarea>
+                                </div>
+                                <div class="form-group">
+                                    <label for="recipient-name" class="col-form-label">Tipe</label>
+                                    <input type="text" class="form-control" name="tipe" value="{{ $c->tipe }}" id="recipient-name">
+                                </div>
+                                <div class="form-group">
+                                    <label for="recipient-name" class="col-form-label">Jumlah Barang</label>
+                                    <input type="text" class="form-control" name="jumlah_barang" value="{{ $c->jumlah_barang }}" id="recipient-name">
+                                </div>
+                                <div class="form-group">
+                                    <label for="recipient-name" class="col-form-label">Satuan Barang</label>
+                                    <input type="text" class="form-control" name="id_satuan_barang" value="{{ $c->id_satuan_barang }}" id="recipient-name">
+                                </div>
+                                <div class="form-group">
+                                    <label for="recipient-name" class="col-form-label">Lokasi</label>
+                                    <input type="text" class="form-control" name="lokasi" value="{{ $c->lokasi }}" id="recipient-name">
+                                </div>
+                            </div>
+                        </div>
+                        <div style="margin:24px 0 8px 0;display:flex;direction:rtl;">
+                            <button type="submit" class="btn-simpan" data-bs-toggle="modal" data-bs-target="#simpanModal">Simpan</button>
+                            <button type="button" class="btn-kembali" data-bs-dismiss="modal">Kembali</button>
+                        </div>
+                    </form>
+                </div>
+                </div>
+            </div>
+        </div>
+        @endforeach
+        @foreach ($barang as $a)
+        <div class="modal fade" id="hapusModal{{ $a->id }}" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered" role="document">
+                <div class="modal-content">
+                    <div style="display:flex;direction:rtl;">
+                        <img src="img/close-icon.svg" style="width:24px;cursor:pointer;margin:24px 24px 0 0;" data-bs-dismiss="modal" aria-label="Close" alt="">
+                    </div>
+                    <img src="img/story-delete.svg" style="width:240px;margin:48px auto;" alt="">
+                    <p class="h6" style="margin:0 auto;">Apakah anda yakin ingin menghapus item ini?</p>
+                    <form action="barang/destroy/{{$a->id}}" method="GET">
+                        @csrf
+                        <div class="modal-foot" style="margin:16px;">
+                            <button type="button" class="btn-kembali" data-bs-dismiss="modal">Kembali</button>
+                            <button type="submit" class="btn-konfirmasi-hapus">Hapus</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+        @endforeach
     </div>
             
     <section class="overlay"></section>

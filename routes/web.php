@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Controller;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\BarangController;
 
 /*
 |--------------------------------------------------------------------------
@@ -31,10 +32,17 @@ Route::get('/logout', [LoginController::class,'logout'])->name('logout');
 // Route::get('/logout', 'LoginController@logout')->name('logout');
 
 Route::group(['middleware' => ['auth', 'cekunit:1,2,3,4,5,6,7,8']], function () {
+    //User
     Route::get('/home', [Controller::class, 'home'])->name('home');
     Route::get('/user', [UserController::class, 'index'])->name('user'); 
-    Route::get('/user/destroy/{id}', [UserController::class, 'destroy'])->name('destroy');
     Route::post('/setting/update/{id}', [UserController::class, 'update'])->name('update');
+    Route::get('/user/destroy/{id}', [UserController::class, 'destroy'])->name('destroy');
+
+    //CRUD Barang
+    Route::get('/barang', [BarangController::class, 'index'])->name('barang');
+    Route::post('/barang/store', [BarangController::class, 'store'])->name('store');
+    Route::post('/barang/update/{id}', [BarangController::class, 'update'])->name('update');
+    Route::get('/barang/destroy/{id}', [BarangController::class, 'destroy'])->name('destroy');
 });
 
 Route::get('/register', [Controller::class, 'register'])->name('user.register');
@@ -46,8 +54,6 @@ Route::post('/saveregister', [UserController::class, 'saveregister'])->name('sav
 // Route::get('/user', [Controller::class, 'user'])->name('product.user');
 
 Route::get('/pindah', [Controller::class, 'pindah'])->name('product.pindah');
-
-Route::get('/barang', [Controller::class, 'barang'])->name('product.barang');
 
 Route::get('/history', [Controller::class, 'history'])->name('product.history');
 
