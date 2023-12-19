@@ -3,22 +3,25 @@
 namespace App\Http\Controllers;
 
 use App\Models\Barang;
+use App\Exports\BarangExport;
+use Maatwebsite\Excel\Facades\Excel;
+use App\Http\Controllers\Controller;
+
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
+use Illuminate\View\View;
 
 class BarangController extends Controller
 {
     public function index(){
         $barang = array(
             'title'     =>  'Data Barang',
-            'barang'    =>  Barang::all(),
+            'barang'    =>  Barang::latest()->paginate(2),
         );
-        // dd($user);
         return view('product.barang', $barang);
     }
 
     public function store(Request $request) {
-        // dd($request->all());
 
         Barang::create([
             'material_number' => $request->material_number,
@@ -64,5 +67,9 @@ class BarangController extends Controller
 
         return redirect('/barang')->with('success', 'Data berhasil dihapus');
 
+    }
+
+    public function barangExport(){
+        return Excel::download(new BarangExport, 'barang.xlsx');
     }
 }

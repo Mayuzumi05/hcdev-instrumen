@@ -163,10 +163,12 @@
                         </button>
                     </div>
                     <div style="display:flex">
-                        <button class="btn-tambah-data">
-                            <img src="img/download.svg" style="margin-right:8px;" alt="">
-                            <p class="body-2">Export Data</p>
-                        </button>
+                        <a href="{{ route('exportbarang') }}">
+                            <button class="btn-tambah-data">
+                                <img src="img/download.svg" style="margin-right:8px;" alt="">
+                                <p class="body-2">Export Data</p>
+                            </button>
+                        </a>
                         <button class="btn-tambah-data" style="margin-left:16px;" data-bs-toggle="modal" data-bs-target="#pilihInputModal">
                             <img src="img/plus.svg" style="margin-right:8px;" alt="">
                             <p class="body-2">Tambah Data</p>
@@ -189,9 +191,7 @@
                         </tr>
                     </thead>
                     <tbody id="barang-table" style="cursor:pointer;">
-                        @php
-                            $no = 1;
-                        @endphp
+                        <?php $no = ($barang->currentpage()-1)* $barang->perpage() + 1;?>
                         @foreach ($barang as $item)
                         <tr data-bs-toggle="modal" data-bs-target="#detailBarangModal{{ $item->id }}">
                             <td>
@@ -214,6 +214,9 @@
                         @endforeach
                     </tbody>
                 </table>
+                <div>
+                    {!! $barang->withQueryString()->links('pagination::bootstrap-5') !!}
+                </div>
             </div>
             <p class="body-2" style="margin:32px 0 0 0;text-align: center;color:#777986;">Copyright @Petrokimia Gresik 2023. All Rights Reserved.</p>
         </div>
