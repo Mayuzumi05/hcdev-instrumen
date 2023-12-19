@@ -11,12 +11,11 @@ class UserController extends Controller
 {
     public function index(){
         $user = User::all();
-        // dd($user);
+        
         return view('product.user', compact('user'));
     }
 
     public function saveregister(Request $request) {
-        // dd($request->all());
 
         User::create([
             'name' => $request->name,

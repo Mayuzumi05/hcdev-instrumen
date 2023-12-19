@@ -652,10 +652,6 @@ input:focus{
   height: 100vh;
 }
 
-.petroContainer{
-  
-}
-
 .leftContainer{
   display: flex;
   flex-direction: column;
