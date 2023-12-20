@@ -17,7 +17,7 @@ class BarangController extends Controller
     public function index(){
         $barang = array(
             'title'     =>  'Data Barang',
-            'barang'    =>  Barang::latest()->paginate(2),
+            'barang'    =>  Barang::latest()->paginate(5),
         );
         return view('product.barang', $barang);
     }
@@ -72,5 +72,14 @@ class BarangController extends Controller
 
     public function barangExport(){
         return Excel::download(new BarangExport, 'barang.xlsx');
+    }
+
+    public function barangImport(Request $request){
+        $file = $request->file('file');
+        $namaFile = $file->getClientOriginalName();
+        $file->move('DataBarang', $namaFile);
+
+        Excel::import(new BarangImport, public_path('/DataBarang/'.$namaFile));
+        return redirect('/barang')->with('success', 'Data berhasil dihapus');
     }
 }

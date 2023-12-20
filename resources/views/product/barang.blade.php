@@ -163,7 +163,7 @@
                         </button>
                     </div>
                     <div style="display:flex">
-                        <a href="{{ route('exportbarang') }}">
+                        <a href="{{ route('exportbarang') }}" style="text-decoration:none;">
                             <button class="btn-tambah-data">
                                 <img src="img/download.svg" style="margin-right:8px;" alt="">
                                 <p class="body-2">Export Data</p>
@@ -413,19 +413,20 @@
                             <p class="h6" style="margin-bottom:0;line-height:24px;">Pilih file</p>
                             <img src="img/close-icon.svg" style="width:24px;cursor:pointer;" data-bs-dismiss="modal" aria-label="Close" alt="">
                         </div>
-                        <form>
+                        <form action="{{ route('importbarang') }}" method="post" enctype="multipart/form-data">
                             <div style="display:flex;margin:24px 0 16px 0;">
                                 <p class="body-2">Template File : </p>
-                                <a class="body-2" href="excel/Data Barang SA II.xlsx" style="text-decoration:none;" download>&emsp;Download Template</a>
+                                <a class="body-2" href="excel/Template Input Data Barang Instrumen III.xlsx" style="text-decoration:none;" download>&emsp;Download Template</a>
                             </div>
+                            @csrf
                             <div class="form-group">
-                                <input type="file" class="form-control" id="recipient-name">
+                                <input type="file" class="form-control" id="recipient-name" name="file" required="required">
+                            </div>
+                            <div style="margin:24px 0 8px 0;display:flex;direction:rtl;">
+                                <button type="submit" class="btn-simpan">Simpan</button>
+                                <button type="button" class="btn-kembali" data-bs-dismiss="modal">Kembali</button>
                             </div>
                         </form>
-                        <div style="margin:24px 0 8px 0;display:flex;direction:rtl;">
-                            <button type="button" class="btn-simpan" data-bs-toggle="modal" data-bs-target="#simpanModal">Simpan</button>
-                            <button type="button" class="btn-kembali" data-bs-dismiss="modal">Kembali</button>
-                        </div>
                     </div>
                 </div>
             </div>

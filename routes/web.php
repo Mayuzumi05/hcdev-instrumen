@@ -44,6 +44,7 @@ Route::group(['middleware' => ['auth', 'cekunit:1,2,3,4,5,6,7,8']], function () 
     Route::post('/barang/update/{id}', [BarangController::class, 'update'])->name('update');
     Route::get('/barang/destroy/{id}', [BarangController::class, 'destroy'])->name('destroy');
     Route::get('/exportbarang', [BarangController::class, 'barangExport'])->name('exportbarang');
+    Route::post('/importbarang', [BarangController::class, 'barangImport'])->name('importbarang');
 });
 
 Route::get('/register', [Controller::class, 'register'])->name('user.register');
