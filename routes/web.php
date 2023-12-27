@@ -34,6 +34,7 @@ Route::get('/logout', [LoginController::class,'logout'])->name('logout');
 Route::group(['middleware' => ['auth', 'cekunit:1,2,3,4,5,6,7,8']], function () {
     //User
     Route::get('/home', [Controller::class, 'home'])->name('home');
+    // Route::get('/home', [UserController::class, 'userwithid'])->name('userwithid');
     Route::get('/user', [UserController::class, 'index'])->name('user'); 
     Route::post('/setting/update/{id}', [UserController::class, 'update'])->name('update');
     Route::get('/user/destroy/{id}', [UserController::class, 'destroy'])->name('destroy');

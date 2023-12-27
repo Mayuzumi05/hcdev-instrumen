@@ -202,7 +202,7 @@
                             <td>{{ $item->nama_barang }}</td>
                             <td>{{ $item->deskripsi }}</td>
                             <td>{{ $item->jumlah_barang }}</td>
-                            <td>{{ $item->lokasi }}</td>
+                            <td>{{ $item->nama_unit }}</td>
                             <td>
                                 <img src="img/view-icon.svg" style="cursor:pointer;" alt="">
                                 @if (auth()->user()->unit_bagian == $item->lokasi)
@@ -275,7 +275,7 @@
                             </div>
                             <div class="form-group">
                                 <label for="recipient-name" class="col-form-label">Lokasi</label>
-                                <input type="text" class="form-control" name="lokasi" value="{{ $b->lokasi }}" id="recipient-name" disabled>
+                                <input type="text" class="form-control" name="lokasi" value="{{ $b->nama_unit }}" id="recipient-name" disabled>
                             </div>
                         </div>
                     </div>

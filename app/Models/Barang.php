@@ -10,7 +10,7 @@ class Barang extends Model
     use HasFactory;
 
     protected $table = "barang";
-
+    protected $primaryKey = "id";
     protected $fillable = [
         'material_number',
         'nama_barang',
@@ -27,4 +27,9 @@ class Barang extends Model
 
     const CREATED_AT = 'created_at';
     const UPDATED_AT = 'updated_at';
+
+    public function unit(): BelongsTo
+    {
+        return $this->belongsTo(Unit::class);
+    }
 }

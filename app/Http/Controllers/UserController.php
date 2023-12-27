@@ -4,15 +4,26 @@ namespace App\Http\Controllers;
 
 use Auth;
 use App\Models\User;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 
 class UserController extends Controller
 {
     public function index(){
-        $user = User::all();
-        
+        // $user = User::all();
+        $user = DB::table('users')
+            ->join('unit', 'users.unit_bagian', '=', 'unit.id')
+            ->select('users.*', 'unit.nama_unit')
+            ->get();
+            
         return view('product.user', compact('user'));
+    }
+
+    public function userwithid(){
+        $user = Auth::user()->with('unit')->first();
+
+        return view('product.home', compact('user'));
     }
 
     public function saveregister(Request $request) {

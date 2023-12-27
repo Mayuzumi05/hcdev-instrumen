@@ -7,6 +7,7 @@ use App\Exports\BarangExport;
 use App\Imports\BarangImport;
 use Maatwebsite\Excel\Facades\Excel;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\DB;
 
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
@@ -15,11 +16,14 @@ use Illuminate\View\View;
 class BarangController extends Controller
 {
     public function index(){
-        $barang = array(
-            'title'     =>  'Data Barang',
-            'barang'    =>  Barang::latest()->paginate(5),
-        );
-        return view('product.barang', $barang);
+        // $barang = Barang::with('unit')->latest()->paginate(5);
+        $barang = DB::table('barang')
+            ->join('unit', 'barang.lokasi', '=', 'unit.id')
+            ->select('barang.*', 'unit.nama_unit')
+            ->latest()
+            ->paginate(5);
+        
+        return view('product.barang', compact('barang'));
     }
 
     public function store(Request $request) {

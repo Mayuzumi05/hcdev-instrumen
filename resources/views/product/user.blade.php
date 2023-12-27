@@ -227,7 +227,7 @@
                             <td scope="row">{{ $no ++ }}</td>
                             <td>{{ $item->name }}</td>
                             <td>{{ $item->NIK }}</td>
-                            <td>{{ $item->unit_bagian }}</td>
+                            <td>{{ $item->nama_unit }}</td>
                             <td>{{ $item->no_telepon }}</td>
                             <td>
                                 <img src="img/delete-icon.svg" style="cursor:pointer;" data-bs-toggle="modal" data-bs-target="#hapusModal{{ $item->id }}" alt="">
