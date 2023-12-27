@@ -16,13 +16,19 @@ class UserController extends Controller
             ->join('unit', 'users.unit_bagian', '=', 'unit.id')
             ->select('users.*', 'unit.nama_unit')
             ->get();
-            
+
         return view('product.user', compact('user'));
     }
 
     public function userwithid(){
-        $user = Auth::user()->with('unit')->first();
-
+        $id = auth()->user()->id;
+        $user = DB::table('users')
+            ->join('unit', 'users.unit_bagian', '=', 'unit.id')
+            ->select('users.*', 'unit.nama_unit')
+            ->where('users.id', $id)
+            ->get();
+            
+        // dd($user);
         return view('product.home', compact('user'));
     }
 
