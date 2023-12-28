@@ -15,7 +15,7 @@ class LoginController extends Controller
             return redirect('/home');
         }
 
-        return redirect('/login')->with('error', 'Something went wrong!');
+        return redirect('/login')->with('error', 'Username atau kata sandi salah!');
     }
 
     public function logout(Request $request){

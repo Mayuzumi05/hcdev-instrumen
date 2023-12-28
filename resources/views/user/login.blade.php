@@ -21,10 +21,15 @@
                 <div class="formContainerOuter">
                     <div class="login-form formContainerInner">
                         <p class="h4" style="text-align:center;color:#404252">Masuk</p>
-                        <p class="body-2" style="text-align:center;color:#B3B5BD">Selamat datang! Masukkan nama pengguna dan kata sandi anda</p>
+                        <p class="body-2" style="text-align:center;color:#B3B5BD;margin: 12px 0 24px 0;">Selamat datang! Masukkan nama pengguna dan kata sandi anda</p>
                         <form action="{{route('postlogin')}}" method="post">
                             {{ csrf_field() }}
-                            <p class="body-1" style="color:#404252;margin:24px 0 8px 0">Nama Pengguna</p>
+                            @if (session('error'))
+                                <div class="alert alert-danger" role="alert">
+                                    {{session('error')}}
+                                </div>
+                            @endif
+                            <p class="body-1" style="color:#404252;margin:12px 0 8px 0">Nama Pengguna</p>
                             <input type="text" class="nama-pengguna" name="username" placeholder="Masukkan nama pengguna anda">
                             <p class="body-1" style="color:#404252;margin:16px 0 8px 0">Kata Sandi</p>
                             <input type="password" class="nama-pengguna" name="password" placeholder="Masukkan kata sandi anda" id="myInput">
@@ -42,16 +47,6 @@
                         </form>
                     </div>
                 </div>
-
-                @if ($errors->any())
-                    <div class="alert alert-danger">
-                        <ul>
-                            @foreach ($errors->all() as $error)
-                                <li>{{ $error }}</li>
-                            @endforeach
-                        </ul>
-                    </div>
-                @endif
 
                 <p class="caption copyrightContainer" style="color:#777986;">© 2023 Petrokimia Gresik</p>
             </div>
