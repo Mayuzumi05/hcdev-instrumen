@@ -688,6 +688,19 @@ input:focus{
   cursor: pointer;
 }
 
+#inlineFormSelectPref {
+  padding: 16px 16px;
+  width: 100%;
+  border-radius: 8px;
+  border: 1px solid var(--netral-300, #B3B5BD);
+  font-family: 'SFUIDisplay', sans-serif;
+  font-weight: medium;
+  font-size: 14px;
+  line-height: normal;
+  letter-spacing: 0.25px;
+  margin: 0;
+}
+
 /* .plus, .minus{
   -webkit-user-select: none;
   -moz-user-select: none;

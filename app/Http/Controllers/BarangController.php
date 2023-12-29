@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Barang;
+use App\Models\Unit;
 use App\Exports\BarangExport;
 use App\Imports\BarangImport;
 use Maatwebsite\Excel\Facades\Excel;
@@ -29,8 +30,10 @@ class BarangController extends Controller
             ->select('users.*', 'unit.nama_unit')
             ->where('users.id', $id)
             ->get();
+
+        $unit = Unit::all();
         
-        return view('product.barang', compact('barang', 'user'));
+        return view('product.barang', compact('barang', 'user', 'unit'));
     }
 
     public function store(Request $request) {

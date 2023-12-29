@@ -20,7 +20,7 @@ return new class extends Migration
             $table->integer('unit_bagian');
             $table->string('username');
             $table->integer('NIK');
-            $table->integer('no_telepon');
+            $table->string('no_telepon');
             $table->rememberToken();
             $table->timestamps();
         });

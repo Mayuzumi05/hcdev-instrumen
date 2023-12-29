@@ -245,37 +245,46 @@
                         <h5 class="modal-title" id="exampleModalLabel">Ubah Detail Akun</h5>
                         <img src="img/close-icon.svg" style="width:24px;cursor:pointer;" data-bs-dismiss="modal" aria-label="Close" alt="">
                     </div>
+                    @foreach ($user as $item)
                     <form method="POST" action="/setting/update/{{auth()->user()->id}}">
                         @csrf
                         <div class="form-group">
                             <label for="recipient-name" class="col-form-label">Nama pengguna</label>
-                            <input type="text" class="form-control" id="recipient-name" name="username" value="{{ auth()->user()->username }}">
+                            <input type="text" class="form-control" id="recipient-name" name="username" value="{{ $item->username }}">
                         </div>
                         <div class="form-group">
                             <label for="recipient-name" class="col-form-label">Email</label>
-                            <input type="text" class="form-control" id="recipient-name" name="email" value="{{ auth()->user()->email }}">
+                            <input type="text" class="form-control" id="recipient-name" name="email" value="{{ $item->email }}">
                         </div>
                         <div class="form-group">
                             <label for="recipient-name" class="col-form-label">Nama</label>
-                            <input type="text" class="form-control" id="recipient-name" name="name" value="{{ auth()->user()->name }}">
+                            <input type="text" class="form-control" id="recipient-name" name="name" value="{{ $item->name }}">
                         </div>
                         <div class="form-group">
                             <label for="recipient-name" class="col-form-label">Nomor Telepon</label>
-                            <input type="text" class="form-control" id="recipient-name" name="no_telepon" value="{{ auth()->user()->no_telepon }}">
+                            <input type="text" class="form-control" id="recipient-name" name="no_telepon" value="{{ $item->no_telepon }}">
                         </div>
                         <div class="form-group">
                             <label for="recipient-name" class="col-form-label">NIK</label>
-                            <input type="text" class="form-control" id="recipient-name" name="NIK" value="{{ auth()->user()->NIK }}">
+                            <input type="text" class="form-control" id="recipient-name" name="NIK" value="{{ $item->NIK }}">
                         </div>
                         <div class="form-group">
                             <label for="recipient-name" class="col-form-label">Unit Bagian</label>
-                            <input type="text" class="form-control" id="recipient-name" name="unit_bagian" value="{{ auth()->user()->unit_bagian }}">
-                        </div>    
+                            <div>
+                                <label class="visually-hidden" for="inlineFormSelectPref">Preference</label>
+                                <select class="form-select" id="inlineFormSelectPref" name="unit_bagian">
+                                    <option value="{{$item->id}}" selected>{{ $item->nama_unit }}</option>
+                                    @foreach ($unit as $unit_item)
+                                    <option value="{{$unit_item->id}}">{{$unit_item->nama_unit}}</option>
+                                    @endforeach
+                                </select>
+                            </div>
+                        </div>   
                         <div style="margin:24px 0 8px 0;display:flex;direction:rtl;">
-                            <button type="submit" class="btn-simpan" data-bs-toggle="modal" data-bs-target="#simpanModal">Simpan</button>
+                            <button type="button" class="btn-simpan" data-bs-toggle="modal" data-bs-target="#simpanModal">Simpan</button>
                             <button type="button" class="btn-kembali" data-bs-dismiss="modal">Kembali</button>
                         </div>
-                    </form>
+                    @endforeach
                 </div>
                 </div>
             </div>
@@ -305,11 +314,12 @@
                     <p class="h6" style="margin:0 auto;">Apakah anda yakin ingin menyimpan perubahan?</p>
                     <div class="modal-foot" style="margin:16px;">
                         <button type="button" class="btn-kembali" data-bs-dismiss="modal">Kembali</button>
-                        <button type="button" class="btn-simpan">Simpan</button>
+                        <button type="submit" class="btn-simpan">Simpan</button>
                     </div>
                 </div>
             </div>
         </div>
+        </form>
     </div>
     <section class="overlay"></section>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>

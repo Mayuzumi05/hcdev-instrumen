@@ -32,7 +32,15 @@
                         <p class="body-1" style="color:#404252;margin:16px 0 8px 0;">Email</p>
                         <input type="text" class="nama-pengguna" name="email" placeholder="Masukkan email anda">
                         <p class="body-1" style="color:#404252;margin:16px 0 8px 0;">Unit Bagian</p>
-                        <input type="text" class="nama-pengguna" name="unit_bagian" placeholder="Masukkan unit bagian anda">
+                        <div>
+                            <label class="visually-hidden" for="inlineFormSelectPref">Preference</label>
+                            <select class="form-select" id="inlineFormSelectPref" name="unit_bagian">
+                                <option selected>Pilih Unit</option>
+                                @foreach ($unit as $item)
+                                <option value="{{$item->id}}">{{$item->nama_unit}}</option>
+                                @endforeach
+                            </select>
+                        </div>
                         <p class="body-1" style="color:#404252;margin:16px 0 8px 0;">Nama Pengguna</p>
                         <input type="text" class="nama-pengguna" name="username" placeholder="Masukkan NIK anda">
                         <p class="body-1" style="color:#404252;margin:16px 0 8px 0;">Kata Sandi</p>
@@ -42,7 +50,7 @@
                                 <p class="body-1" style="margin: 0px 4px;color:#777986">Perlihatkan kata sandi</p>
                             </div>
                             <button type="submit" class="btn-login">
-                                <a class="h6" style="text-decoration:none" href="login">Daftar</a>
+                                <a class="h6" style="text-decoration:none" href="saveregister">Daftar</a>
                             </button>
                             <div class="belum-memiliki-akun">
                                 <p class="body-2" style="color:#777986;">Sudah memiliki akun?</p>

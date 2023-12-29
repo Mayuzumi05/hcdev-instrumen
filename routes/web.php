@@ -40,7 +40,7 @@ Route::group(['middleware' => ['auth', 'cekunit:1,2,3,4,5,6,7,8']], function () 
     // Route::get('/home', [Controller::class, 'home'])->name('home');
     Route::get('/home', [UserController::class, 'userwithid'])->name('home');
     Route::get('/user', [UserController::class, 'index'])->name('user'); 
-    Route::post('/setting/update/{id}', [UserController::class, 'update'])->name('update');
+    Route::post('/setting/update/{id}', [SettingController::class, 'update'])->name('update');
     Route::get('/user/destroy/{id}', [UserController::class, 'destroy'])->name('destroy');
 
     Route::get('/pindah', [PindahController::class, 'index'])->name('product.pindah');
@@ -60,7 +60,7 @@ Route::group(['middleware' => ['auth', 'cekunit:1,2,3,4,5,6,7,8']], function () 
     Route::post('/importbarang', [BarangController::class, 'barangImport'])->name('importbarang');
 });
 
-Route::get('/register', [Controller::class, 'register'])->name('user.register');
+Route::get('/register', [UserController::class, 'register'])->name('register');
 
 Route::post('/saveregister', [UserController::class, 'saveregister'])->name('saveregister');
 

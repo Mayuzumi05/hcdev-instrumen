@@ -488,9 +488,14 @@
                                     <label for="recipient-name" class="col-form-label">Satuan Barang</label>
                                     <input type="text" class="form-control" name="id_satuan_barang" value="{{ $c->id_satuan_barang }}" id="recipient-name">
                                 </div>
-                                <div class="form-group">
-                                    <label for="recipient-name" class="col-form-label">Lokasi</label>
-                                    <input type="text" class="form-control" name="lokasi" value="{{ $c->lokasi }}" id="recipient-name">
+                                <div>
+                                    <label class="visually-hidden" for="inlineFormSelectPref">Preference</label>
+                                    <select class="form-select" id="inlineFormSelectPref" name="lokasi">
+                                        <option selected>{{ $c->nama_unit }}</option>
+                                        @foreach ($unit as $item)
+                                        <option value="{{$item->id}}">{{$item->nama_unit}}</option>
+                                        @endforeach
+                                    </select>
                                 </div>
                             </div>
                         </div>

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Auth;
 use App\Models\User;
+use App\Models\Unit;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
@@ -40,6 +41,13 @@ class UserController extends Controller
         return view('product.home', compact('user'));
     }
 
+    public function register() {
+
+        $unit = Unit::all();
+
+        return view('user.register', compact('unit'));        
+    }
+
     public function saveregister(Request $request) {
 
         User::create([
@@ -54,22 +62,6 @@ class UserController extends Controller
         ]);
 
         return redirect('/login')->with('success', 'Data berhasil disimpan');
-    }
-
-    public function update(Request $request, $id){
-        
-        User::where('id', $id)
-            ->where('id', $id)
-                ->update([
-                    'name' => $request->name,
-                    'NIK' => $request->NIK,
-                    'no_telepon' => $request->no_telepon,
-                    'email' => $request->email,
-                    'unit_bagian' => $request->unit_bagian,
-                    'username' => $request->username,
-                ]);
-        
-        return redirect('/setting')->with('success', 'Data Berhasil Diubah');
     }
 
     // public function update(Request $request, $id) {
