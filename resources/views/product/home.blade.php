@@ -162,7 +162,6 @@
                             </div>
                             <div style="display:flex;padding:24px 0 0 24px;align-items:end;">
                                 <p class="h4" style="margin-bottom:0;">400</p>
-                                <!-- <p class="body-1" style="margin-left:8px;">barang</p> -->
                             </div>
                         </li>
                         <li class="card">

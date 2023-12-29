@@ -12,12 +12,20 @@ class UserController extends Controller
 {
     public function index(){
         // $user = User::all();
+        $id = auth()->user()->id;
+
         $user = DB::table('users')
             ->join('unit', 'users.unit_bagian', '=', 'unit.id')
             ->select('users.*', 'unit.nama_unit')
             ->get();
+        
+        $userwithid = DB::table('users')
+        ->join('unit', 'users.unit_bagian', '=', 'unit.id')
+        ->select('users.*', 'unit.nama_unit')
+        ->where('users.id', $id)
+        ->get();
 
-        return view('product.user', compact('user'));
+        return view('product.user', compact('user', 'userwithid'));
     }
 
     public function userwithid(){

@@ -73,10 +73,12 @@
                             <img src="img/persona-1.jpg" style="object-fit:cover;width:100%;height:100%;border-radius:4px;" alt="">
                         </a>
                     </div>
+                    @foreach ($user as $item)
                     <div class="name-unit">
-                        <p class="body-2" style="margin-bottom:4px;color:#1D242A;">{{ auth()->user()->name }}</p>
-                        <p class="body-2" style="color:#B3B5BD;">Instrumen III</p>
+                        <p class="body-2" style="margin-bottom:4px;color:#1D242A;">{{ $item->name }}</p>
+                        <p class="body-2" style="color:#B3B5BD;">{{ $item->nama_unit }}</p>
                     </div>
+                    @endforeach
                 </div>
             </div>
             <div class="sidebar">
@@ -158,36 +160,38 @@
                             <img class="edit-profile" src="img/persona-1.svg" alt="">
                             <button class="btn-hapus-profil" style="align-items:center;" data-bs-toggle="modal" data-bs-target="#hapusModal">Hapus</button>
                         </div>
-                        <div style="display:flex;">
-                            <div>
-                                <p class="body-2">Nama Pengguna</p>
-                                <input type="text" class="input-form" name="" id="" style="margin-top:8px;" value="{{ auth()->user()->username }}">
+                        @foreach ($user as $item)
+                            <div style="display:flex;">
+                                <div>
+                                    <p class="body-2">Nama Pengguna</p>
+                                    <input type="text" class="input-form" name="" id="" style="margin-top:8px;" value="{{ $item->username }}" disabled>
+                                </div>
+                                <div style="margin-left:16px;">
+                                    <p class="body-2">Email</p>
+                                    <input type="text" class="input-form" name="" id="" style="margin-top:8px;" value="{{ $item->email }}" disabled>
+                                </div>
                             </div>
-                            <div style="margin-left:16px;">
-                                <p class="body-2">Email</p>
-                                <input type="text" class="input-form" name="" id="" style="margin-top:8px;" value="{{ auth()->user()->email }}">
+                            <div style="display:flex;margin-top:8px;">
+                                <div>
+                                    <p class="body-2">Nama</p>
+                                    <input type="text" class="input-form" name="" id="" style="margin-top:8px;" value="{{ $item->name }}" disabled>
+                                </div>
+                                <div style="margin-left:16px;">
+                                    <p class="body-2">No. Telepon</p>
+                                    <input type="text" class="input-form" name="" id="" style="margin-top:8px;" value="{{ $item->no_telepon }}" disabled>
+                                </div>
                             </div>
-                        </div>
-                        <div style="display:flex;margin-top:8px;">
-                            <div>
-                                <p class="body-2">Nama</p>
-                                <input type="text" class="input-form" name="" id="" style="margin-top:8px;" value="{{ auth()->user()->name }}">
+                            <div style="display:flex;margin-top:8px;">
+                                <div>
+                                    <p class="body-2">NIK</p>
+                                    <input type="text" class="input-form" name="" id="" style="margin-top:8px;" value="{{ $item->NIK }}" disabled>
+                                </div>
+                                <div style="margin-left:16px;">
+                                    <p class="body-2">Unit Bagian</p>
+                                    <input type="text" class="input-form" name="" id="" style="margin-top:8px;" value="{{ $item->nama_unit }}" disabled>
+                                </div>
                             </div>
-                            <div style="margin-left:16px;">
-                                <p class="body-2">No. Telepon</p>
-                                <input type="text" class="input-form" name="" id="" style="margin-top:8px;" value="{{ auth()->user()->no_telepon }}">
-                            </div>
-                        </div>
-                        <div style="display:flex;margin-top:8px;">
-                            <div>
-                                <p class="body-2">NIK</p>
-                                <input type="text" class="input-form" name="" id="" style="margin-top:8px;" value="{{ auth()->user()->NIK }}">
-                            </div>
-                            <div style="margin-left:16px;">
-                                <p class="body-2">Unit Bagian</p>
-                                <input type="text" class="input-form" name="" id="" style="margin-top:8px;" value="{{ auth()->user()->unit_bagian }}">
-                            </div>
-                        </div>
+                        @endforeach
                         <div>
                             <button class="btn-ubah-sandi" data-bs-toggle="modal" data-bs-target="#ubahDetailAkunModal">Ubah Detail Akun</button>
                         </div>

@@ -17,13 +17,20 @@ class BarangController extends Controller
 {
     public function index(){
         // $barang = Barang::with('unit')->latest()->paginate(5);
+        $id = auth()->user()->id;
         $barang = DB::table('barang')
             ->join('unit', 'barang.lokasi', '=', 'unit.id')
             ->select('barang.*', 'unit.nama_unit')
             ->latest()
             ->paginate(5);
+
+        $user = DB::table('users')
+            ->join('unit', 'users.unit_bagian', '=', 'unit.id')
+            ->select('users.*', 'unit.nama_unit')
+            ->where('users.id', $id)
+            ->get();
         
-        return view('product.barang', compact('barang'));
+        return view('product.barang', compact('barang', 'user'));
     }
 
     public function store(Request $request) {

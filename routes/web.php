@@ -5,6 +5,10 @@ use App\Http\Controllers\Controller;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\BarangController;
+use App\Http\Controllers\PindahController;
+use App\Http\Controllers\HistoryController;
+use App\Http\Controllers\NotificationController;
+use App\Http\Controllers\SettingController;
 
 /*
 |--------------------------------------------------------------------------
@@ -39,6 +43,14 @@ Route::group(['middleware' => ['auth', 'cekunit:1,2,3,4,5,6,7,8']], function () 
     Route::post('/setting/update/{id}', [UserController::class, 'update'])->name('update');
     Route::get('/user/destroy/{id}', [UserController::class, 'destroy'])->name('destroy');
 
+    Route::get('/pindah', [PindahController::class, 'index'])->name('product.pindah');
+
+    Route::get('/history', [HistoryController::class, 'index'])->name('product.history');
+
+    Route::get('/notification', [NotificationController::class, 'index'])->name('product.notification');
+
+    Route::get('/setting', [SettingController::class, 'setting'])->name('setting');
+
     //CRUD Barang
     Route::get('/barang', [BarangController::class, 'index'])->name('barang');
     Route::post('/barang/store', [BarangController::class, 'store'])->name('store');
@@ -55,11 +67,3 @@ Route::post('/saveregister', [UserController::class, 'saveregister'])->name('sav
 // Route::get('/home', [Controller::class, 'home'])->name('product.home');
 
 // Route::get('/user', [Controller::class, 'user'])->name('product.user');
-
-Route::get('/pindah', [Controller::class, 'pindah'])->name('product.pindah');
-
-Route::get('/history', [Controller::class, 'history'])->name('product.history');
-
-Route::get('/notification', [Controller::class, 'notification'])->name('product.notification');
-
-Route::get('/setting', [Controller::class, 'setting'])->name('product.setting');

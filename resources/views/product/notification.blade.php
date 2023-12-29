@@ -72,10 +72,12 @@
                             <img src="img/persona-1.jpg" style="object-fit:cover;width:100%;height:100%;border-radius:4px;" alt="">
                         </a>
                     </div>
+                    @foreach ($userwithid as $item)
                     <div class="name-unit">
-                        <p class="body-2" style="margin-bottom:4px;color:#1D242A;">Himawan Alan Novianto</p>
-                        <p class="body-2" style="color:#B3B5BD;">Instrumen III</p>
+                        <p class="body-2" style="margin-bottom:4px;color:#1D242A;">{{ $item->name }}</p>
+                        <p class="body-2" style="color:#B3B5BD;">{{ $item->nama_unit }}</p>
                     </div>
+                    @endforeach
                 </div>
             </div>
             <div class="sidebar">
