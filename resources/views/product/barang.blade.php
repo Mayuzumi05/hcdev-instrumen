@@ -148,14 +148,17 @@
             </div>
         </nav>
         <div class="konten">
+            @if (session('message'))
+                {{ session('message') }}
+            @endif
             <p class="h5" style="color:#489742;" >Data Barang</p>
             <div style="display:flex;justify-content:space-between;color:#777986;">
                 <p class="body-1">Sistem pengelolaan data barang di Instrumen III</p>
                 <p class="body-1">Data Barang</p>
             </div>
             <div class="section" style="padding:24px 40px;margin:40px 0;">
-                <p class="h5" style="color:#489742;">Data Barang</p>
-                <div style="display:flex;margin:24px 0;justify-content:space-between;">
+                <!-- <p class="h5" style="color:#489742;">Data Barang</p> -->
+                <div style="display:flex;margin-bottom:24px;justify-content:space-between;">
                     <div style="display:flex;">
                         <img class="img-search" src="img/Search.svg" alt="">
                         <input id="search-bar" type="text" placeholder="Pencarian">
@@ -228,11 +231,11 @@
                 <div class="modal-content">
                 <div class="modal-body" style="padding:24px;">
                     <div style="display:flex;justify-content:space-between;">
-                        <p class="h6" style="margin-bottom:0;line-height:24px;">Detail Data Barang</p>
+                        <p class="h5" style="margin-bottom:0;line-height:24px;">Detail Data Barang</p>
                         <img src="img/close-icon.svg" style="width:24px;cursor:pointer;" data-bs-dismiss="modal" aria-label="Close" alt="">
                     </div>
-                    <div style="display:flex;justify-content:space-between;margin:16px 0 24px 0;">
-                        <div>
+                    <div style="display:flex;justify-content:space-between;margin:16px 0 32px 0;">
+                        <div style="margin-right:48px">
                             <div class="form-group">
                                 <label for="recipient-name" class="col-form-label">Material Number</label>
                                 <input type="text" class="form-control" name="material_number" value="{{ $b->material_number }}" id="recipient-name" disabled>
@@ -257,15 +260,15 @@
                                 <label for="recipient-name" class="col-form-label">Merk</label>
                                 <input type="text" class="form-control" name="merk" value="{{ $b->merk }}" id="recipient-name" disabled>
                             </div>
+                            <div class="form-group">
+                                <label for="recipient-name" class="col-form-label">Tipe</label>
+                                <input type="text" class="form-control" name="tipe" value="{{ $b->tipe }}" id="recipient-name" disabled>
+                            </div>
                         </div>
                         <div>
                             <div class="form-group">
                                 <label for="recipient-name" class="col-form-label">Deskripsi</label>
                                 <textarea class="form-control" name="deskripsi" value="{{ $b->deskripsi }}" id="message-text" disabled>{{ $b->deskripsi }}</textarea>
-                            </div>
-                            <div class="form-group">
-                                <label for="recipient-name" class="col-form-label">Tipe</label>
-                                <input type="text" class="form-control" name="tipe" value="{{ $b->tipe }}" id="recipient-name" disabled>
                             </div>
                             <div class="form-group">
                                 <label for="recipient-name" class="col-form-label">Jumlah Barang</label>
@@ -279,14 +282,24 @@
                                 <label for="recipient-name" class="col-form-label">Lokasi</label>
                                 <input type="text" class="form-control" name="lokasi" value="{{ $b->nama_unit }}" id="recipient-name" disabled>
                             </div>
+                            <div class="form-group">
+                                <label for="recipient-name" class="col-form-label">Waktu Ditambahkan</label>
+                                <input type="text" class="form-control" name="lokasi" value="{{ $b->created_at }}" id="recipient-name" disabled>
+                            </div>
                         </div>
                     </div>
-                    <p class="body-1">Barcode Barang</p>
-                    <div style="display:flex;align-items:center;margin:16px 0 24px 0">
-                        <img src="img/barcode.svg" alt="">
-                        <button class="btn-simpan" style="height: fit-content;margin-left:16px;">Unduh</button>
-                    </div>
-                    <table class="table">
+                    <form action="{{ route('cart.store') }}" method="POST">
+                        @csrf
+                        @if ( $b->lokasi !== auth()->user()->unit_bagian)
+                        <p class="body-1">Tambahkan ke keranjang</p>
+                        <div style="display:flex;align-items:center;margin:16px 0 24px 0">
+                            <input type="hidden" name="barang_id" value="{{ $b->id }}">
+                            <input class="input-qty-req" type="number" value="1" name="quantity" min="1" max="{{ $b->jumlah_barang }}">
+                            <button type="submit" class="btn-simpan" style="height: fit-content;margin-left:16px;">Tambah</button>
+                        </div>
+                        @endif
+                    </form>
+                    <!-- <table class="table">
                         <thead>
                             <tr style="background:#4abdac;">
                                 <th scope="col">Unit Penempatan</th>
@@ -306,7 +319,7 @@
                                 <td>9</td>
                             </tr>
                         </tbody>
-                    </table>
+                    </table> -->
                 </div>
                 </div>
             </div>
@@ -470,15 +483,15 @@
                                     <label for="recipient-name" class="col-form-label">Merk</label>
                                     <input type="text" class="form-control" name="merk" value="{{ $c->merk }}" id="recipient-name">
                                 </div>
+                                <div class="form-group">
+                                    <label for="recipient-name" class="col-form-label">Tipe</label>
+                                    <input type="text" class="form-control" name="tipe" value="{{ $c->tipe }}" id="recipient-name">
+                                </div>
                             </div>
                             <div>
                                 <div class="form-group">
                                     <label for="recipient-name" class="col-form-label">Deskripsi</label>
                                     <textarea class="form-control" name="deskripsi" value="{{ $b->deskripsi }}" id="message-text">{{ $c->deskripsi }}</textarea>
-                                </div>
-                                <div class="form-group">
-                                    <label for="recipient-name" class="col-form-label">Tipe</label>
-                                    <input type="text" class="form-control" name="tipe" value="{{ $c->tipe }}" id="recipient-name">
                                 </div>
                                 <div class="form-group">
                                     <label for="recipient-name" class="col-form-label">Jumlah Barang</label>
@@ -488,12 +501,17 @@
                                     <label for="recipient-name" class="col-form-label">Satuan Barang</label>
                                     <input type="text" class="form-control" name="id_satuan_barang" value="{{ $c->id_satuan_barang }}" id="recipient-name">
                                 </div>
+                                <div class="form-group">
+                                    <label for="recipient-name" class="col-form-label">Waktu Ditambahkan</label>
+                                    <input type="text" class="form-control" name="id_satuan_barang" value="{{ $c->created_at }}" id="recipient-name">
+                                </div>
                                 <div>
+                                    <label for="recipient-name" class="col-form-label">Lokasi</label>
                                     <label class="visually-hidden" for="inlineFormSelectPref">Preference</label>
                                     <select class="form-select" id="inlineFormSelectPref" name="lokasi">
-                                        <option selected>{{ $c->nama_unit }}</option>
-                                        @foreach ($unit as $item)
-                                        <option value="{{$item->id}}">{{$item->nama_unit}}</option>
+                                        <option value="{{ $c->lokasi }}" selected>{{ $c->nama_unit }}</option>
+                                        @foreach ($unit as $unit_item)
+                                        <option value="{{$item->id}}">{{$unit_item->nama_unit}}</option>
                                         @endforeach
                                     </select>
                                 </div>
@@ -546,7 +564,7 @@
 
         overlay.addEventListener("click", () => {
         navBar.classList.remove("open");
-     });
+    });
     </script>
     <script language="JavaScript">
         function toggle(source) {

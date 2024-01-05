@@ -58,10 +58,22 @@ class UserController extends Controller
             'unit_bagian' => $request->unit_bagian,
             'username' => $request->username,
             'password' => bcrypt($request->password),
+            'status' => 1,
             'remember_token' => Str::random(60),
         ]);
 
         return redirect('/login')->with('success', 'Data berhasil disimpan');
+    }
+
+    public function updatestatus(Request $request, $id){
+        
+        User::where('id', $id)
+            ->where('id', $id)
+                ->update([
+                    'status' => 0,
+                ]);
+        
+        return redirect('/user')->with('success', 'Data Berhasil Diubah');
     }
 
     // public function update(Request $request, $id) {

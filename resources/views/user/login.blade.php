@@ -29,6 +29,11 @@
                                     {{session('error')}}
                                 </div>
                             @endif
+                            @if (session('status'))
+                                <div class="alert alert-danger" role="alert">
+                                    {{session('status')}}
+                                </div>
+                            @endif
                             <p class="body-1" style="color:#404252;margin:12px 0 8px 0">Nama Pengguna</p>
                             <input type="text" class="nama-pengguna" name="username" placeholder="Masukkan nama pengguna anda">
                             <p class="body-1" style="color:#404252;margin:16px 0 8px 0">Kata Sandi</p>

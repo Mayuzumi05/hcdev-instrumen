@@ -153,14 +153,22 @@
                 <p class="body-1">Pindah Barang</p>
             </div>
             <div class="section" style="padding:24px 40px;margin:40px 0;">
-                <p class="h5" style="color:#489742;">Pindah Barang</p>
-                <div style="display:flex;margin:24px 0;">
-                    <img class="img-search" src="img/Search.svg" alt="">
-                    <input id="search-bar" type="text" placeholder="Pencarian">
-                    <button class="btn-filter" style="margin-left:16px;display:flex;">
-                        <p class="body-2">Filter</p>
-                        <img src="img/filter.svg" style="height:24px;width:24px;" alt="">
-                    </button>
+                <!-- <p class="h5" style="color:#489742;">Pindah Barang</p> -->
+                <div style="display:flex;margin-bottom:24px;justify-content:space-between;">
+                    <div style="display:flex;">
+                        <img class="img-search" src="img/Search.svg" alt="">
+                        <input id="search-bar" type="text" placeholder="Pencarian">
+                        <button class="btn-filter" style="margin-left:16px;display:flex;">
+                            <p class="body-2">Filter</p>
+                            <img src="img/filter.svg" style="height:24px;width:24px;" alt="">
+                        </button>
+                    </div>
+                    <form action="{{ route('cart.delete') }}" method="GET">
+                        <button type="submit" class="btn-hapus-keranjang">
+                            <img src="img/delete-icon-white.svg" style="height:24px;width:24px;margin-right:16px;" alt="">
+                            <p class="body-2" style="color:#fff;">Hapus Keranjang</p>
+                        </button>
+                    </form>
                 </div>
                 <table class="table table-hover">
                     <thead>
@@ -169,65 +177,39 @@
                                 <input type="checkbox" onclick="toggle(this);">
                             </th>
                             <th scope="col">No.</th>
-                            <th scope="col">Kode</th>
+                            <th scope="col">Material Number</th>
                             <th scope="col">Nama Barang</th>
-                            <th scope="col">Variabel</th>
-                            <th scope="col">Jumlah Dipinjam</th>
+                            <th scope="col">Deskripsi</th>
+                            <th scope="col">Jumlah Permintaan</th>
+                            <th scope="col">Lokasi</th>
                         </tr>
                     </thead>
-                    <tbody>
-                        <tr>
+                    <tbody id="barang-table" style="cursor:pointer;">
+                        <?php $no = 1;?>
+                        @foreach ($keranjang as $item)
+                        <tr data-bs-toggle="modal" data-bs-target="#detailBarangModal{{ $item->id }}">
                             <td>
                                 <input type="checkbox" name="check-tbl">
                             </td>
-                            <td scope="row">1</td>
-                            <td>IB-1</td>
-                            <td>PI LOKAL 25KG (GAUGE PRESS;100MM;0-25KG/CM2;1/2NPT;BTM)</td>
-                            <td>Pressure</td>
+                            <td scope="row">{{ $no ++ }}</td>
+                            <td>{{ $item->attributes->material_number }}</td>
+                            <td>{{ $item->name }}</td>
+                            <td>{{ $item->attributes->deskripsi }}</td>
                             <td>
-                            <div class="qty">
-                                <div class="minus">
-                                    <p class="body-1" style="text-align:center;width:32px;">-</p>
-                                </div>
-                                <input class="input-qty" type="number" name="qty" value="1"/>
-                                <div class="plus">
-                                    <p class="body-1" style="text-align:center;width:32px;">+</p>
-                                </div>
-                            </div>
+                                <input type="number" value="{{ $item->quantity }}" name="" class="input-qty">
                             </td>
+                            <td>{{ $item->attributes->lokasi }}</td>
                         </tr>
-                        <tr>
-                            <td>
-                                <input type="checkbox" name="check-tbl">
-                            </td>
-                            <td scope="row">2</td>
-                            <td>IB-1</td>
-                            <td>PI LOKAL 25KG (GAUGE PRESS;100MM;0-25KG/CM2;1/2NPT;BTM)</td>
-                            <td>Pressure</td>
-                            <td>15</td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <input type="checkbox" name="check-tbl">
-                            </td>
-                            <td scope="row">3</td>
-                            <td>IB-1</td>
-                            <td>PI LOKAL 25KG (GAUGE PRESS;100MM;0-25KG/CM2;1/2NPT;BTM)</td>
-                            <td>Pressure</td>
-                            <td>15</td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <input type="checkbox" name="check-tbl">
-                            </td>
-                            <td scope="row">4</td>
-                            <td>IB-1</td>
-                            <td>PI LOKAL 25KG (GAUGE PRESS;100MM;0-25KG/CM2;1/2NPT;BTM)</td>
-                            <td>Pressure</td>
-                            <td>15</td>
-                        </tr>
+                        @endforeach
                     </tbody>
                 </table>
+                <div style="display: flex; justify-content: flex-end;margin-top:24px;">
+                    <form action="{{ route('cart.update') }}" method="GET">
+                        <button type="submit" class="btn-tambah-data">
+                            <p class="body-2">Konfirmasi</p>
+                        </button>
+                    </form>
+                </div>
             </div>
             <p class="body-2" style="margin:32px 0 0 0;text-align: center;color:#777986;">Copyright @Petrokimia Gresik 2023. All Rights Reserved.</p>
         </div>

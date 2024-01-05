@@ -9,6 +9,7 @@ use App\Http\Controllers\PindahController;
 use App\Http\Controllers\HistoryController;
 use App\Http\Controllers\NotificationController;
 use App\Http\Controllers\SettingController;
+use App\Http\Controllers\CartController;
 
 /*
 |--------------------------------------------------------------------------
@@ -35,13 +36,14 @@ Route::get('/logout', [LoginController::class,'logout'])->name('logout');
 
 // Route::get('/logout', 'LoginController@logout')->name('logout');
 
-Route::group(['middleware' => ['auth', 'cekunit:1,2,3,4,5,6,7,8']], function () {
+Route::group(['middleware' => ['auth', 'cekunit:0']], function () {
     //User
     // Route::get('/home', [Controller::class, 'home'])->name('home');
     Route::get('/home', [UserController::class, 'userwithid'])->name('home');
     Route::get('/user', [UserController::class, 'index'])->name('user'); 
     Route::post('/setting/update/{id}', [SettingController::class, 'update'])->name('update');
     Route::get('/user/destroy/{id}', [UserController::class, 'destroy'])->name('destroy');
+    Route::post('/user/updatestatus/{id}', [UserController::class, 'updatestatus'])->name('updatestatus');
 
     Route::get('/pindah', [PindahController::class, 'index'])->name('product.pindah');
 
@@ -50,6 +52,11 @@ Route::group(['middleware' => ['auth', 'cekunit:1,2,3,4,5,6,7,8']], function () 
     Route::get('/notification', [NotificationController::class, 'index'])->name('product.notification');
 
     Route::get('/setting', [SettingController::class, 'setting'])->name('setting');
+
+    //Cart
+    Route::post('/cartstore', [CartController::class, 'store'])->name('cart.store');
+    Route::get('/cartdelete', [CartController::class, 'delete'])->name('cart.delete');
+    Route::get('/cartupdate', [CartController::class, 'update'])->name('cart.update');
 
     //CRUD Barang
     Route::get('/barang', [BarangController::class, 'index'])->name('barang');

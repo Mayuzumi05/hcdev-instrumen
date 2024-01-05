@@ -153,8 +153,8 @@
                 <p class="body-1">Riwayat Perpindahan</p>
             </div>
             <div class="section" style="padding:24px 40px;margin:40px 0;">
-                <p class="h5" style="color:#489742;">Riwayat Perpindahan</p>
-                <div style="display:flex;margin:24px 0;">
+                <!-- <p class="h5" style="color:#489742;">Riwayat Perpindahan</p> -->
+                <div style="display:flex;margin-bottom:24px;">
                     <img class="img-search" src="img/Search.svg" alt="">
                     <input id="search-bar" type="text" placeholder="Pencarian">
                     <button class="btn-filter" style="margin-left:16px;display:flex;" data-bs-toggle="dropdown" aria-expanded="false">

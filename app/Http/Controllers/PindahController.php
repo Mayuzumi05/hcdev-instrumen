@@ -20,6 +20,10 @@ class PindahController extends Controller
         ->where('users.id', $id)
         ->get();
 
-        return view('product.pindah', compact('userwithid'));
+        $keranjang = \Cart::session($id)->getContent('id');
+
+        // dd($keranjang);
+
+        return view('product.pindah', compact('userwithid', 'keranjang'));
     }
 }

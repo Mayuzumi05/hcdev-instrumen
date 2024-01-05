@@ -153,8 +153,8 @@
                 <p class="body-1">Pengguna</p>
             </div>
             <div class="section" style="padding:24px 40px;margin:40px 0;">
-                <p class="h5" style="color:#489742;">Data Pengguna</p>
-                <div style="display:flex;margin:24px 0;justify-content:space-between;">
+                <!-- <p class="h5" style="color:#489742;">Data Pengguna</p> -->
+                <div style="display:flex;margin-bottom:24px;justify-content:space-between;">
                     <div style="display:flex;">
                         <img class="img-search" src="img/Search.svg" alt="">
                         <input id="search-bar" type="text" placeholder="Pencarian">
@@ -196,12 +196,6 @@
                             </li>
                         </ul>
                     </div>
-                    <div>
-                        <button class="btn-tambah-data" data-bs-toggle="modal" data-bs-target="#tambahPenggunaModal">
-                            <img src="img/plus.svg" alt="">
-                            <p class="body-2">Tambah Data</p>
-                        </button>
-                    </div>
                 </div>
                 <table class="table table-hover">
                     <thead>
@@ -231,26 +225,19 @@
                             <td>{{ $item->NIK }}</td>
                             <td>{{ $item->nama_unit }}</td>
                             <td>{{ $item->no_telepon }}</td>
+                            @if ( $item->status == 0)
                             <td>
                                 <img src="img/delete-icon.svg" style="cursor:pointer;" data-bs-toggle="modal" data-bs-target="#hapusModal{{ $item->id }}" alt="">
                                 <img src="img/view-icon.svg" style="cursor:pointer;" alt="">
                             </td>
-                        </tr>
-                        @endforeach
-                        <tr data-bs-toggle="modal" data-bs-target="#detailPenggunaModal">
-                            <td>
-                                <input type="checkbox" name="check-tbl">
-                            </td>
-                            <td scope="row">2</td>
-                            <td>Bambang Sugeni</td>
-                            <td>0987654321098765</td>
-                            <td>SA I</td>
-                            <td>089876543210</td>
+                            @else
                             <td>
                                 <button class="btn-tolak" data-bs-toggle="modal" data-bs-target="#tolakModal">Tolak</button>
-                                <button class="btn-terima" data-bs-toggle="modal" data-bs-target="#simpanModal">Terima</button>
+                                <button class="btn-terima" data-bs-toggle="modal" data-bs-target="#simpanModal{{ $item->id }}">Terima</button>
                             </td>
+                            @endif
                         </tr>
+                        @endforeach
                     </tbody>
                 </table>
             </div>
@@ -374,7 +361,8 @@
                 </div>
             </div>
         </div>
-        <div class="modal fade" id="simpanModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+        @foreach ($user as $c)
+        <div class="modal fade" id="simpanModal{{ $c->id }}" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
             <div class="modal-dialog modal-dialog-centered" role="document">
                 <div class="modal-content">
                     <div style="display:flex;direction:rtl;">
@@ -382,13 +370,17 @@
                     </div>
                     <img src="img/story-save.svg" style="width:240px;margin:48px auto;" alt="">
                     <p class="h6" style="margin:0 auto;">Apakah anda yakin ingin menerima akun ini?</p>
-                    <div class="modal-foot" style="margin:16px;">
-                        <button type="button" class="btn-kembali" data-bs-dismiss="modal">Kembali</button>
-                        <button type="button" class="btn-simpan">Terima</button>
-                    </div>
+                    <form action="user/updatestatus/{{$c->id}}" method="POST">
+                        @csrf
+                        <div class="modal-foot" style="margin:16px;">
+                            <button type="button" class="btn-kembali" data-bs-dismiss="modal">Kembali</button>
+                            <button type="submit" class="btn-simpan">Terima</button>
+                        </div>
+                    </form>
                 </div>
             </div>
         </div>
+        @endforeach
         <div class="modal fade" id="tolakModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
             <div class="modal-dialog modal-dialog-centered" role="document">
                 <div class="modal-content">

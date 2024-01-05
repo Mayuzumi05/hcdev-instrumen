@@ -19,8 +19,9 @@ return new class extends Migration
             $table->string('password');
             $table->integer('unit_bagian');
             $table->string('username');
-            $table->integer('NIK');
+            $table->string('NIK');
             $table->string('no_telepon');
+            $table->integer('status')->default('1');;
             $table->rememberToken();
             $table->timestamps();
         });

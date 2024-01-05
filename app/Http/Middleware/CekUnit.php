@@ -13,11 +13,11 @@ class CekUnit
      *
      * @param  \Closure(\Illuminate\Http\Request): (\Symfony\Component\HttpFoundation\Response)  $next
      */
-    public function handle($request, Closure $next, ...$unit_bagian)
+    public function handle($request, Closure $next, ...$status)
     {
-        if(in_array($request->user()->unit_bagian,$unit_bagian)){
+        if(in_array($request->user()->status,$status)){
             return $next($request);
         }
-        return redirect('/');
+        return redirect('/login')->with('status', 'Akun anda belum dikonfirmasi');
     }
 }

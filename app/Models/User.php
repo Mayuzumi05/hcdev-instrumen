@@ -24,7 +24,8 @@ class User extends Authenticatable
         'unit_bagian',
         'username',
         'NIK',
-        'no_telepon'
+        'no_telepon',
+        'status'
     ];
 
     /**
