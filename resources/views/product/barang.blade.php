@@ -148,9 +148,9 @@
             </div>
         </nav>
         <div class="konten">
-            @if (session('message'))
+            <!-- @if (session('message'))
                 {{ session('message') }}
-            @endif
+            @endif -->
             <p class="h5" style="color:#489742;" >Data Barang</p>
             <div style="display:flex;justify-content:space-between;color:#777986;">
                 <p class="body-1">Sistem pengelolaan data barang di Instrumen III</p>
@@ -298,6 +298,21 @@
                             <button type="submit" class="btn-simpan" style="height: fit-content;margin-left:16px;">Tambah</button>
                         </div>
                         @endif
+                        <!-- <div class="modal fade" id="simpanModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                            <div class="modal-dialog modal-dialog-centered" role="document">
+                                <div class="modal-content">
+                                    <div style="display:flex;direction:rtl;">
+                                        <img src="img/close-icon.svg" style="width:24px;cursor:pointer;margin:24px 24px 0 0;" data-bs-dismiss="modal" aria-label="Close" alt="">
+                                    </div>
+                                    <img src="img/story-save.svg" style="width:240px;margin:48px auto;" alt="">
+                                    <p class="h6" style="margin:0 auto;">Apakah anda yakin ingin menyimpan perubahan?</p>
+                                    <div class="modal-foot" style="margin:16px;">
+                                        <button type="button" class="btn-kembali" data-bs-dismiss="modal">Kembali</button>
+                                        <button type="submit" class="btn-simpan">Simpan</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div> -->
                     </form>
                     <!-- <table class="table">
                         <thead>
@@ -483,10 +498,6 @@
                                     <label for="recipient-name" class="col-form-label">Merk</label>
                                     <input type="text" class="form-control" name="merk" value="{{ $c->merk }}" id="recipient-name">
                                 </div>
-                                <div class="form-group">
-                                    <label for="recipient-name" class="col-form-label">Tipe</label>
-                                    <input type="text" class="form-control" name="tipe" value="{{ $c->tipe }}" id="recipient-name">
-                                </div>
                             </div>
                             <div>
                                 <div class="form-group">
@@ -502,6 +513,10 @@
                                     <input type="text" class="form-control" name="id_satuan_barang" value="{{ $c->id_satuan_barang }}" id="recipient-name">
                                 </div>
                                 <div class="form-group">
+                                    <label for="recipient-name" class="col-form-label">Tipe</label>
+                                    <input type="text" class="form-control" name="tipe" value="{{ $c->tipe }}" id="recipient-name">
+                                </div>
+                                <!-- <div class="form-group">
                                     <label for="recipient-name" class="col-form-label">Waktu Ditambahkan</label>
                                     <input type="text" class="form-control" name="id_satuan_barang" value="{{ $c->created_at }}" id="recipient-name">
                                 </div>
@@ -514,11 +529,11 @@
                                         <option value="{{$item->id}}">{{$unit_item->nama_unit}}</option>
                                         @endforeach
                                     </select>
-                                </div>
+                                </div> -->
                             </div>
                         </div>
                         <div style="margin:24px 0 8px 0;display:flex;direction:rtl;">
-                            <button type="submit" class="btn-simpan" data-bs-toggle="modal" data-bs-target="#simpanModal">Simpan</button>
+                            <button type="submit" class="btn-simpan">Simpan</button>
                             <button type="button" class="btn-kembali" data-bs-dismiss="modal">Kembali</button>
                         </div>
                     </form>
@@ -547,6 +562,21 @@
             </div>
         </div>
         @endforeach
+        <div class="modal fade" id="simpanModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered" role="document">
+                <div class="modal-content">
+                    <div style="display:flex;direction:rtl;">
+                        <img src="img/close-icon.svg" style="width:24px;cursor:pointer;margin:24px 24px 0 0;" data-bs-dismiss="modal" aria-label="Close" alt="">
+                    </div>
+                    <img src="img/story-save.svg" style="width:240px;margin:48px auto;" alt="">
+                    <p class="h6" style="margin:0 auto;">Apakah anda yakin ingin menyimpan perubahan?</p>
+                    <div class="modal-foot" style="margin:16px;">
+                        <button type="button" class="btn-kembali" data-bs-dismiss="modal">Kembali</button>
+                        <button type="submit" class="btn-simpan">Simpan</button>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
             
     <section class="overlay"></section>

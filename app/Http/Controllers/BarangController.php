@@ -23,7 +23,7 @@ class BarangController extends Controller
             ->join('unit', 'barang.lokasi', '=', 'unit.id')
             ->select('barang.*', 'unit.nama_unit')
             ->latest()
-            ->paginate(5);
+            ->paginate(9);
 
         $user = DB::table('users')
             ->join('unit', 'users.unit_bagian', '=', 'unit.id')

@@ -192,27 +192,42 @@
                                 <input type="checkbox" name="check-tbl">
                             </td>
                             <td scope="row">{{ $no ++ }}</td>
-                            <td>{{ $item->attributes->material_number }}</td>
+                            <td>{{ $item->associatedModel->material_number }}</td>
                             <td>{{ $item->name }}</td>
-                            <td>{{ $item->attributes->deskripsi }}</td>
+                            <td>{{ $item->associatedModel->deskripsi }}</td>
                             <td>
-                                <input type="number" value="{{ $item->quantity }}" name="" class="input-qty">
+                                <input type="number" value="{{ $item->quantity }}" name="inputqty" class="input-qty">
                             </td>
-                            <td>{{ $item->attributes->lokasi }}</td>
+                            <td>{{ $item->associatedModel->nama_unit }}</td>
                         </tr>
                         @endforeach
                     </tbody>
                 </table>
                 <div style="display: flex; justify-content: flex-end;margin-top:24px;">
                     <form action="{{ route('cart.update') }}" method="GET">
-                        <button type="submit" class="btn-tambah-data">
+                        <button type="button" class="btn-tambah-data" data-bs-toggle="modal" data-bs-target="#simpanModal">
                             <p class="body-2">Konfirmasi</p>
                         </button>
-                    </form>
                 </div>
             </div>
             <p class="body-2" style="margin:32px 0 0 0;text-align: center;color:#777986;">Copyright @Petrokimia Gresik 2023. All Rights Reserved.</p>
         </div>
+        <div class="modal fade" id="simpanModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered" role="document">
+                <div class="modal-content">
+                    <div style="display:flex;direction:rtl;">
+                        <img src="img/close-icon.svg" style="width:24px;cursor:pointer;margin:24px 24px 0 0;" data-bs-dismiss="modal" aria-label="Close" alt="">
+                    </div>
+                    <img src="img/story-save.svg" style="width:240px;margin:48px auto;" alt="">
+                    <p class="h6" style="margin:0 auto;">Apakah anda yakin ingin menyimpan perubahan?</p>
+                    <div class="modal-foot" style="margin:16px;">
+                        <button type="button" class="btn-kembali" data-bs-dismiss="modal">Kembali</button>
+                        <button type="submit" class="btn-simpan" >Simpan</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        </form>
     </div>
     <section class="overlay"></section>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm" crossorigin="anonymous"></script>
