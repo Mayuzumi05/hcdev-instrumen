@@ -44,6 +44,7 @@ Route::group(['middleware' => ['auth', 'cekunit:0']], function () {
     Route::post('/setting/update/{id}', [SettingController::class, 'update'])->name('update');
     Route::get('/user/destroy/{id}', [UserController::class, 'destroy'])->name('destroy');
     Route::post('/user/updatestatus/{id}', [UserController::class, 'updatestatus'])->name('updatestatus');
+    Route::post('/user/rejectstatus/{id}', [UserController::class, 'rejectstatus'])->name('rejectstatus');
 
     Route::get('/pindah', [PindahController::class, 'index'])->name('product.pindah');
 

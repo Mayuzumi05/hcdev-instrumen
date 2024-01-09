@@ -76,6 +76,17 @@ class UserController extends Controller
         return redirect('/user')->with('success', 'Data Berhasil Diubah');
     }
 
+    public function rejectstatus(Request $request, $id){
+        
+        User::where('id', $id)
+            ->where('id', $id)
+                ->update([
+                    'status' => 2,
+                ]);
+        
+        return redirect('/user')->with('success', 'Data Berhasil Diubah');
+    }
+
     // public function update(Request $request, $id) {
         
     //     User::where('id', $id)->where('id', $id)->update([

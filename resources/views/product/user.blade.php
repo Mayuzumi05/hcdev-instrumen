@@ -230,9 +230,13 @@
                                 <img src="img/delete-icon.svg" style="cursor:pointer;" data-bs-toggle="modal" data-bs-target="#hapusModal{{ $item->id }}" alt="">
                                 <img src="img/view-icon.svg" style="cursor:pointer;" alt="">
                             </td>
+                            @elseif ( $item->status == 2)
+                            <td>
+                                <p class="body-2">Ditolak</p>
+                            </td>
                             @else
                             <td>
-                                <button class="btn-tolak" data-bs-toggle="modal" data-bs-target="#tolakModal">Tolak</button>
+                                <button class="btn-tolak" data-bs-toggle="modal" data-bs-target="#tolakModal{{ $item->id }}">Tolak</button>
                                 <button class="btn-terima" data-bs-toggle="modal" data-bs-target="#simpanModal{{ $item->id }}">Terima</button>
                             </td>
                             @endif
@@ -381,7 +385,8 @@
             </div>
         </div>
         @endforeach
-        <div class="modal fade" id="tolakModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+        @foreach ($user as $d)
+        <div class="modal fade" id="tolakModal{{ $d->id }}" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
             <div class="modal-dialog modal-dialog-centered" role="document">
                 <div class="modal-content">
                     <div style="display:flex;direction:rtl;">
@@ -389,13 +394,17 @@
                     </div>
                     <img src="img/story-reject.svg" style="width:240px;height:160px;margin:48px auto;" alt="">
                     <p class="h6" style="margin:0 auto;">Apakah anda yakin ingin menolak akun ini?</p>
-                    <div class="modal-foot" style="margin:16px;">
-                        <button type="button" class="btn-kembali" data-bs-dismiss="modal">Kembali</button>
-                        <button type="button" class="btn-konfirmasi-hapus">Tolak</button>
-                    </div>
+                    <form action="user/rejectstatus/{{$d->id}}" method="POST">
+                        @csrf
+                        <div class="modal-foot" style="margin:16px;">
+                            <button type="button" class="btn-kembali" data-bs-dismiss="modal">Kembali</button>
+                            <button type="submit" class="btn-simpan">Tolak</button>
+                        </div>
+                    </form>
                 </div>
             </div>
         </div>
+        @endforeach
     </div>
     <section class="overlay"></section>
 
