@@ -182,63 +182,30 @@
                             </th>
                             <th scope="col">No.</th>
                             <th scope="col">Tanggal Perpindahan</th>
-                            <th scope="col">Nama Pemberi</th>
-                            <th scope="col">Unit Pemilik</th>
-                            <th scope="col">Nama Penerima</th>
+                            <th scope="col">Jumlah Barang</th>
                             <th scope="col">Unit Penerima</th>
                         </tr>
                     </thead>
                     <tbody id="history-table" style="cursor:pointer;">
-                        <tr data-bs-toggle="modal" data-bs-target="#detailRiwayatModal">
+                        <?php $no = 1; ?>
+                        @foreach ($transaksi as $item)
+                        <tr data-bs-toggle="modal" data-bs-target="#detailRiwayatModal{{ $item->id }}">
                             <td>
                                 <input type="checkbox" name="check-tbl">
                             </td>
-                            <td scope="row">1</td>
-                            <td>10-08-2023</td>
-                            <td>Himawan Alan Novianto</td>
-                            <td>Shop</td>
-                            <td>Himawan Alan Novianto</td>
-                            <td>Instrumen III</td>
+                            <td scope="row">{{ $no ++ }}</td>
+                            <td>{{ $item->created_at }}</td>
+                            <td>{{ $item->jumlah_barang }}</td>
+                            <td>{{ $item->nama_unit }}</td>
                         </tr>
-                        <tr data-bs-toggle="modal" data-bs-target="#detailRiwayatModal">
-                            <td>
-                                <input type="checkbox" name="check-tbl">
-                            </td>
-                            <td scope="row">2</td>
-                            <td>09-08-2023</td>
-                            <td>Himawan Alan Novianto</td>
-                            <td>Shop</td>
-                            <td>Himawan Alan Novianto</td>
-                            <td>Instrumen III</td>
-                        </tr>
-                        <tr data-bs-toggle="modal" data-bs-target="#detailRiwayatModal">
-                            <td>
-                                <input type="checkbox" name="check-tbl">
-                            </td>
-                            <td scope="row">3</td>
-                            <td>08-08-2023</td>
-                            <td>Himawan Alan Novianto</td>
-                            <td>Shop</td>
-                            <td>Himawan Alan Novianto</td>
-                            <td>Instrumen III</td>
-                        </tr>
-                        <tr data-bs-toggle="modal" data-bs-target="#detailRiwayatModal">
-                            <td>
-                                <input type="checkbox" name="check-tbl">
-                            </td>
-                            <td scope="row">4</td>
-                            <td>01-08-2023</td>
-                            <td>Himawan Alan Novianto</td>
-                            <td>Shop</td>
-                            <td>Himawan Alan Novianto</td>
-                            <td>Instrumen III</td>
-                        </tr>
+                        @endforeach
                     </tbody>
                 </table>
             </div>
             <p class="body-2" style="margin:32px 0 0 0;text-align: center;color:#777986;">Copyright @Petrokimia Gresik 2023. All Rights Reserved.</p>
         </div>
-        <div class="modal fade" id="detailRiwayatModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        @foreach ($transaksi as $t)
+        <div class="modal fade" id="detailRiwayatModal{{ $t->id }}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
             <div class="modal-dialog" role="document">
                 <div class="modal-content">
                 <div class="modal-body" style="padding:24px;">
@@ -250,25 +217,17 @@
                         <form>
                             <div class="form-group">
                                 <label for="recipient-name" class="col-form-label">Tanggal</label>
-                                <input type="text" class="form-control" id="recipient-name">
+                                <input type="text" class="form-control" id="recipient-name" value="{{ $t->created_at }}" disabled>
                             </div>
                             <div class="form-group">
-                                <label for="recipient-name" class="col-form-label">Nama Pemberi</label>
-                                <input type="text" class="form-control" id="recipient-name">
-                            </div>
-                            <div class="form-group">
-                                <label for="recipient-name" class="col-form-label">Unit Pemberi</label>
-                                <input type="text" class="form-control" id="recipient-name">
+                                <label for="recipient-name" class="col-form-label">Jumlah Barang</label>
+                                <input type="text" class="form-control" id="recipient-name" value="{{ $t->jumlah_barang }}" disabled>
                             </div>
                         </form>
                         <form>
                             <div class="form-group">
-                                <label for="recipient-name" class="col-form-label">Nama Penerima</label>
-                                <input type="text" class="form-control" id="recipient-name">
-                            </div>
-                            <div class="form-group">
                                 <label for="recipient-name" class="col-form-label">Unit Penerima</label>
-                                <input type="text" class="form-control" id="recipient-name">
+                                <input type="text" class="form-control" id="recipient-name" value="{{ $t->nama_unit }}" disabled>
                             </div>
                         </form>
                     </div>
@@ -277,26 +236,25 @@
                             <tr style="background:#4abdac;">
                                 <th scope="col">Nama Barang</th>
                                 <th scope="col">Jumlah Dikirim</th>
-                                <th scope="col">Jumlah Tersisa</th>
+                                <th scope="col">Unit Pemilik</th>
                             </tr>
                         </thead>
                         <tbody>
+                            <input type="text" name="transaksi_id" value="{{ $t->id }}">
+                            @foreach ($history as $h) 
                             <tr>
-                                <td scope="row" style="max-width: 32ch;overflow: hidden;text-overflow: ellipsis;white-space: nowrap;">PI LOKAL 25KG (GAUGE PRESS;100MM;0-25KG/CM2;1/2NPT;BTM)</td>
-                                <td>6</td>
-                                <td>6</td>
+                                <td scope="row" style="max-width: 32ch;overflow: hidden;text-overflow: ellipsis;white-space: nowrap;">{{ $h->nama_barang }}</td>
+                                <td>{{ $h->jumlah_barang }}</td>
+                                <td>{{ $h->nama_unit }}</td>
                             </tr>
-                            <tr>
-                                <td scope="row" style="max-width: 32ch;overflow: hidden;text-overflow: ellipsis;white-space: nowrap;">HFS-25 WATER FLOW CONTROL 1' NPT 10KG 100C SPDT 15A 250V</td>
-                                <td>2</td>
-                                <td>9</td>
-                            </tr>
+                            @endforeach
                         </tbody>
                     </table>
                 </div>
                 </div>
             </div>
         </div>
+        @endforeach
     </div>
     <section class="overlay"></section>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm" crossorigin="anonymous"></script>

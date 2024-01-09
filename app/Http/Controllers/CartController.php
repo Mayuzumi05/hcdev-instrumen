@@ -3,8 +3,11 @@
 namespace App\Http\Controllers;
 
 use App\Models\Barang;
+use App\Models\History;
+use App\Models\Transaksi;
 use App\Models\User;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 
 class CartController extends Controller
@@ -40,10 +43,12 @@ class CartController extends Controller
     public function update(){
         $id = auth()->user()->id; // or any string represents user identifier
         $lokasi = auth()->user()->id;
-        // \Cart::session($userId)->update(456, array(
-        //     'name' => 'New Item Name', // new item name
-        // ));
         $keranjang = \Cart::session($id)->getContent('id');
+
+        $kode_transaksi = Transaksi::create([
+            'jumlah_barang' => $keranjang->count(),
+            'lokasi_akhir' => auth()->user()->unit_bagian,
+        ]);
 
         foreach ($keranjang as $item) {
             Barang::create([
@@ -65,6 +70,22 @@ class CartController extends Controller
                 ->update([
                     'jumlah_barang' => $item->associatedModel->jumlah_barang - $item->quantity,
                 ]);
+
+            History::create([
+                'material_number' => $item->associatedModel->material_number,
+                'nama_barang' => $item->associatedModel->nama_barang,
+                'range_pengukuran' => $item->associatedModel->range_pengukuran,
+                'satuan_pengukuran' => $item->associatedModel->satuan_pengukuran,
+                'deskripsi' => $item->associatedModel->deskripsi,
+                'kondisi' => $item->associatedModel->kondisi,
+                'merk' => $item->associatedModel->merk,
+                'tipe' => $item->associatedModel->tipe,
+                'jumlah_barang' => $item->quantity,
+                'id_satuan_barang' => $item->associatedModel->id_satuan_barang,
+                'lokasi_awal' => $item->associatedModel->lokasi,
+                'lokasi_akhir' => auth()->user()->unit_bagian,
+                'kode_transaksi' => $kode_transaksi->id,
+            ]);
         }
 
         \Cart::session($id)->clear();
