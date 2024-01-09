@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Controller;
 use App\Http\Controllers\LoginController;
+use App\Http\Controllers\HomeController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\BarangController;
 use App\Http\Controllers\PindahController;
@@ -39,7 +40,7 @@ Route::get('/logout', [LoginController::class,'logout'])->name('logout');
 Route::group(['middleware' => ['auth', 'cekunit:0']], function () {
     //User
     // Route::get('/home', [Controller::class, 'home'])->name('home');
-    Route::get('/home', [UserController::class, 'userwithid'])->name('home');
+    Route::get('/home', [HomeController::class, 'index'])->name('home');
     Route::get('/user', [UserController::class, 'index'])->name('user'); 
     Route::post('/setting/update/{id}', [SettingController::class, 'update'])->name('update');
     Route::get('/user/destroy/{id}', [UserController::class, 'destroy'])->name('destroy');

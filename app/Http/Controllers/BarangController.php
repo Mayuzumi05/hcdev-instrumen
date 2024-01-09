@@ -70,7 +70,6 @@ class BarangController extends Controller
                     'tipe' => $request->tipe,
                     'jumlah_barang' => $request->jumlah_barang,
                     'id_satuan_barang' => $request->id_satuan_barang,
-                    'lokasi' => $request->lokasi,
                 ]);
         
         return redirect('/barang')->with('success', 'Data Berhasil Diubah');
