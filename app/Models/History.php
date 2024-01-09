@@ -29,9 +29,4 @@ class History extends Model
 
     const CREATED_AT = 'created_at';
     const UPDATED_AT = 'updated_at';
-
-    public function unit(): BelongsTo
-    {
-        return $this->belongsTo(Unit::class, 'user_beers_data', 'user_id' 'beer_id');
-    }
 }
