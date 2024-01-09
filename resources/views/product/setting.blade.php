@@ -199,7 +199,10 @@
                 </div>
                 <div class="ubah-kata-sandi">
                     <p class="h5">Ubah Kata Sandi</p>
-                    <p class="body-1" style="margin-top:16px;color:#8F959D;">Ubah kata sandi anda kapanpun<br>dengan memasukkan kata sandi baru</p>
+                    <p class="body-1" style="margin-top:16px;color:#8F959D;">Ubah kata sandi anda dengan yang baru</p>
+                    @if (session('message'))
+                        <p class="body-2" style="color:#F97063;margin-top:16px;">{{ session('message') }}</p>
+                    @endif
                     <div>
                         <button class="btn-ubah-sandi" data-bs-toggle="modal" data-bs-target="#ubahKataSandiModal">Ubah Kata Sandi</button>
                     </div>
@@ -215,24 +218,25 @@
                         <h5 class="modal-title" id="exampleModalLabel">Ubah Kata Sandi</h5>
                         <img src="img/close-icon.svg" style="width:24px;cursor:pointer;" data-bs-dismiss="modal" aria-label="Close" alt="">
                     </div>
-                    <form>
+                    <form method="POST" action="/setting/updatepassword/{{auth()->user()->id}}">
+                        @csrf
                         <div class="form-group">
                             <label for="recipient-name" class="col-form-label">Kata Sandi Sekarang</label>
-                            <input type="password" class="form-control" id="recipient-name" >
+                            <input type="password" class="form-control" id="recipient-name" name="current_password">
                         </div>
                         <div class="form-group">
                             <label for="recipient-name" class="col-form-label">Kata Sandi Baru</label>
-                            <input type="password" class="form-control" id="recipient-name">
+                            <input type="password" class="form-control" id="recipient-name" name="password">
                         </div>
                         <div class="form-group">
-                            <label for="recipient-name" class="col-form-label">Masukkan Kata Sandi Baru</label>
-                            <input type="password" class="form-control" id="recipient-name">
+                            <label for="recipient-name" class="col-form-label">Konfirmasi Kata Sandi Baru</label>
+                            <input type="password" class="form-control" id="recipient-name" name="password_confirmation">
+                        </div>
+                        <div style="margin:24px 0 8px 0;display:flex;direction:rtl;">
+                            <button type="submit" class="btn-simpan">Simpan</button>
+                            <button type="button" class="btn-kembali" data-bs-dismiss="modal">Kembali</button>
                         </div>
                     </form>
-                    <div style="margin:24px 0 8px 0;display:flex;direction:rtl;">
-                        <button type="button" class="btn-simpan" data-bs-toggle="modal" data-bs-target="#simpanModal">Simpan</button>
-                        <button type="button" class="btn-kembali" data-bs-dismiss="modal">Kembali</button>
-                    </div>
                 </div>
                 </div>
             </div>

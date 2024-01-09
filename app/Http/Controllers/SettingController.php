@@ -6,6 +6,7 @@ use Auth;
 use App\Models\User;
 use App\Models\Unit;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 
@@ -39,5 +40,28 @@ class SettingController extends Controller
                 ]);
         
         return redirect('/setting')->with('success', 'Data Berhasil Diubah');
+    }
+
+    public function updatepassword(Request $request) {
+
+        $request->validate([
+            'current_password' => ['required','string','min:5'],
+            'password' => ['required', 'string', 'min:5', 'confirmed']
+        ]);
+
+        $currentPasswordStatus = Hash::check($request->current_password, auth()->user()->password);
+        if($currentPasswordStatus){
+
+            User::findOrFail(Auth::user()->id)->update([
+                'password' => Hash::make($request->password),
+            ]);
+
+            return redirect()->back()->with('message','Password berhasil diperbarui');
+
+        }else{
+
+            return redirect()->back()->with('message','Current Password does not match with Old Password');
+        }
+
     }
 }
