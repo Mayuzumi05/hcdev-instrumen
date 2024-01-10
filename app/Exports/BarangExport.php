@@ -8,7 +8,7 @@ use Maatwebsite\Excel\Concerns\WithHeadings;
 use Maatwebsite\Excel\Concerns\WithMapping;
 use Maatwebsite\Excel\Concerns\ShouldAutoSize;
 use PhpOffice\PhpSpreadsheet\Shared\Date;
-
+use Illuminate\Support\Facades\DB;
 
 class BarangExport implements FromCollection, WithHeadings, WithMapping, ShouldAutoSize
 {
@@ -17,7 +17,10 @@ class BarangExport implements FromCollection, WithHeadings, WithMapping, ShouldA
     */
     public function collection()
     {
-        return Barang::all();
+        return DB::table('barang')
+        ->join('unit', 'barang.lokasi', '=', 'unit.id')
+        ->select('barang.*', 'unit.nama_unit')
+        ->get();
         // return [
         //     (new Barang)->except('id'),
         // ];
@@ -36,7 +39,7 @@ class BarangExport implements FromCollection, WithHeadings, WithMapping, ShouldA
             $barang->tipe,
             $barang->jumlah_barang,
             $barang->id_satuan_barang,
-            $barang->lokasi,
+            $barang->nama_unit,
         ];
     }
 
