@@ -278,9 +278,15 @@
                                 <label class="visually-hidden" for="inlineFormSelectPref">Preference</label>
                                 <select class="form-select" id="inlineFormSelectPref" name="unit_bagian">
                                     <option value="{{$item->id}}" selected>{{ $item->nama_unit }}</option>
-                                    @foreach ($unit as $unit_item)
-                                    <option value="{{$unit_item->id}}">{{$unit_item->nama_unit}}</option>
-                                    @endforeach
+                                    @if(auth()->user()->unit_bagian != 8)
+                                        @foreach ($unitwithoutadmin as $unit_item)
+                                        <option value="{{$unit_item->id}}">{{$unit_item->nama_unit}}</option>
+                                        @endforeach
+                                    @else
+                                        @foreach ($unit as $unit_item)
+                                        <option value="{{$unit_item->id}}">{{$unit_item->nama_unit}}</option>
+                                        @endforeach
+                                    @endif
                                 </select>
                             </div>
                         </div>   

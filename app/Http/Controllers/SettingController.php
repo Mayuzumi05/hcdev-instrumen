@@ -22,8 +22,12 @@ class SettingController extends Controller
             
         $unit = Unit::all();
 
+        $unitwithoutadmin = DB::table('unit')
+            ->where('id', '!=', 8)
+            ->get();
+
         // dd($userauth);
-        return view('product.setting', compact('user', 'unit'));
+        return view('product.setting', compact('user', 'unit', 'unitwithoutadmin'));
     }
 
     public function update(Request $request, $id){
