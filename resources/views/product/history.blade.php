@@ -189,7 +189,7 @@
                     <tbody id="history-table" style="cursor:pointer;">
                         <?php $no = 1; ?>
                         @foreach ($transaksi as $item)
-                        <tr data-bs-toggle="modal" data-bs-target="#detailRiwayatModal{{ $item->id }}">
+                        <tr data-bs-toggle="modal" data-bs-target="#detailRiwayatModal{{ $item->id }}" class="transaksi-modal" data-id="{{ $item->id }}" data-url="{{ route('fetchdetail', $item->id) }}">
                             <td>
                                 <input type="checkbox" name="check-tbl">
                             </td>
@@ -239,15 +239,13 @@
                                 <th scope="col">Unit Pemilik</th>
                             </tr>
                         </thead>
-                        <tbody>
-                            <input type="text" name="transaksi_id" value="{{ $t->id }}">
-                            @foreach ($history as $h) 
+                        <tbody class="history-detail-{{ $t->id }}">
+                            <input type="text" name="transaksi_id" id="transaksi_id" value="{{ $t->id }}">
                             <tr>
-                                <td scope="row" style="max-width: 32ch;overflow: hidden;text-overflow: ellipsis;white-space: nowrap;">{{ $h->nama_barang }}</td>
-                                <td>{{ $h->jumlah_barang }}</td>
-                                <td>{{ $h->nama_unit }}</td>
+                                <td id="nama-barang"></td>
+                                <td id="jumlah-barang"></td>
+                                <td id="unit-pemilik"></td>
                             </tr>
-                            @endforeach
                         </tbody>
                     </table>
                 </div>
@@ -289,6 +287,49 @@
             $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
             });
         });
+        });
+    </script>
+    <script>
+        $(document).ready(function (){
+
+            $('.transaksi-modal').click(function () {
+                // var kodeTransaksi = document.getElementById("#transaksi_id").value;
+
+                // console.log(kodeTransaksi); 
+
+                
+                var kodeTransaksi = $(this).data('id');
+
+                console.log(kodeTransaksi)
+                $('#detailRiwayatModal' + kodeTransaksi).modal('show');
+                
+                // $.get(kodeTransaksi, function(data){
+                //     $('#nama-barang').text(data.nama_barang);
+                //     $('#jumlah-barang').text(data.jumlah_barang);
+                //     $('#unit-pemilik').text(data.nama_unit);
+                // })
+
+                $.ajax({
+                    type: "GET",
+                    url: "/fetchdetailhistory/" + kodeTransaksi,
+                    dataType: "json",
+                    success: function (response) {
+                        $('.history-detail-' + kodeTransaksi).html("");
+                        var listElement = ""
+                        $.each(response, function (key, item) {
+                            listElement += `
+                                <tr>
+                                    <td>${item.nama_barang}</td>
+                                    <td>${item.jumlah_barang}</td>
+                                    <td>${item.nama_unit}</td>
+                                </tr>
+                            `
+                        });  
+                        $('.history-detail-' + kodeTransaksi).append(listElement);
+                    }
+                });
+
+            });
         });
     </script>
 </body>

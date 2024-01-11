@@ -51,6 +51,7 @@ Route::group(['middleware' => ['auth', 'cekunit:0']], function () {
     Route::get('/pindah', [PindahController::class, 'index'])->name('product.pindah');
 
     Route::get('/history', [HistoryController::class, 'index'])->name('product.history');
+    Route::get('/fetchdetailhistory/{id}', [HistoryController::class, 'fetchdetailhistory'])->name('fetchdetail');
 
     Route::get('/notification', [NotificationController::class, 'index'])->name('product.notification');
 

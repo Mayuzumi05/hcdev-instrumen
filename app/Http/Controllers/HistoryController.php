@@ -27,17 +27,21 @@ class HistoryController extends Controller
             ->latest()
             ->get();
 
-        // $transaksi_id = $request->input('transaksi_id');
-        
+        return view('product.history', compact('userwithid', 'transaksi'));
+    }
+
+    public function fetchdetailhistory($id){
         $history = DB::table('history')
             ->join('unit', 'history.lokasi_awal', '=', 'unit.id')
             // ->join('unit', 'history.lokasi_akhir', '=', 'unit.id')
             ->select('history.*', 'unit.nama_unit')
-            ->where('history.kode_transaksi', $request->input('transaksi_id'))
+            ->where('history.kode_transaksi', $id)
             ->get();
 
-        // dd($history);
+        // return response()->json([
+        //     'history'=>$history,
+        // ]);
 
-        return view('product.history', compact('userwithid', 'transaksi', 'history'));
+        return response()->json($history);
     }
 }
