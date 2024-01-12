@@ -675,12 +675,6 @@ input:focus{
   padding-left: 20px;
 }
 
-#pilihInputModal {
-  width: fit-content;
-  margin-left: auto;
-  margin-right: auto;
-}
-
 .input-satuan {
   padding: 16px;
   background-color: #1B954C;

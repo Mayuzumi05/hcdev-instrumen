@@ -306,29 +306,29 @@
             </div>
         </div>
         @endforeach
-        <div class="modal fade" id="pilihInputModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">    
-            <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal fade" id="pilihInputModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered" role="document" style="max-width: fit-content;margin-left: auto;margin-right: auto;">
                 <div class="modal-content">
-                <div class="modal-body" style="padding:24px;">
-                    <div style="display:flex;justify-content:space-between;">
-                        <p class="h6" style="margin-bottom:0;line-height:24px;">Pilih Metode</p>
-                        <img src="img/close-icon.svg" style="width:24px;cursor:pointer;" data-bs-dismiss="modal" aria-label="Close" alt="">
-                    </div>
-                    <div style="display:flex;margin-top:16px;">
-                        <div class="input-satuan" data-bs-toggle="modal" data-bs-target="#tambahBarangModal{{ $item->id }}">
-                            <div style="width:32px;margin:0 auto 8px auto;">
-                                <img src="img/icon_plus.svg" alt="">
-                            </div>
-                            <p class="body-2" style="color:white;">Input satuan</p>
+                    <div class="modal-body" style="padding:24px;">
+                        <div style="display:flex;justify-content:space-between;">
+                            <p class="h6" style="margin-bottom:0;line-height:24px;">Pilih Metode</p>
+                            <img src="img/close-icon.svg" style="width:24px;cursor:pointer;" data-bs-dismiss="modal" aria-label="Close" alt="">
                         </div>
-                        <div class="input-satuan" style="margin-left:16px;" data-bs-toggle="modal" data-bs-target="#importExcelModal">
-                            <div style="width:32px;margin:0 auto 8px auto;">
-                                <img src="img/arrow-up.svg" alt="">
+                        <div style="display:flex;margin-top:16px;">
+                            <div class="input-satuan" data-bs-toggle="modal" data-bs-target="#tambahBarangModal{{ $item->id }}">
+                                <div style="width:32px;margin:0 auto 8px auto;">
+                                    <img src="img/icon_plus.svg" alt="">
+                                </div>
+                                <p class="body-2" style="color:white;">Input satuan</p>
                             </div>
-                            <p class="body-2" style="color:white;">Import excel</p>
+                            <div class="input-satuan" style="margin-left:16px;" data-bs-toggle="modal" data-bs-target="#importExcelModal">
+                                <div style="width:32px;margin:0 auto 8px auto;">
+                                    <img src="img/arrow-up.svg" alt="">
+                                </div>
+                                <p class="body-2" style="color:white;">Import excel</p>
+                            </div>
                         </div>
                     </div>
-                </div>
                 </div>
             </div>
         </div>
