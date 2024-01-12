@@ -155,64 +155,20 @@
             <div class="wrapper">
                 <i id="left" class="fa-solid fa-angle-left"></i>
                     <ul class="carousel">
+                        @foreach ($unit as $item)
                         <li class="card">
                             <div style="display:flex;">
                                 <img src="img/factory.svg" style="width:24px;margin:24px 0 0 24px;"alt="">
-                                <p class="body-1" style="margin:24px 0 0 8px;">Shop</p>
+                                <p class="body-1" style="margin:24px 0 0 8px;">{{$item->nama_unit}}</p>
                             </div>
+                            @foreach ($barang as $b)
+                            <?php $total = $b->where('lokasi', $item->id)->count();?>
+                            @endforeach
                             <div style="display:flex;padding:24px 0 0 24px;align-items:end;">
-                                <p class="h4" style="margin-bottom:0;">400</p>
+                                <p class="h4" style="margin-bottom:0;">{{$total}}</p>
                             </div>
                         </li>
-                        <li class="card">
-                            <div style="display:flex;">
-                                <img src="img/factory.svg" style="width:24px;margin:24px 0 0 24px;"alt="">
-                                <p class="body-1" style="margin:24px 0 0 8px;">ZA II</p>
-                            </div>
-                            <p class="h4" style="margin:24px 0 0 24px;">200</p>
-                        </li>
-                        <li class="card">
-                            <div style="display:flex;">
-                                <img src="img/factory.svg" style="width:24px;margin:24px 0 0 24px;"alt="">
-                                <p class="body-1" style="margin:24px 0 0 8px;">PA II</p>
-                            </div>
-                            <p class="h4" style="margin:24px 0 0 24px;">200</p>
-                        </li>
-                        <li class="card">
-                            <div style="display:flex;">
-                                <img src="img/factory.svg" style="width:24px;margin:24px 0 0 24px;"alt="">
-                                <p class="body-1" style="margin:24px 0 0 8px;">SA II</p>
-                            </div>
-                            <p class="h4" style="margin:24px 0 0 24px;">200</p>
-                        </li>
-                        <li class="card">
-                            <div style="display:flex;">
-                                <img src="img/factory.svg" style="width:24px;margin:24px 0 0 24px;"alt="">
-                                <p class="body-1" style="margin:24px 0 0 8px;">UBB</p>
-                            </div>
-                            <p class="h4" style="margin:24px 0 0 24px;">200</p>
-                        </li>
-                        <li class="card">
-                            <div style="display:flex;">
-                                <img src="img/factory.svg" style="width:24px;margin:24px 0 0 24px;"alt="">
-                                <p class="body-1" style="margin:24px 0 0 8px;">PA I</p>
-                            </div>
-                            <p class="h4" style="margin:24px 0 0 24px;">200</p>
-                        </li>
-                        <li class="card">
-                            <div style="display:flex;">
-                                <img src="img/factory.svg" style="width:24px;margin:24px 0 0 24px;"alt="">
-                                <p class="body-1" style="margin:24px 0 0 8px;">SA I</p>
-                            </div>
-                            <p class="h4" style="margin:24px 0 0 24px;">200</p>
-                        </li>
-                        <li class="card">
-                            <div style="display:flex;">
-                                <img src="img/factory.svg" style="width:24px;margin:24px 0 0 24px;"alt="">
-                                <p class="body-1" style="margin:24px 0 0 8px;">Alf</p>
-                            </div>
-                            <p class="h4" style="margin:24px 0 0 24px;">400</p>
-                        </li>
+                        @endforeach
                     </ul>
                 <i id="right" class="fa-solid fa-angle-right"></i>
             </div>

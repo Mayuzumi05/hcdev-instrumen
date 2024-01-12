@@ -1,7 +1,8 @@
 <?php
 
 namespace App\Http\Controllers;
-
+use App\Models\Unit;
+use App\Models\Barang;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
@@ -15,13 +16,20 @@ class HomeController extends Controller
             ->select('users.*', 'unit.nama_unit')
             ->where('users.id', $id)
             ->get();
+
+        $unit = Unit::all();
+        $barang = Barang::all();
+        // $total_unit = array();
+        
+        // foreach ($unit as $units) {
+
+        // }
         
         $transaksi = DB::table('transaksi')
         ->join('unit', 'transaksi.lokasi_akhir', '=', 'unit.id')
         ->select('transaksi.*', 'unit.nama_unit')
         ->latest()
         ->get();
-
         // $transaksi_id = $request->input('transaksi_id');
         
         $history = DB::table('history')
@@ -32,6 +40,6 @@ class HomeController extends Controller
             ->get();
             
         // dd($user);
-        return view('product.home', compact('user', 'transaksi', 'history'));
+        return view('product.home', compact('user', 'transaksi', 'history', 'unit', 'barang'));
     }
 }

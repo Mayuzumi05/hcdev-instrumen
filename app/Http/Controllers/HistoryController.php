@@ -12,7 +12,6 @@ use Illuminate\Http\Request;
 class HistoryController extends Controller
 {
     public function index(Request $request){
-        // $user = User::all();
         $id = auth()->user()->id;
         
         $userwithid = DB::table('users')
@@ -33,7 +32,6 @@ class HistoryController extends Controller
     public function fetchdetailhistory($id){
         $history = DB::table('history')
             ->join('unit', 'history.lokasi_awal', '=', 'unit.id')
-            // ->join('unit', 'history.lokasi_akhir', '=', 'unit.id')
             ->select('history.*', 'unit.nama_unit')
             ->where('history.kode_transaksi', $id)
             ->paginate(9)
