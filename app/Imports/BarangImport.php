@@ -21,17 +21,17 @@ class BarangImport implements ToModel, WithHeadingRow
     {
         return new Barang([
             //
-            'material_number' => $row['(CONTOH)1234567'],
-            'nama_barang' => $row['Differential Pressure Transmitter'],
-            'range_pengukuran' => $row['0-400'],
-            'satuan_pengukuran' => $row['MMH2O'],
-            'deskripsi' => $row['DIFFERENTIAL PRESSURE TRANSMITTER 0-400 MMH2O'],
-            'kondisi' => $row['Baru/Bekas'],
-            'merk' => $row['Yokogawa'],
-            'tipe' => $row['EJA110E'],
-            'jumlah_barang' => $row['1'],
-            'id_satuan_barang' => $row['1'],
-            'lokasi' => $row['3'],
+            'material_number' => $row['Material Number'],
+            'nama_barang' => $row['Nama Barang'],
+            'range_pengukuran' => $row['Range Pengukuran'],
+            'satuan_pengukuran' => $row['Satuan Pengukuran'],
+            'deskripsi' => $row['Deskripsi'],
+            'kondisi' => $row['Kondisi'],
+            'merk' => $row['Merk'],
+            'tipe' => $row['Tipe'],
+            'jumlah_barang' => $row['Jumlah Barang'],
+            'id_satuan_barang' => $row['Satuan'],
+            'lokasi' => auth()->user()->unit_bagian,
             'created_at' => 'datetime',
             'updated_at' => 'datetime',
         ]);
@@ -39,6 +39,6 @@ class BarangImport implements ToModel, WithHeadingRow
 
     public function headingRow(): int
     {
-        return 2;
+        return 1;
     }
 }

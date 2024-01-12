@@ -240,7 +240,7 @@
                             </tr>
                         </thead>
                         <tbody class="history-detail-{{ $t->id }}">
-                            <input type="text" name="transaksi_id" id="transaksi_id" value="{{ $t->id }}">
+                            <input type="hidden" name="transaksi_id" id="transaksi_id" value="{{ $t->id }}">
                             <tr>
                                 <td id="nama-barang"></td>
                                 <td id="jumlah-barang"></td>

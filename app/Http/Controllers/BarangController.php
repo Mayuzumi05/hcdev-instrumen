@@ -49,7 +49,7 @@ class BarangController extends Controller
             'tipe' => $request->tipe,
             'jumlah_barang' => $request->jumlah_barang,
             'id_satuan_barang' => $request->id_satuan_barang,
-            'lokasi' => $request->lokasi,
+            'lokasi' => auth()->user()->unit_bagian,
         ]);
 
         return redirect('/barang')->with('success', 'Data berhasil disimpan');

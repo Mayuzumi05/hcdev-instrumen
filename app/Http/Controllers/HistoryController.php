@@ -36,6 +36,7 @@ class HistoryController extends Controller
             // ->join('unit', 'history.lokasi_akhir', '=', 'unit.id')
             ->select('history.*', 'unit.nama_unit')
             ->where('history.kode_transaksi', $id)
+            ->paginate(9)
             ->get();
 
         // return response()->json([

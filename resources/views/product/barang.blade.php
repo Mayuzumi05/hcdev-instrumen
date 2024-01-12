@@ -227,121 +227,87 @@
         </div>
         @foreach ($barang as $b)
         <div class="modal fade" id="detailBarangModal{{ $b->id }}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-            <div class="modal-dialog" role="document">
+            <div class="modal-dialog modal-dialog-centered" role="document">
                 <div class="modal-content">
-                <div class="modal-body" style="padding:24px;">
-                    <div style="display:flex;justify-content:space-between;">
-                        <p class="h5" style="margin-bottom:0;line-height:24px;">Detail Data Barang</p>
-                        <img src="img/close-icon.svg" style="width:24px;cursor:pointer;" data-bs-dismiss="modal" aria-label="Close" alt="">
-                    </div>
-                    <div style="display:flex;justify-content:space-between;margin:16px 0 32px 0;">
-                        <div style="margin-right:48px">
-                            <div class="form-group">
-                                <label for="recipient-name" class="col-form-label">Material Number</label>
-                                <input type="text" class="form-control" name="material_number" value="{{ $b->material_number }}" id="recipient-name" disabled>
-                            </div>
-                            <div class="form-group">
-                                <label for="recipient-name" class="col-form-label">Nama Barang</label>
-                                <input type="text" class="form-control" name="nama_barang" value="{{ $b->nama_barang }}" id="recipient-name" disabled>
-                            </div>
-                            <div class="form-group">
-                                <label for="recipient-name" class="col-form-label">Range Pengukuran</label>
-                                <input type="text" class="form-control" name="range_pengukuran" value="{{ $b->range_pengukuran }}" id="recipient-name" disabled>
-                            </div>
-                            <div class="form-group">
-                                <label for="recipient-name" class="col-form-label">Satuan Pengukuran</label>
-                                <input type="text" class="form-control" name="satuan_pengukuran" value="{{ $b->satuan_pengukuran }}" id="recipient-name" disabled>
-                            </div>
-                            <div class="form-group">
-                                <label for="recipient-name" class="col-form-label">Kondisi</label>
-                                <input type="text" class="form-control" name="kondisi" value="{{ $b->kondisi }}" id="recipient-name" disabled>
-                            </div>
-                            <div class="form-group">
-                                <label for="recipient-name" class="col-form-label">Merk</label>
-                                <input type="text" class="form-control" name="merk" value="{{ $b->merk }}" id="recipient-name" disabled>
-                            </div>
-                            <div class="form-group">
-                                <label for="recipient-name" class="col-form-label">Tipe</label>
-                                <input type="text" class="form-control" name="tipe" value="{{ $b->tipe }}" id="recipient-name" disabled>
-                            </div>
+                    <div class="modal-body" style="padding:24px;">
+                        <div style="display:flex;justify-content:space-between;">
+                            <p class="h5" style="margin-bottom:0;line-height:24px;">Detail Data Barang</p>
+                            <img src="img/close-icon.svg" style="width:24px;cursor:pointer;" data-bs-dismiss="modal" aria-label="Close" alt="">
                         </div>
-                        <div>
-                            <div class="form-group">
-                                <label for="recipient-name" class="col-form-label">Deskripsi</label>
-                                <textarea class="form-control" name="deskripsi" value="{{ $b->deskripsi }}" id="message-text" disabled>{{ $b->deskripsi }}</textarea>
-                            </div>
-                            <div class="form-group">
-                                <label for="recipient-name" class="col-form-label">Jumlah Barang</label>
-                                <input type="text" class="form-control" name="jumlah_barang" value="{{ $b->jumlah_barang }}" id="recipient-name" disabled>
-                            </div>
-                            <div class="form-group">
-                                <label for="recipient-name" class="col-form-label">Satuan Barang</label>
-                                <input type="text" class="form-control" name="id_satuan_barang" value="{{ $b->id_satuan_barang }}" id="recipient-name" disabled>
-                            </div>
-                            <div class="form-group">
-                                <label for="recipient-name" class="col-form-label">Lokasi</label>
-                                <input type="text" class="form-control" name="lokasi" value="{{ $b->nama_unit }}" id="recipient-name" disabled>
-                            </div>
-                            <div class="form-group">
-                                <label for="recipient-name" class="col-form-label">Waktu Ditambahkan</label>
-                                <input type="text" class="form-control" name="lokasi" value="{{ $b->created_at }}" id="recipient-name" disabled>
-                            </div>
-                        </div>
-                    </div>
-                    <form action="{{ route('cart.store') }}" method="POST">
-                        @csrf
-                        @if ( $b->lokasi !== auth()->user()->unit_bagian)
-                        <p class="body-1">Tambahkan ke keranjang</p>
-                        <div style="display:flex;align-items:center;margin:16px 0 24px 0">
-                            <input type="hidden" name="barang_id" value="{{ $b->id }}">
-                            <input class="input-qty-req" type="number" value="1" name="quantity" min="1" max="{{ $b->jumlah_barang }}">
-                            <button type="submit" class="btn-simpan" style="height: fit-content;margin-left:16px;">Tambah</button>
-                        </div>
-                        @endif
-                        <!-- <div class="modal fade" id="simpanModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-                            <div class="modal-dialog modal-dialog-centered" role="document">
-                                <div class="modal-content">
-                                    <div style="display:flex;direction:rtl;">
-                                        <img src="img/close-icon.svg" style="width:24px;cursor:pointer;margin:24px 24px 0 0;" data-bs-dismiss="modal" aria-label="Close" alt="">
-                                    </div>
-                                    <img src="img/story-save.svg" style="width:240px;margin:48px auto;" alt="">
-                                    <p class="h6" style="margin:0 auto;">Apakah anda yakin ingin menyimpan perubahan?</p>
-                                    <div class="modal-foot" style="margin:16px;">
-                                        <button type="button" class="btn-kembali" data-bs-dismiss="modal">Kembali</button>
-                                        <button type="submit" class="btn-simpan">Simpan</button>
-                                    </div>
+                        <div style="display:flex;justify-content:space-between;margin:16px 0 32px 0;">
+                            <div style="margin-right:48px">
+                                <div class="form-group">
+                                    <label for="recipient-name" class="col-form-label">Material Number</label>
+                                    <input type="text" class="form-control" name="material_number" value="{{ $b->material_number }}" id="recipient-name" disabled>
+                                </div>
+                                <div class="form-group">
+                                    <label for="recipient-name" class="col-form-label">Nama Barang</label>
+                                    <input type="text" class="form-control" name="nama_barang" value="{{ $b->nama_barang }}" id="recipient-name" disabled>
+                                </div>
+                                <div class="form-group">
+                                    <label for="recipient-name" class="col-form-label">Range Pengukuran</label>
+                                    <input type="text" class="form-control" name="range_pengukuran" value="{{ $b->range_pengukuran }}" id="recipient-name" disabled>
+                                </div>
+                                <div class="form-group">
+                                    <label for="recipient-name" class="col-form-label">Satuan Pengukuran</label>
+                                    <input type="text" class="form-control" name="satuan_pengukuran" value="{{ $b->satuan_pengukuran }}" id="recipient-name" disabled>
+                                </div>
+                                <div class="form-group">
+                                    <label for="recipient-name" class="col-form-label">Kondisi</label>
+                                    <input type="text" class="form-control" name="kondisi" value="{{ $b->kondisi }}" id="recipient-name" disabled>
+                                </div>
+                                <div class="form-group">
+                                    <label for="recipient-name" class="col-form-label">Merk</label>
+                                    <input type="text" class="form-control" name="merk" value="{{ $b->merk }}" id="recipient-name" disabled>
+                                </div>
+                                <div class="form-group">
+                                    <label for="recipient-name" class="col-form-label">Tipe</label>
+                                    <input type="text" class="form-control" name="tipe" value="{{ $b->tipe }}" id="recipient-name" disabled>
                                 </div>
                             </div>
-                        </div> -->
-                    </form>
-                    <!-- <table class="table">
-                        <thead>
-                            <tr style="background:#4abdac;">
-                                <th scope="col">Unit Penempatan</th>
-                                <th scope="col">Barang Tersedia/Spare</th>
-                                <th scope="col">Jumlah Barang</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td scope="row">Shop</td>
-                                <td>6</td>
-                                <td>6</td>
-                            </tr>
-                            <tr>
-                                <td scope="row">ZA II</td>
-                                <td>2</td>
-                                <td>9</td>
-                            </tr>
-                        </tbody>
-                    </table> -->
-                </div>
+                            <div>
+                                <div class="form-group">
+                                    <label for="recipient-name" class="col-form-label">Deskripsi</label>
+                                    <textarea class="form-control" name="deskripsi" value="{{ $b->deskripsi }}" id="message-text" disabled>{{ $b->deskripsi }}</textarea>
+                                </div>
+                                <div class="form-group">
+                                    <label for="recipient-name" class="col-form-label">Jumlah Barang</label>
+                                    <input type="text" class="form-control" name="jumlah_barang" value="{{ $b->jumlah_barang }}" id="recipient-name" disabled>
+                                </div>
+                                <div class="form-group">
+                                    <label for="recipient-name" class="col-form-label">Satuan Barang</label>
+                                    <input type="text" class="form-control" name="id_satuan_barang" value="{{ $b->id_satuan_barang }}" id="recipient-name" disabled>
+                                </div>
+                                <div class="form-group">
+                                    <label for="recipient-name" class="col-form-label">Lokasi</label>
+                                    <input type="text" class="form-control" name="lokasi" value="{{ $b->nama_unit }}" id="recipient-name" disabled>
+                                </div>
+                                <div class="form-group">
+                                    <label for="recipient-name" class="col-form-label">Waktu Ditambahkan</label>
+                                    <input type="text" class="form-control" name="lokasi" value="{{ $b->created_at }}" id="recipient-name" disabled>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer justify-content-between">
+                        <form action="{{ route('cart.store') }}" method="POST" style="display:flex;justify-content:space-between;width:100%;align-items:center;">
+                            @csrf
+                            @if ( $b->lokasi !== auth()->user()->unit_bagian)
+                            <p class="body-2">Tambahkan ke keranjang</p>
+                            <div>
+                                <input type="hidden" name="barang_id" value="{{ $b->id }}">
+                                <input class="input-qty-req" type="number" value="1" name="quantity" min="1" max="{{ $b->jumlah_barang }}">
+                                <button type="submit" class="btn-simpan" style="height: fit-content;margin-left:8px;">Tambah</button>
+                            </div>
+                            @endif
+                        </form>
+                    </div>
                 </div>
             </div>
         </div>
         @endforeach
         <div class="modal fade" id="pilihInputModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">    
-            <div class="modal-dialog" role="document">
+            <div class="modal-dialog modal-dialog-centered" role="document">
                 <div class="modal-content">
                 <div class="modal-body" style="padding:24px;">
                     <div style="display:flex;justify-content:space-between;">
@@ -349,7 +315,7 @@
                         <img src="img/close-icon.svg" style="width:24px;cursor:pointer;" data-bs-dismiss="modal" aria-label="Close" alt="">
                     </div>
                     <div style="display:flex;margin-top:16px;">
-                        <div class="input-satuan" data-bs-toggle="modal" data-bs-target="#tambahBarangModal">
+                        <div class="input-satuan" data-bs-toggle="modal" data-bs-target="#tambahBarangModal{{ $item->id }}">
                             <div style="width:32px;margin:0 auto 8px auto;">
                                 <img src="img/icon_plus.svg" alt="">
                             </div>
@@ -366,8 +332,9 @@
                 </div>
             </div>
         </div>
-        <div class="modal fade" id="tambahBarangModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-            <div class="modal-dialog" role="document">
+        @foreach ($barang as $item)
+        <div class="modal fade" id="tambahBarangModal{{ $item->id }}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered" role="document">
                 <div class="modal-content">
                 <div class="modal-body" style="padding:24px;">
                     <form  method="POST" action="/barang/store">
@@ -422,7 +389,7 @@
                                 </div>
                                 <div class="form-group">
                                     <label for="recipient-name" class="col-form-label">Lokasi</label>
-                                    <input type="text" class="form-control" name="lokasi" id="recipient-name">
+                                    <input type="text" class="form-control" name="lokasi" id="recipient-name" value="{{$item->nama_unit}}" disabled>
                                 </div>
                             </div>
                         </div>
@@ -435,8 +402,9 @@
                 </div>
             </div>
         </div>
+        @endforeach
         <div class="modal fade" id="importExcelModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">    
-            <div class="modal-dialog" role="document">
+            <div class="modal-dialog modal-dialog-centered" role="document">
                 <div class="modal-content">
                     <div class="modal-body" style="padding:24px;">
                         <div style="display:flex;justify-content:space-between;">
@@ -463,7 +431,7 @@
         </div>
         @foreach ($barang as $c)
         <div class="modal fade" id="editBarangModal{{ $c->id }}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-            <div class="modal-dialog" role="document">
+            <div class="modal-dialog modal-dialog-centered" role="document">
                 <div class="modal-content">
                 <div class="modal-body" style="padding:24px;">
                     <div style="display:flex;justify-content:space-between;">
@@ -515,6 +483,10 @@
                                 <div class="form-group">
                                     <label for="recipient-name" class="col-form-label">Tipe</label>
                                     <input type="text" class="form-control" name="tipe" value="{{ $c->tipe }}" id="recipient-name">
+                                </div>
+                                <div class="form-group">
+                                    <label for="recipient-name" class="col-form-label">Lokasi</label>
+                                    <input type="text" class="form-control" name="tipe" value="{{ $c->nama_unit }}" id="recipient-name" disabled>
                                 </div>
                                 <!-- <div class="form-group">
                                     <label for="recipient-name" class="col-form-label">Waktu Ditambahkan</label>
