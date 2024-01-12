@@ -211,7 +211,7 @@
             <p class="body-2" style="margin:32px 0 0 0;text-align: center;color:#777986;">Copyright @Petrokimia Gresik 2023. All Rights Reserved.</p>
         </div>
         <div class="modal fade" id="ubahKataSandiModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-            <div class="modal-dialog" role="document">
+            <div class="modal-dialog modal-dialog-centered" role="document">
                 <div class="modal-content">
                 <div class="modal-body">
                     <div style="display:flex;justify-content:space-between;margin:16px 0 16px 0">
@@ -242,7 +242,7 @@
             </div>
         </div>
         <div class="modal fade" id="ubahDetailAkunModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-            <div class="modal-dialog" role="document">
+            <div class="modal-dialog modal-dialog-centered" role="document">
                 <div class="modal-content">
                 <div class="modal-body">
                     <div style="display:flex;justify-content:space-between;margin:16px 0 16px 0">
