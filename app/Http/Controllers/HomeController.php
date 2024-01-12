@@ -42,4 +42,14 @@ class HomeController extends Controller
         // dd($user);
         return view('product.home', compact('user', 'transaksi', 'history', 'unit', 'barang'));
     }
+
+    public function fetchdetailhistory($id){
+        $history = DB::table('history')
+            ->join('unit', 'history.lokasi_awal', '=', 'unit.id')
+            ->select('history.*', 'unit.nama_unit')
+            ->where('history.kode_transaksi', $id)
+            ->get();
+
+        return response()->json($history);
+    }
 }

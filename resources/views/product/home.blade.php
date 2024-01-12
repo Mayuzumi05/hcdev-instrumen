@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Instrumen III</title>
     <link rel="stylesheet" type="text/css" href="css/app.css" />
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.3.0/css/all.min.css">
     <link href="https://unpkg.com/boxicons@2.1.2/css/boxicons.min.css" rel="stylesheet"/>
@@ -209,7 +210,7 @@
                     <tbody id="history-table" style="cursor:pointer;">
                         <?php $no = 1; ?>
                         @foreach ($transaksi as $item)
-                        <tr data-bs-toggle="modal" data-bs-target="#detailRiwayatModal{{ $item->id }}">
+                        <tr data-bs-toggle="modal" data-bs-target="#detailRiwayatModal{{ $item->id }}" class="transaksi-modal" data-id="{{ $item->id }}" data-url="{{ route('fetchhome', $item->id) }}">
                             <td>
                                 <input type="checkbox" name="check-tbl">
                             </td>
@@ -226,7 +227,7 @@
         </div>
         @foreach ($transaksi as $t)
         <div class="modal fade" id="detailRiwayatModal{{ $t->id }}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-            <div class="modal-dialog" role="document">
+            <div class="modal-dialog modal-dialog-centered" role="document">
                 <div class="modal-content">
                 <div class="modal-body" style="padding:24px;">
                     <div style="display:flex;justify-content:space-between;">
@@ -259,15 +260,13 @@
                                 <th scope="col">Unit Pemilik</th>
                             </tr>
                         </thead>
-                        <tbody>
-                            <input type="text" name="transaksi_id" value="{{ $t->id }}">
-                            @foreach ($history as $h) 
+                        <tbody class="history-detail-{{ $t->id }}">
+                            <input type="hidden" name="transaksi_id" id="transaksi_id" value="{{ $t->id }}">
                             <tr>
-                                <td scope="row" style="max-width: 32ch;overflow: hidden;text-overflow: ellipsis;white-space: nowrap;">{{ $h->nama_barang }}</td>
-                                <td>{{ $h->jumlah_barang }}</td>
-                                <td>{{ $h->nama_unit }}</td>
+                                <td id="nama-barang"></td>
+                                <td id="jumlah-barang"></td>
+                                <td id="unit-pemilik"></td>
                             </tr>
-                            @endforeach
                         </tbody>
                     </table>
                 </div>
@@ -386,6 +385,49 @@
         }
         // Menambahkan event listener untuk tombol
         document.getElementById('sudah-dibaca').addEventListener('click', ubahKelas);
-  </script>
+    </script>
+    <script>
+        $(document).ready(function (){
+
+            $('.transaksi-modal').click(function () {
+                // var kodeTransaksi = document.getElementById("#transaksi_id").value;
+
+                // console.log(kodeTransaksi); 
+
+                
+                var kodeTransaksi = $(this).data('id');
+
+                console.log(kodeTransaksi)
+                $('#detailRiwayatModal' + kodeTransaksi).modal('show');
+                
+                // $.get(kodeTransaksi, function(data){
+                //     $('#nama-barang').text(data.nama_barang);
+                //     $('#jumlah-barang').text(data.jumlah_barang);
+                //     $('#unit-pemilik').text(data.nama_unit);
+                // })
+
+                $.ajax({
+                    type: "GET",
+                    url: "/home/" + kodeTransaksi,
+                    dataType: "json",
+                    success: function (response) {
+                        $('.history-detail-' + kodeTransaksi).html("");
+                        var listElement = ""
+                        $.each(response, function (key, item) {
+                            listElement += `
+                                <tr>
+                                    <td>${item.nama_barang}</td>
+                                    <td>${item.jumlah_barang}</td>
+                                    <td>${item.nama_unit}</td>
+                                </tr>
+                            `
+                        });  
+                        $('.history-detail-' + kodeTransaksi).append(listElement);
+                    }
+                });
+
+            });
+        });
+    </script>
 </body>
 </html>

@@ -41,6 +41,7 @@ Route::group(['middleware' => ['auth', 'cekunit:0']], function () {
     //User
     // Route::get('/home', [Controller::class, 'home'])->name('home');
     Route::get('/home', [HomeController::class, 'index'])->name('home');
+    Route::get('/home/{id}', [HomeController::class, 'fetchdetailhistory'])->name('fetchhome');
     Route::get('/user', [UserController::class, 'index'])->name('user'); 
     Route::post('/setting/update/{id}', [SettingController::class, 'update'])->name('update');
     Route::post('/setting/updatepassword/{id}', [SettingController::class, 'updatepassword'])->name('update');
