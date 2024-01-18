@@ -147,9 +147,45 @@
         </nav>
         <div class="konten">
             <p class="h5" style="color:#489742;">Notifikasi</p>
-            <div style="display:flex;justify-content:space-between;color:#777986;">
+            <div style="display:flex;justify-content:space-between;color:#777986;margin-bottom:40px">
                 <p class="body-1">Lihat semua notifikasi yang masuk ke akun anda</p>
                 <p class="body-1">Notifikasi</p>
+            </div>
+            <div style="display:flex;">
+                <p class="body-2" style="color:#777986;margin:auto 0;">18 Sep 2022</p>
+                <div style="display:flex;width:64px;position:relative;">
+                    <div class="vertical-line"></div>
+                    <div class="circle-border"></div>
+                </div>
+                <div class="isi-notifikasi">
+                    <span class="circle-solid"></span>
+                    <div style="margin:auto 0;">
+                        <div style="display:flex;margin-bottom:4px;">
+                            <p class="body-2" style="color:#404252;margin-right:2px;">Himawan Alan Novianto</p>
+                            <p class="body-2" style="color:#B3B5BD;margin-right:2px;">ingin bergabung ke</p>
+                            <a class="body-2" style="color:#31C453;text-decoration:none;" href="user">Data Pengguna</a>
+                        </div>
+                        <p class="body-2" style="color:#B3B5BD;">5 menit yang lalu</p>
+                    </div>
+                </div>
+            </div>
+            <div style="display:flex;">
+                <p class="body-2" style="color:#777986;margin:auto 0;">18 Sep 2022</p>
+                <div style="display:flex;width:64px;position:relative;">
+                    <div class="vertical-line"></div>
+                    <div class="circle-border"></div>
+                </div>
+                <div class="isi-notifikasi">
+                    <span class="circle-solid"></span>
+                    <div style="margin:auto 0;">
+                        <div style="display:flex;margin-bottom:4px;">
+                            <p class="body-2" style="color:#404252;margin-right:2px;">Himawan Alan Novianto</p>
+                            <p class="body-2" style="color:#B3B5BD;margin-right:2px;">ingin bergabung ke</p>
+                            <a class="body-2" style="color:#31C453;text-decoration:none;" href="user">Data Pengguna</a>
+                        </div>
+                        <p class="body-2" style="color:#B3B5BD;">5 menit yang lalu</p>
+                    </div>
+                </div>
             </div>
             <p class="body-2" style="margin:32px 0 0 0;text-align: center;color:#777986;">Copyright @Petrokimia Gresik 2023. All Rights Reserved.</p>
         </div>

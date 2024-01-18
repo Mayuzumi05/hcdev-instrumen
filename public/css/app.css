@@ -724,6 +724,51 @@ input:focus{
   letter-spacing: 0.25px;
   margin: 0;
 }
+
+.vertical-line {
+  width: 1px;
+  height: 100%;
+  background-color: #D5DBE1;
+  margin: 0 auto;
+  /* position: absolute;
+  left: 50%; */
+}
+
+.circle-border {
+  height: 16px;
+  width: 16px;
+  background-color: #fff;
+  border-radius: 50%;
+  border-style: solid;
+  border-color: #489742;
+  border-width: 1px;
+  display: inline-block;
+  position:absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.circle-solid {
+  height: 16px;
+  width: 16px;
+  border-radius: 50%;
+  display: inline-block;
+  background-color:#489742;
+  margin: auto 24px;
+}
+
+.isi-notifikasi {
+  height:100px;
+  width: 100%;
+  background-color: #fff;
+  border-style: solid;
+  border-color: #E3E5EB;
+  border-width: 1px;
+  border-radius: 8px;
+  display: flex;
+}
+
 /* .plus, .minus{
   -webkit-user-select: none;
   -moz-user-select: none;
