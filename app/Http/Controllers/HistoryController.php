@@ -24,7 +24,7 @@ class HistoryController extends Controller
             ->join('unit', 'transaksi.lokasi_akhir', '=', 'unit.id')
             ->select('transaksi.*', 'unit.nama_unit')
             ->latest()
-            ->get();
+            ->paginate(9);
 
         return view('product.history', compact('userwithid', 'transaksi'));
     }
@@ -34,7 +34,6 @@ class HistoryController extends Controller
             ->join('unit', 'history.lokasi_awal', '=', 'unit.id')
             ->select('history.*', 'unit.nama_unit')
             ->where('history.kode_transaksi', $id)
-            ->paginate(9)
             ->get();
 
         // return response()->json([
