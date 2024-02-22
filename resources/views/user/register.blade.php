@@ -42,7 +42,7 @@
                             </select>
                         </div>
                         <p class="body-1" style="color:#404252;margin:16px 0 8px 0;">Nama Pengguna</p>
-                        <input type="text" class="nama-pengguna" name="username" placeholder="Masukkan NIK anda">
+                        <input type="text" class="nama-pengguna" name="username" placeholder="Masukkan username anda">
                         <p class="body-1" style="color:#404252;margin:16px 0 8px 0;">Kata Sandi</p>
                         <input type="password" class="nama-pengguna" name="password" placeholder="Masukkan kata sandi anda" id="myInput">
                         <div style="display:flex;margin:8px 0px 0px 16px;">
