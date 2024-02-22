@@ -166,33 +166,28 @@
                             <p class="body-2">Filter</p>
                             <img src="img/filter.svg" style="height:24px;width:24px;" alt="">
                         </button>
-                        <ul class="dropdown-menu">
-                            <li style="padding:8px 16px;">
-                                <div style="display:flex;justify-content:space-between;align-items:center;">
-                                    <p class="body-2">Unit Penempatan</p>
-                                    <select class="form-select" id="inlineFormSelectPref" name="unit_bagian" style="width:240px;">
-                                        <option value="{{$item->id}}">Semua Unit</option>
-                                            @foreach ($unit as $unit_item)
-                                            <option value="{{$unit_item->id}}" selected="{{isset($_GET['unit_bagian']) && $_GET['gender'] == '$unit_item->id' }}">{{$unit_item->nama_unit}}</option>
-                                            @endforeach
-                                    </select>
-                                </div>
-                            </li>
-                            <li><hr class="dropdown-divider"></li>
-                            <li style="padding:8px 16px;">
-                                <div style="display:flex;">
-                                    <img src="img/persona-1.svg" style="width:40px;height:40px;border-radius:300px;" alt="">
-                                    <div>
-                                        <p class="body-2" style="margin-left:16px;">
-                                            <span style="color:#404252;">Bambang Sugeni</span>
-                                            <span style="color:#777986;">telah ditambahkan ke</span>
-                                            <a style="color:#1B954C;text-decoration:none;" href="user">Data Pengguna</a>
-                                        </p>
-                                        <p class="caption" style="color:#777986;margin:4px 0 0 16px;" >1 hari yang lalu</p>
+                        <form action="" method="GET">
+                            @csrf
+                            <ul class="dropdown-menu">
+                                <li style="padding:8px 16px;">
+                                    <div style="display:flex;justify-content:space-between;align-items:center;">
+                                        <p class="body-2">Unit Penempatan</p>
+                                        <select class="form-select" id="inlineFormSelectPref" name="lokasi" style="width:240px;">
+                                            <option value="">Semua Unit</option>
+                                                @foreach ($unit as $unit_item)
+                                                <option value="{{$unit_item->id}}">{{$unit_item->nama_unit}}</option>
+                                                @endforeach
+                                        </select>
                                     </div>
-                                </div>
-                            </li>
-                        </ul>
+                                </li>
+                                <li><hr class="dropdown-divider"></li>
+                                <li style="padding:0px 16px;">
+                                    <div style="display:flex;direction:rtl;">
+                                        <button type="submit" class="btn-simpan">Simpan</button>
+                                    </div>
+                                </li>
+                            </ul>
+                        </form>
                     </div>
                     <div style="display:flex">
                         <a href="{{ route('exportbarang') }}" style="text-decoration:none;">

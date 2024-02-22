@@ -16,14 +16,24 @@ use Illuminate\View\View;
 
 class BarangController extends Controller
 {
-    public function index(){
+    public function index(Request $request){
         // $barang = Barang::with('unit')->latest()->paginate(5);
         $id = auth()->user()->id;
-        $barang = DB::table('barang')
+        
+        if($request->get('lokasi')){
+            $barang = DB::table('barang')
+            ->join('unit', 'barang.lokasi', '=', 'unit.id')
+            ->select('barang.*', 'unit.nama_unit')
+            ->where('lokasi', 'LIKE', '%'.$request->get('lokasi').'%')
+            ->latest()
+            ->paginate(9);
+        } else {
+            $barang = DB::table('barang')
             ->join('unit', 'barang.lokasi', '=', 'unit.id')
             ->select('barang.*', 'unit.nama_unit')
             ->latest()
             ->paginate(9);
+        }
 
         $user = DB::table('users')
             ->join('unit', 'users.unit_bagian', '=', 'unit.id')
@@ -32,6 +42,10 @@ class BarangController extends Controller
             ->get();
 
         $unit = Unit::all();
+
+        // $barang->when($request->lokasi, function ($query) use ($request){
+        //     return $query->where('lokasi', 'like', '%'.$request->lokasi.'%');
+        // });
         
         return view('product.barang', compact('barang', 'user', 'unit'));
     }
