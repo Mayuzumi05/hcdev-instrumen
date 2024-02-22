@@ -6,6 +6,7 @@ use App\Models\Barang;
 use App\Models\History;
 use App\Models\Transaksi;
 use App\Models\User;
+use App\Models\Notification;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
@@ -44,6 +45,7 @@ class CartController extends Controller
         $id = auth()->user()->id; // or any string represents user identifier
         $lokasi = auth()->user()->id;
         $keranjang = \Cart::session($id)->getContent('id');
+        $penerima = array();
 
         $kode_transaksi = Transaksi::create([
             'jumlah_barang' => $keranjang->count(),
@@ -64,6 +66,8 @@ class CartController extends Controller
                 'id_satuan_barang' => $item->associatedModel->id_satuan_barang,
                 'lokasi' => auth()->user()->unit_bagian,
             ]);
+
+            array_push($penerima, $item->associatedModel->lokasi);
 
             Barang::where('id', $item->id)
             ->where('id', $item->id)
@@ -86,6 +90,36 @@ class CartController extends Controller
                 'lokasi_akhir' => auth()->user()->unit_bagian,
                 'kode_transaksi' => $kode_transaksi->id,
             ]);
+        }
+
+        $penerima = array_unique($penerima);
+        // dd($penerima);
+
+        Notification::create([
+            'id_tipe' => 2,
+            'id_pengirim' => auth()->user()->id,
+            'id_unit_pengirim' => auth()->user()->unit_bagian,
+            'id_penerima' => auth()->user()->id,
+            'id_unit_penerima' => auth()->user()->unit_bagian,
+            'id_transaksi' => $kode_transaksi->id,
+            'is_read' => 0,
+        ]);
+
+        foreach ($penerima as $id_lokasi) {
+            $user = DB::table('users')
+                ->where('users.unit_bagian', $id_lokasi)
+                ->get();
+            foreach ($user as $id_user) {
+                Notification::create([
+                    'id_tipe' => 1,
+                    'id_pengirim' => auth()->user()->id,
+                    'id_unit_pengirim' => auth()->user()->unit_bagian,
+                    'id_penerima' => $id_user->id,
+                    'id_unit_penerima' => $id_lokasi,
+                    'id_transaksi' => $kode_transaksi->id,
+                    'is_read' => 0,
+                ]);   
+            }
         }
 
         \Cart::session($id)->clear();

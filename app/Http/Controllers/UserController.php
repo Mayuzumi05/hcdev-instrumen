@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Auth;
 use App\Models\User;
 use App\Models\Unit;
+use App\Models\Notification;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
@@ -50,7 +51,7 @@ class UserController extends Controller
 
     public function saveregister(Request $request) {
 
-        User::create([
+        $data_user = User::create([
             'name' => $request->name,
             'NIK' => $request->NIK,
             'no_telepon' => $request->no_telepon,
@@ -62,6 +63,18 @@ class UserController extends Controller
             'remember_token' => Str::random(60),
         ]);
 
+        // dd($data_user);
+
+        Notification::create([
+            'id_tipe' => 3,
+            'id_pengirim' => $data_user->id,
+            'id_unit_pengirim' => $data_user->unit_bagian,
+            'id_penerima' => 1,
+            'id_unit_penerima' => 8,
+            'id_transaksi' => 1,
+            'is_read' => 0,
+        ]);
+
         return redirect('/login')->with('success', 'Data berhasil disimpan');
     }
 
@@ -71,6 +84,12 @@ class UserController extends Controller
             ->where('id', $id)
                 ->update([
                     'status' => 0,
+                ]);
+        
+        Notification::where('id_pengirim', $id)
+            ->where('id_pengirim', $id)
+                ->update([
+                    'id_transaksi' => 0,
                 ]);
         
         return redirect('/user')->with('success', 'Data Berhasil Diubah');
@@ -86,21 +105,6 @@ class UserController extends Controller
         
         return redirect('/user')->with('success', 'Data Berhasil Diubah');
     }
-
-    // public function update(Request $request, $id) {
-        
-    //     User::where('id', $id)->where('id', $id)->update([
-    //         'name' => $request->name,
-    //         'NIK' => $request->NIK,
-    //         'no_telepon' => $request->no_telepon,
-    //         'email' => $request->email,
-    //         'unit_bagian' => $request->unit_bagian,
-    //         'username' => $request->username,
-    //     ]);
-
-    //     return redirect('/setting')->with('success', 'Data berhasil diubah');
-
-    // }
 
     public function destroy($id) {
         

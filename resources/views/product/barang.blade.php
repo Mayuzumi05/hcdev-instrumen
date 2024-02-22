@@ -162,10 +162,37 @@
                     <div style="display:flex;">
                         <img class="img-search" src="img/Search.svg" alt="">
                         <input id="search-bar" type="text" placeholder="Pencarian">
-                        <button class="btn-filter" style="margin-left:16px;display:flex;">
+                        <button class="btn-filter" style="margin-left:16px;display:flex;" data-bs-toggle="dropdown" aria-expanded="false" alt="">
                             <p class="body-2">Filter</p>
                             <img src="img/filter.svg" style="height:24px;width:24px;" alt="">
                         </button>
+                        <ul class="dropdown-menu">
+                            <li style="padding:8px 16px;">
+                                <div style="display:flex;justify-content:space-between;align-items:center;">
+                                    <p class="body-2">Unit Penempatan</p>
+                                    <select class="form-select" id="inlineFormSelectPref" name="unit_bagian" style="width:240px;">
+                                        <option value="{{$item->id}}">Semua Unit</option>
+                                            @foreach ($unit as $unit_item)
+                                            <option value="{{$unit_item->id}}" selected="{{isset($_GET['unit_bagian']) && $_GET['gender'] == '$unit_item->id' }}">{{$unit_item->nama_unit}}</option>
+                                            @endforeach
+                                    </select>
+                                </div>
+                            </li>
+                            <li><hr class="dropdown-divider"></li>
+                            <li style="padding:8px 16px;">
+                                <div style="display:flex;">
+                                    <img src="img/persona-1.svg" style="width:40px;height:40px;border-radius:300px;" alt="">
+                                    <div>
+                                        <p class="body-2" style="margin-left:16px;">
+                                            <span style="color:#404252;">Bambang Sugeni</span>
+                                            <span style="color:#777986;">telah ditambahkan ke</span>
+                                            <a style="color:#1B954C;text-decoration:none;" href="user">Data Pengguna</a>
+                                        </p>
+                                        <p class="caption" style="color:#777986;margin:4px 0 0 16px;" >1 hari yang lalu</p>
+                                    </div>
+                                </div>
+                            </li>
+                        </ul>
                     </div>
                     <div style="display:flex">
                         <a href="{{ route('exportbarang') }}" style="text-decoration:none;">
@@ -267,8 +294,10 @@
                             </div>
                             <div>
                                 <div class="form-group">
-                                    <label for="recipient-name" class="col-form-label">Deskripsi</label>
-                                    <textarea class="form-control" name="deskripsi" value="{{ $b->deskripsi }}" id="message-text" disabled>{{ $b->deskripsi }}</textarea>
+                                    <label for="recipient-name" class="col-form-label">Deskripsi</label>    
+                                    <div class="textbox" contenteditable="true" disabled="true">
+                                        {{ $b->deskripsi }}
+                                    </div>
                                 </div>
                                 <div class="form-group">
                                     <label for="recipient-name" class="col-form-label">Jumlah Barang</label>
@@ -387,10 +416,12 @@
                                     <label for="recipient-name" class="col-form-label">Satuan Barang</label>
                                     <input type="text" class="form-control" name="id_satuan_barang" id="recipient-name">
                                 </div>
+                                @foreach ($user as $items)
                                 <div class="form-group">
                                     <label for="recipient-name" class="col-form-label">Lokasi</label>
-                                    <input type="text" class="form-control" name="lokasi" id="recipient-name" value="{{$item->nama_unit}}" disabled>
+                                    <input type="text" class="form-control" name="lokasi" id="recipient-name" value="{{$items->nama_unit}}" disabled>
                                 </div>
+                                @endforeach
                             </div>
                         </div>
                         <div style="margin:24px 0 8px 0;display:flex;direction:rtl;">

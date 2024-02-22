@@ -55,6 +55,7 @@ Route::group(['middleware' => ['auth', 'cekunit:0']], function () {
     Route::get('/fetchdetailhistory/{id}', [HistoryController::class, 'fetchdetailhistory'])->name('fetchdetail');
 
     Route::get('/notification', [NotificationController::class, 'index'])->name('product.notification');
+    Route::get('/notification/{id}', [NotificationController::class, 'changestatus']);
 
     Route::get('/setting', [SettingController::class, 'setting'])->name('setting');
 

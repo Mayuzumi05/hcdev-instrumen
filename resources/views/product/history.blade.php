@@ -293,21 +293,11 @@
         $(document).ready(function (){
 
             $('.transaksi-modal').click(function () {
-                // var kodeTransaksi = document.getElementById("#transaksi_id").value;
-
-                // console.log(kodeTransaksi); 
-
                 
                 var kodeTransaksi = $(this).data('id');
 
                 console.log(kodeTransaksi)
                 $('#detailRiwayatModal' + kodeTransaksi).modal('show');
-                
-                // $.get(kodeTransaksi, function(data){
-                //     $('#nama-barang').text(data.nama_barang);
-                //     $('#jumlah-barang').text(data.jumlah_barang);
-                //     $('#unit-pemilik').text(data.nama_unit);
-                // })
 
                 $.ajax({
                     type: "GET",

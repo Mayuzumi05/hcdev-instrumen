@@ -17,6 +17,7 @@ class Notification extends Model
         'id_unit_pengirim',
         'id_penerima',
         'id_unit_penerima',
+        'id_transaksi',
         'is_read',
     ];
 

@@ -18,6 +18,7 @@ return new class extends Migration
             $table->integer('id_unit_pengirim');
             $table->integer('id_penerima');
             $table->integer('id_unit_penerima');
+            $table->integer('id_transaksi');
             $table->boolean('is_read');
             $table->timestamps();
         });
