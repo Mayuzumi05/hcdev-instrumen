@@ -159,36 +159,20 @@
             <div class="section" style="padding:24px 40px;margin:40px 0;">
                 <!-- <p class="h5" style="color:#489742;">Data Barang</p> -->
                 <div style="display:flex;margin-bottom:24px;justify-content:space-between;">
-                    <div style="display:flex;">
-                        <img class="img-search" src="img/Search.svg" alt="">
-                        <input id="search-bar" type="text" placeholder="Pencarian">
-                        <button class="btn-filter" style="margin-left:16px;display:flex;" data-bs-toggle="dropdown" aria-expanded="false" alt="">
-                            <p class="body-2">Filter</p>
-                            <img src="img/filter.svg" style="height:24px;width:24px;" alt="">
-                        </button>
-                        <form action="" method="GET">
+                    <form action="" method="GET">
+                        <div style="display:flex;">
                             @csrf
-                            <ul class="dropdown-menu">
-                                <li style="padding:8px 16px;">
-                                    <div style="display:flex;justify-content:space-between;align-items:center;">
-                                        <p class="body-2">Unit Penempatan</p>
-                                        <select class="form-select" id="inlineFormSelectPref" name="lokasi" style="width:240px;">
-                                            <option value="">Semua Unit</option>
-                                                @foreach ($unit as $unit_item)
-                                                <option value="{{$unit_item->id}}">{{$unit_item->nama_unit}}</option>
-                                                @endforeach
-                                        </select>
-                                    </div>
-                                </li>
-                                <li><hr class="dropdown-divider"></li>
-                                <li style="padding:0px 16px;">
-                                    <div style="display:flex;direction:rtl;">
-                                        <button type="submit" class="btn-simpan">Simpan</button>
-                                    </div>
-                                </li>
-                            </ul>
-                        </form>
-                    </div>
+                            <img class="img-search" src="img/Search.svg" alt="">
+                            <input id="search-bar" type="text" placeholder="Pencarian" name="name">
+                            <select class="form-select" id="inlineFormSelectPref" name="lokasi" style="width:240px;">
+                                <option value="">Semua Unit</option>
+                                    @foreach ($unit as $unit_item)
+                                    <option value="{{$unit_item->id}}">{{$unit_item->nama_unit}}</option>
+                                    @endforeach
+                            </select>
+                            <button type="submit" class="btn-simpan">Cari</button>
+                        </div>
+                    </form>
                     <div style="display:flex">
                         <a href="{{ route('exportbarang') }}" style="text-decoration:none;">
                             <button class="btn-tambah-data">
@@ -202,48 +186,61 @@
                         </button>
                     </div>
                 </div>
-                <table class="table table-hover">
-                    <thead>
-                        <tr style="background:#4abdac;">
-                            <th scope="col">
-                                <input type="checkbox" onclick="toggle(this);">
-                            </th>
-                            <th scope="col">No.</th>
-                            <th scope="col">Material Number</th>
-                            <th scope="col">Nama Barang</th>
-                            <th scope="col">Deskripsi</th>
-                            <th scope="col">Jumlah</th>
-                            <th scope="col">Lokasi</th>
-                            <th scope="col">Aksi</th>
-                        </tr>
-                    </thead>
-                    <tbody id="barang-table" style="cursor:pointer;">
-                        <?php $no = ($barang->currentpage()-1)* $barang->perpage() + 1;?>
-                        @foreach ($barang as $item)
-                        <tr data-bs-toggle="modal" data-bs-target="#detailBarangModal{{ $item->id }}">
-                            <td>
-                                <input type="checkbox" name="check-tbl">
-                            </td>
-                            <td scope="row">{{ $no ++ }}</td>
-                            <td>{{ $item->material_number }}</td>
-                            <td>{{ $item->nama_barang }}</td>
-                            <td>{{ $item->deskripsi }}</td>
-                            <td>{{ $item->jumlah_barang }}</td>
-                            <td>{{ $item->nama_unit }}</td>
-                            <td>
-                                <img src="img/view-icon.svg" style="cursor:pointer;" alt="">
-                                @if (auth()->user()->unit_bagian == $item->lokasi)
-                                <img src="img/edit-icon.svg" style="cursor:pointer;" data-bs-toggle="modal" data-bs-target="#editBarangModal{{ $item->id }}" alt="">
-                                <img src="img/delete-icon.svg" style="cursor:pointer;" data-bs-toggle="modal" data-bs-target="#hapusModal{{ $item->id }}" alt="">
-                                @endif
-                            </td>
-                        </tr>
-                        @endforeach
-                    </tbody>
-                </table>
-                <div>
-                    {!! $barang->withQueryString()->links('pagination::bootstrap-5') !!}
+                <div class="card-body table-responsive">
+                    <table class="table table-hover" style="margin-bottom:0px;">
+                        <thead>
+                            <tr style="background:#4abdac;">
+                                <!-- <th scope="col">
+                                    <input type="checkbox" onclick="toggle(this);">
+                                </th> -->
+                                <th scope="col">No.</th>
+                                <th scope="col">Material Number</th>
+                                <th scope="col">Nama Barang</th>
+                                <th scope="col">Deskripsi</th>
+                                <th scope="col">Jumlah</th>
+                                <th scope="col">Lokasi</th>
+                                <th scope="col">Aksi</th>
+                            </tr>
+                        </thead>
+                        <tbody style="cursor:pointer;">
+                            <?php $no = ($barang->currentpage()-1)* $barang->perpage() + 1;?>
+                            @foreach ($barang as $item)
+                            <tr data-bs-toggle="modal" data-bs-target="#detailBarangModal{{ $item->id }}">
+                                <!-- <td>
+                                    <input type="checkbox" name="check-tbl">
+                                </td> -->
+                                <td scope="row">{{ $no ++ }}</td>
+                                <td>{{ $item->material_number }}</td>
+                                <td>{{ $item->nama_barang }}</td>
+                                <td style="max-width: 320px;text-overflow: ellipsis;overflow: hidden;white-space: nowrap;">{{ $item->deskripsi }}</td>
+                                <td>{{ $item->jumlah_barang }}</td>
+                                <td>{{ $item->nama_unit }}</td>
+                                <td>
+                                    <img src="img/view-icon.svg" style="cursor:pointer;" alt="">
+                                    @if (auth()->user()->unit_bagian == $item->lokasi)
+                                    <img src="img/edit-icon.svg" style="cursor:pointer;" data-bs-toggle="modal" data-bs-target="#editBarangModal{{ $item->id }}" alt="">
+                                    <img src="img/delete-icon.svg" style="cursor:pointer;" data-bs-toggle="modal" data-bs-target="#hapusModal{{ $item->id }}" alt="">
+                                    @endif
+                                </td>
+                            </tr>
+                            @endforeach
+                        </tbody>
+                    </table>
+                    <div style="display:flex;justify-content:space-between;align-items: center;">
+                        <div>
+                            Showing
+                            {{ $barang->count() }}
+                            of
+                            {{ $barang->total() }}
+                        </div>
+                        <div>
+                            {{ $barang->links() }}
+                        </div>
+                    </div>
                 </div>
+                <!-- <div>
+                    {!! $barang->withQueryString()->links('pagination::bootstrap-5') !!}
+                </div> -->
             </div>
             <p class="body-2" style="margin:32px 0 0 0;text-align: center;color:#777986;">Copyright @Petrokimia Gresik 2023. All Rights Reserved.</p>
         </div>
@@ -602,7 +599,7 @@
             }
         }
     </script>
-    <script>
+    <!-- <script>
         $(document).ready(function(){
         $("#search-bar").on("keyup", function() {
             var value = $(this).val().toLowerCase();
@@ -611,6 +608,6 @@
             });
         });
         });
-    </script>
+    </script> -->
 </body>
 </html>

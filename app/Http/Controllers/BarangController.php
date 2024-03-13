@@ -20,19 +20,30 @@ class BarangController extends Controller
         // $barang = Barang::with('unit')->latest()->paginate(5);
         $id = auth()->user()->id;
         
+        $barang = DB::table('barang')
+            ->join('unit', 'barang.lokasi', '=', 'unit.id')
+            ->select('barang.*', 'unit.nama_unit')
+            ->latest()
+            ->paginate(10);
+
         if($request->get('lokasi')){
             $barang = DB::table('barang')
             ->join('unit', 'barang.lokasi', '=', 'unit.id')
             ->select('barang.*', 'unit.nama_unit')
             ->where('lokasi', 'LIKE', '%'.$request->get('lokasi').'%')
             ->latest()
-            ->paginate(9);
-        } else {
+            ->paginate(10);
+        }
+        
+        if($request->get('name')){
             $barang = DB::table('barang')
             ->join('unit', 'barang.lokasi', '=', 'unit.id')
             ->select('barang.*', 'unit.nama_unit')
+            ->where('nama_barang', 'LIKE', '%'.$request->get('name').'%')
+            ->orWhere('deskripsi', 'LIKE', '%'.$request->get('name').'%')
+            ->orWhere('material_number', 'LIKE', '%'.$request->get('name').'%')
             ->latest()
-            ->paginate(9);
+            ->paginate(10);
         }
 
         $user = DB::table('users')
