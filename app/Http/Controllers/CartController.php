@@ -46,6 +46,13 @@ class CartController extends Controller
         $lokasi = auth()->user()->id;
         $keranjang = \Cart::session($id)->getContent('id');
         $penerima = array();
+        $status = 0;
+        $id_barang = 0;
+        $jumlah_akhir = 0;
+
+        $barang = DB::table('barang')
+            ->where('barang.lokasi', auth()->user()->unit_bagian)
+            ->get();
 
         $kode_transaksi = Transaksi::create([
             'jumlah_barang' => $keranjang->count(),
@@ -53,19 +60,35 @@ class CartController extends Controller
         ]);
 
         foreach ($keranjang as $item) {
-            Barang::create([
-                'material_number' => $item->associatedModel->material_number,
-                'nama_barang' => $item->associatedModel->nama_barang,
-                'range_pengukuran' => $item->associatedModel->range_pengukuran,
-                'satuan_pengukuran' => $item->associatedModel->satuan_pengukuran,
-                'deskripsi' => $item->associatedModel->deskripsi,
-                'kondisi' => $item->associatedModel->kondisi,
-                'merk' => $item->associatedModel->merk,
-                'tipe' => $item->associatedModel->tipe,
-                'jumlah_barang' => $item->quantity,
-                'id_satuan_barang' => $item->associatedModel->id_satuan_barang,
-                'lokasi' => auth()->user()->unit_bagian,
-            ]);
+            foreach ($barang as $barangs) {
+                if ($barangs->deskripsi == $item->associatedModel->deskripsi) {
+                    $status = 1;
+                    $id_barang = $barangs->id;
+                    $jumlah_akhir = $barangs->jumlah_barang + $item->quantity;
+                }
+            }
+
+            if ( $status = 0) {
+                Barang::create([
+                    'material_number' => $item->associatedModel->material_number,
+                    'nama_barang' => $item->associatedModel->nama_barang,
+                    'range_pengukuran' => $item->associatedModel->range_pengukuran,
+                    'satuan_pengukuran' => $item->associatedModel->satuan_pengukuran,
+                    'deskripsi' => $item->associatedModel->deskripsi,
+                    'kondisi' => $item->associatedModel->kondisi,
+                    'merk' => $item->associatedModel->merk,
+                    'tipe' => $item->associatedModel->tipe,
+                    'jumlah_barang' => $item->quantity,
+                    'id_satuan_barang' => $item->associatedModel->id_satuan_barang,
+                    'lokasi' => auth()->user()->unit_bagian,
+                ]);
+            } elseif ( $status = 1) {
+                Barang::where('id', $id_barang)
+                    ->where('id', $id_barang)
+                        ->update([
+                            'jumlah_barang' => $jumlah_akhir,
+                        ]);
+            }
 
             array_push($penerima, $item->associatedModel->lokasi);
 
