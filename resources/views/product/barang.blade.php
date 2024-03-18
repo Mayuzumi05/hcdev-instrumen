@@ -229,7 +229,7 @@
                     <div style="display:flex;justify-content:space-between;align-items: center;">
                         <div>
                             Showing
-                            {{ $barang->count() }}
+                            {{ $barang->firstItem() }}-{{ $barang->lastItem() }}
                             of
                             {{ $barang->total() }}
                         </div>
