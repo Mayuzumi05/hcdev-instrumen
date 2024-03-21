@@ -32,9 +32,9 @@
                         <p class="body-1" style="color:#404252;margin:16px 0 8px 0;">Email</p>
                         <input type="text" class="nama-pengguna" name="email" placeholder="Masukkan email anda">
                         <p class="body-1" style="color:#404252;margin:16px 0 8px 0;">Unit Bagian</p>
-                        <div>
+                        <div >
                             <label class="visually-hidden" for="inlineFormSelectPref">Preference</label>
-                            <select class="form-select" id="inlineFormSelectPref" name="unit_bagian">
+                            <select class="form-select" id="inlineFormSelectPref" name="unit_bagian" style="padding:16px 16px;border-radius:8px;border:1px solid var(--netral-300, #B3B5BD);font-family:'SFUIDisplay', sans-serif;font-weight:medium;font-size:14px;line-height:normal;letter-spacing:0.25px;margin:0;color:#404252;">
                                 <option selected>Pilih Unit</option>
                                 @foreach ($unit as $item)
                                 <option value="{{$item->id}}">{{$item->nama_unit}}</option>

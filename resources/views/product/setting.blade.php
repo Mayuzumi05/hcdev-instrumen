@@ -155,42 +155,42 @@
             <div class="isi-pengaturan">
                 <div style="detailAkunContainer">
                     <div class="detail-akun">
-                        <p class="h5">Detail Akun</p>
-                        <div style="display:flex;align-items:center;">
+                        <p class="h5" style="margin-bottom:16px;">Detail Akun</p>
+                        <!-- <div style="display:flex;align-items:center;">
                             <img class="edit-profile" src="img/persona-1.svg" alt="">
                             <button class="btn-hapus-profil" style="align-items:center;" data-bs-toggle="modal" data-bs-target="#hapusModal">Hapus</button>
-                        </div>
+                        </div> -->
                         @foreach ($user as $item)
-                            <div style="display:flex;">
-                                <div>
-                                    <p class="body-2">Nama Pengguna</p>
-                                    <input type="text" class="input-form" name="" id="" style="margin-top:8px;" value="{{ $item->username }}" disabled>
-                                </div>
-                                <div style="margin-left:16px;">
-                                    <p class="body-2">Email</p>
-                                    <input type="text" class="input-form" name="" id="" style="margin-top:8px;" value="{{ $item->email }}" disabled>
-                                </div>
+                        <div style="display:flex;">
+                            <div>
+                                <p class="body-2">Nama Pengguna</p>
+                                <input type="text" class="input-form" name="" id="" style="margin-top:8px;" value="{{ $item->username }}" disabled>
                             </div>
-                            <div style="display:flex;margin-top:8px;">
-                                <div>
-                                    <p class="body-2">Nama</p>
-                                    <input type="text" class="input-form" name="" id="" style="margin-top:8px;" value="{{ $item->name }}" disabled>
-                                </div>
-                                <div style="margin-left:16px;">
-                                    <p class="body-2">No. Telepon</p>
-                                    <input type="text" class="input-form" name="" id="" style="margin-top:8px;" value="{{ $item->no_telepon }}" disabled>
-                                </div>
+                            <div style="margin-left:16px;">
+                                <p class="body-2">Email</p>
+                                <input type="text" class="input-form" name="" id="" style="margin-top:8px;" value="{{ $item->email }}" disabled>
                             </div>
-                            <div style="display:flex;margin-top:8px;">
-                                <div>
-                                    <p class="body-2">NIK</p>
-                                    <input type="text" class="input-form" name="" id="" style="margin-top:8px;" value="{{ $item->NIK }}" disabled>
-                                </div>
-                                <div style="margin-left:16px;">
-                                    <p class="body-2">Unit Bagian</p>
-                                    <input type="text" class="input-form" name="" id="" style="margin-top:8px;" value="{{ $item->nama_unit }}" disabled>
-                                </div>
+                        </div>
+                        <div style="display:flex;margin-top:8px;">
+                            <div>
+                                <p class="body-2">Nama</p>
+                                <input type="text" class="input-form" name="" id="" style="margin-top:8px;" value="{{ $item->name }}" disabled>
                             </div>
+                            <div style="margin-left:16px;">
+                                <p class="body-2">No. Telepon</p>
+                                <input type="text" class="input-form" name="" id="" style="margin-top:8px;" value="{{ $item->no_telepon }}" disabled>
+                            </div>
+                        </div>
+                        <div style="display:flex;margin-top:8px;">
+                            <div>
+                                <p class="body-2">NIK</p>
+                                <input type="text" class="input-form" name="" id="" style="margin-top:8px;" value="{{ $item->NIK }}" disabled>
+                            </div>
+                            <div style="margin-left:16px;">
+                                <p class="body-2">Unit Bagian</p>
+                                <input type="text" class="input-form" name="" id="" style="margin-top:8px;" value="{{ $item->nama_unit }}" disabled>
+                            </div>
+                        </div>
                         @endforeach
                         <div>
                             <button class="btn-ubah-sandi" data-bs-toggle="modal" data-bs-target="#ubahDetailAkunModal">Ubah Detail Akun</button>
@@ -276,7 +276,7 @@
                             <label for="recipient-name" class="col-form-label">Unit Bagian</label>
                             <div>
                                 <label class="visually-hidden" for="inlineFormSelectPref">Preference</label>
-                                <select class="form-select" id="inlineFormSelectPref" name="unit_bagian">
+                                <select class="form-select" id="inlineFormSelectPref" name="unit_bagian" style="margin:0;">
                                     <option value="{{$item->id}}" selected>{{ $item->nama_unit }}</option>
                                     @if(auth()->user()->unit_bagian != 8)
                                         @foreach ($unitwithoutadmin as $unit_item)
