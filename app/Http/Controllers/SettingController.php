@@ -23,7 +23,7 @@ class SettingController extends Controller
         $unit = Unit::all();
 
         $unitwithoutadmin = DB::table('unit')
-            ->where('id', '!=', 8)
+            ->where('id', '<', 8)
             ->get();
 
         // dd($userauth);
