@@ -11,6 +11,7 @@ use App\Http\Controllers\HistoryController;
 use App\Http\Controllers\NotificationController;
 use App\Http\Controllers\SettingController;
 use App\Http\Controllers\CartController;
+use App\Http\Controllers\HomeBOMController;
 
 /*
 |--------------------------------------------------------------------------
@@ -30,6 +31,10 @@ Route::get('/', function () {
 Route::get('/login', function () {
     return view('user.login');
 })->name('login');
+
+Route::get('/pilih', function () {
+    return view('bom.pilih');
+})->name('pilih');
 
 Route::post('/postlogin', [LoginController::class,'postlogin'])->name('postlogin');
 
@@ -76,6 +81,8 @@ Route::group(['middleware' => ['auth', 'cekunit:0']], function () {
 Route::get('/register', [UserController::class, 'register'])->name('register');
 
 Route::post('/saveregister', [UserController::class, 'saveregister'])->name('saveregister');
+
+Route::get('/homebom', [HomeBOMController::class, 'index'])->name('homebom');
 
 // Route::get('/home', [Controller::class, 'home'])->name('product.home');
 

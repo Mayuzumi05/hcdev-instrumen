@@ -133,6 +133,12 @@
                                 <span class="link">Pengaturan</span>
                             </a>
                         </li>
+                        <li class="list">
+                            <a href="homebom" class="nav-link">
+                                <img src="img/bom-grey.svg" alt="">
+                                <span class="link">Bill Of Material</span>
+                            </a>
+                        </li>
                     </ul>
                     <div class="bottom-cotent">
                         <li class="list">

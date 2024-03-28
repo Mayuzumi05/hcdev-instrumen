@@ -12,7 +12,7 @@ class LoginController extends Controller
     public function postlogin(Request $request){
         
         if(Auth::attempt($request->only('id','username','password', 'status'))) {
-            return redirect('/home');
+            return redirect('/pilih');
         }
 
         return redirect('/login')->with('error', 'Username atau kata sandi salah!');

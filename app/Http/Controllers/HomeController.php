@@ -29,7 +29,7 @@ class HomeController extends Controller
         ->join('unit', 'transaksi.lokasi_akhir', '=', 'unit.id')
         ->select('transaksi.*', 'unit.nama_unit')
         ->latest()
-        ->get();
+        ->paginate(20);
         // $transaksi_id = $request->input('transaksi_id');
         
         $history = DB::table('history')

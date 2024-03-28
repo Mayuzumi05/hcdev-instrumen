@@ -782,6 +782,41 @@ input:focus{
   margin-bottom: 0px;
 }
 
+.kembali-login {
+  font-family: 'SFUIDisplay', sans-serif;
+  font-weight: medium;
+  font-size: 16px;
+  line-height: 24px;
+  margin: 0;
+  height: 24px;
+  color:#404252;
+  margin-left: 16px;
+}
+
+.pilih-platform {
+  font-family: 'SFUIDisplay', sans-serif;
+  font-weight: medium;
+  font-size: 24px;
+  line-height: normal;
+  letter-spacing: 0px;
+  margin: 0 0 40px 0;
+  text-align: center;
+  color: #404252;
+}
+
+.img-zoom {
+  height: 320px;
+  transition: transform .2s;
+  box-shadow: 0 0 1px rgba(0, 0, 0, 0.1);
+}
+
+.img-zoom:hover {
+  -ms-transform: scale(1.1); /* IE 9 */
+  -webkit-transform: scale(1.1); /* Safari 3-8 */
+  transform: scale(1.1);
+  box-shadow: 0px 12px 42px -4px rgba(24, 39, 75, 0.12), 0px 8px 18px -6px rgba(24, 39, 75, 0.12);
+}
+
 /* .plus, .minus{
   -webkit-user-select: none;
   -moz-user-select: none;
