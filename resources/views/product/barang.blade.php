@@ -135,6 +135,12 @@
                                 <span class="link">Pengaturan</span>
                             </a>
                         </li>
+                        <li class="list">
+                            <a href="homebom" class="nav-link">
+                                <img src="img/bom-grey.svg" alt="">
+                                <span class="link">Bill Of Material</span>
+                            </a>
+                        </li>
                     </ul>
                     <div class="bottom-cotent">
                         <li class="list">
@@ -161,18 +167,19 @@
                 <div style="display:flex;margin-bottom:24px;justify-content:space-between;">
                     <form action="" method="GET">
                         <div style="display:flex;">
-                            @csrf
+                            <!-- @csrf -->
                             <img class="img-search" src="img/Search.svg" alt="">
-                            <input id="search-bar" type="text" placeholder="Pencarian" name="name">
+                            <input id="search-bar" type="text" placeholder="Pencarian" name="name" value="{{isset($_GET['name']) ? $_GET['name'] : ''}}">
                             <select class="form-select" id="inlineFormSelectPref" name="lokasi" style="width:240px;">
                                 <option value="">Semua Unit</option>
                                     @foreach ($unit as $unit_item)
-                                    <option value="{{$unit_item->id}}">{{$unit_item->nama_unit}}</option>
+                                    <option value="{{$unit_item->id}}" {{ (isset($lokasi) && $lokasi == $unit_item->id  ) ? 'selected' : '' }}>{{$unit_item->nama_unit}}</option>
                                     @endforeach
                             </select>
                             <button type="submit" class="btn-simpan">Cari</button>
                         </div>
                     </form>
+                    @if(auth()->user()->unit_bagian <= 8)
                     <div style="display:flex">
                         <a href="{{ route('exportbarang') }}" style="text-decoration:none;">
                             <button class="btn-tambah-data">
@@ -185,6 +192,7 @@
                             <p class="body-2">Tambah Data</p>
                         </button>
                     </div>
+                    @endif
                 </div>
                 <div class="card-body table-responsive">
                     <table class="table table-hover" style="margin-bottom:0px;">
@@ -310,6 +318,7 @@
                             </div>
                         </div>
                     </div>
+                    @if(auth()->user()->unit_bagian <= 8)
                     <div class="modal-footer justify-content-between">
                         <form action="{{ route('cart.store') }}" method="POST" style="display:flex;justify-content:space-between;width:100%;align-items:center;">
                             @csrf
@@ -323,6 +332,7 @@
                             @endif
                         </form>
                     </div>
+                    @endif
                 </div>
             </div>
         </div>
@@ -511,20 +521,6 @@
                                     <label for="recipient-name" class="col-form-label">Lokasi</label>
                                     <input type="text" class="form-control" name="tipe" value="{{ $c->nama_unit }}" id="recipient-name" disabled>
                                 </div>
-                                <!-- <div class="form-group">
-                                    <label for="recipient-name" class="col-form-label">Waktu Ditambahkan</label>
-                                    <input type="text" class="form-control" name="id_satuan_barang" value="{{ $c->created_at }}" id="recipient-name">
-                                </div>
-                                <div>
-                                    <label for="recipient-name" class="col-form-label">Lokasi</label>
-                                    <label class="visually-hidden" for="inlineFormSelectPref">Preference</label>
-                                    <select class="form-select" id="inlineFormSelectPref" name="lokasi">
-                                        <option value="{{ $c->lokasi }}" selected>{{ $c->nama_unit }}</option>
-                                        @foreach ($unit as $unit_item)
-                                        <option value="{{$item->id}}">{{$unit_item->nama_unit}}</option>
-                                        @endforeach
-                                    </select>
-                                </div> -->
                             </div>
                         </div>
                         <div style="margin:24px 0 8px 0;display:flex;direction:rtl;">

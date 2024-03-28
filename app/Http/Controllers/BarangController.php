@@ -19,32 +19,25 @@ class BarangController extends Controller
     public function index(Request $request){
         // $barang = Barang::with('unit')->latest()->paginate(5);
         $id = auth()->user()->id;
-        
-        $barang = DB::table('barang')
-            ->join('unit', 'barang.lokasi', '=', 'unit.id')
-            ->select('barang.*', 'unit.nama_unit')
-            ->latest()
-            ->paginate(10);
 
-        if($request->get('lokasi')){
-            $barang = DB::table('barang')
-            ->join('unit', 'barang.lokasi', '=', 'unit.id')
-            ->select('barang.*', 'unit.nama_unit')
-            ->where('lokasi', 'LIKE', '%'.$request->get('lokasi').'%')
-            ->latest()
-            ->paginate(10);
-        }
+        $lokasi = $request->lokasi;
         
-        if($request->get('name')){
-            $barang = DB::table('barang')
+        $query = DB::table('barang')
             ->join('unit', 'barang.lokasi', '=', 'unit.id')
-            ->select('barang.*', 'unit.nama_unit')
-            ->where('nama_barang', 'LIKE', '%'.$request->get('name').'%')
-            ->orWhere('deskripsi', 'LIKE', '%'.$request->get('name').'%')
-            ->orWhere('material_number', 'LIKE', '%'.$request->get('name').'%')
-            ->latest()
-            ->paginate(10);
+            ->select('barang.*', 'unit.nama_unit');
+
+        if(isset($request->lokasi) && ($request->lokasi != null)) {
+            $query->where('lokasi', 'LIKE', $request->lokasi);
         }
+
+        if(isset($request->name) && ($request->name != null)) {
+            $query->where('nama_barang', 'LIKE', $request->name)
+                ->orWhere('deskripsi', 'LIKE', $request->name)
+                ->orWhere('material_number', 'LIKE', $request->name);
+        }
+
+        $barang = $query->latest()
+        ->paginate(10);
 
         $user = DB::table('users')
             ->join('unit', 'users.unit_bagian', '=', 'unit.id')
@@ -52,13 +45,15 @@ class BarangController extends Controller
             ->where('users.id', $id)
             ->get();
 
-        $unit = Unit::all();
+        $unit = DB::table('unit')
+            ->where('id', '<', 8)
+            ->get();
 
         // $barang->when($request->lokasi, function ($query) use ($request){
         //     return $query->where('lokasi', 'like', '%'.$request->lokasi.'%');
         // });
         
-        return view('product.barang', compact('barang', 'user', 'unit'));
+        return view('product.barang', compact('barang', 'user', 'unit', 'lokasi'));
     }
 
     public function store(Request $request) {
