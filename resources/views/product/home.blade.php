@@ -135,6 +135,12 @@
                                 <span class="link">Pengaturan</span>
                             </a>
                         </li>
+                        <li class="list">
+                            <a href="homebom" class="nav-link">
+                                <img src="img/bom-grey.svg" alt="">
+                                <span class="link">Bill Of Material</span>
+                            </a>
+                        </li>
                     </ul>
                     <div class="bottom-cotent">
                         <li class="list">
@@ -198,9 +204,6 @@
                 <table class="table table-hover">
                     <thead>
                         <tr style="background:#4abdac;">
-                            <th scope="col">
-                                <input type="checkbox" onclick="toggle(this);">
-                            </th>
                             <th scope="col">No.</th>
                             <th scope="col">Tanggal Perpindahan</th>
                             <th scope="col">Jumlah Barang</th>
@@ -211,9 +214,6 @@
                         <?php $no = 1; ?>
                         @foreach ($transaksi as $item)
                         <tr data-bs-toggle="modal" data-bs-target="#detailRiwayatModal{{ $item->id }}" class="transaksi-modal" data-id="{{ $item->id }}" data-url="{{ route('fetchhome', $item->id) }}">
-                            <td>
-                                <input type="checkbox" name="check-tbl">
-                            </td>
                             <td scope="row">{{ $no ++ }}</td>
                             <td>{{ $item->created_at }}</td>
                             <td>{{ $item->jumlah_barang }}</td>
@@ -222,6 +222,10 @@
                         @endforeach
                     </tbody>
                 </table>
+                <div style="display:flex;direction:rtl;margin:16px 0 0 0;">
+                    <img src="img/arrow-right.svg" alt="">
+                    <a href="history" class="body-2" style="text-decoration:none;margin-right:0;color:#404252;line-height: 24px;margin-right:8px;">Lihat Selengkapnya</a>
+                </div>
             </div>
             <p class="body-2" style="margin:32px 0 0 0;text-align: center;color:#777986;">Copyright @Petrokimia Gresik 2023. All Rights Reserved.</p>
         </div>
