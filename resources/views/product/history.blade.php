@@ -134,6 +134,12 @@
                                 <span class="link">Pengaturan</span>
                             </a>
                         </li>
+                        <li class="list">
+                            <a href="homebom" class="nav-link">
+                                <img src="img/bom-grey.svg" alt="">
+                                <span class="link">Bill Of Material</span>
+                            </a>
+                        </li>
                     </ul>
                     <div class="bottom-cotent">
                         <li class="list">
@@ -155,31 +161,37 @@
             <div class="section" style="padding:24px 40px;margin:40px 0;">
                 <!-- <p class="h5" style="color:#489742;">Riwayat Perpindahan</p> -->
                 <div style="display:flex;margin-bottom:24px;">
-                    <img class="img-search" src="img/Search.svg" alt="">
-                    <input id="search-bar" type="text" placeholder="Pencarian">
-                    <button class="btn-filter" style="margin-left:16px;display:flex;" data-bs-toggle="dropdown" aria-expanded="false">
-                        <p class="body-2">Filter</p>
-                        <img src="img/filter.svg" style="height:24px;width:24px;" alt="">
-                    </button>
-                    <ul class="dropdown-menu">
-                        <li style="padding:8px 16px;">
-                            <p class="body-2" style="color:#404252;">Rentang Tanggal</p>
-                        </li>
-                        <li style="padding:8px 16px;">
-                            <div style="display:flex;align-items:center;">
-                                <input class="range-date" type="date">
-                                <p class="caption" style="margin:0 8px;color:#8F959D;">s/d</p>
-                                <input class="range-date" type="date">
-                            </div>
-                        </li>
-                    </ul>
+                    <form action="" method="GET">
+                        <div style="display:flex;">
+                            <select class="form-select" id="inlineFormSelectPref" name="lokasi" style="width:240px;">
+                                <option value="">Semua Unit</option>
+                                    @foreach ($unit as $unit_item)
+                                    <option value="{{$unit_item->id}}"{{ (isset($lokasi) && $lokasi == $unit_item->id  ) ? 'selected' : '' }}>{{$unit_item->nama_unit}}</option>
+                                    @endforeach
+                            </select>
+                            <button class="btn-filter" style="margin-left:16px;display:flex;" data-bs-toggle="dropdown" aria-expanded="false">
+                                <p class="body-2">Filter</p>
+                                <img src="img/filter.svg" style="height:24px;width:24px;" alt="">
+                            </button>
+                            <ul class="dropdown-menu">
+                                <li style="padding:8px 16px;">
+                                    <p class="body-2" style="color:#404252;">Rentang Tanggal</p>
+                                </li>
+                                <li style="padding:8px 16px;">
+                                    <div style="display:flex;align-items:center;">
+                                        <input class="range-date" type="date" name="tanggal_awal" value="{{isset($_GET['tanggal_awal']) ? $_GET['tanggal_awal'] : ''}}">
+                                        <p class="caption" style="margin:0 8px;color:#8F959D;">s/d</p>
+                                        <input class="range-date" type="date" name="tanggal_akhir" value="{{isset($_GET['tanggal_akhir']) ? $_GET['tanggal_akhir'] : ''}}">
+                                    </div>
+                                </li>
+                            </ul>
+                            <button type="submit" class="btn-simpan">Cari</button>
+                        </div>
+                    </form>
                 </div>
                 <table class="table table-hover">
                     <thead>
                         <tr style="background:#4abdac;">
-                            <th scope="col">
-                                <input type="checkbox" onclick="toggle(this);">
-                            </th>
                             <th scope="col">No.</th>
                             <th scope="col">Tanggal Perpindahan</th>
                             <th scope="col">Jumlah Barang</th>
@@ -190,9 +202,6 @@
                         <?php $no = 1; ?>
                         @foreach ($transaksi as $item)
                         <tr data-bs-toggle="modal" data-bs-target="#detailRiwayatModal{{ $item->id }}" class="transaksi-modal" data-id="{{ $item->id }}" data-url="{{ route('fetchdetail', $item->id) }}">
-                            <td>
-                                <input type="checkbox" name="check-tbl">
-                            </td>
                             <td scope="row">{{ $no ++ }}</td>
                             <td>{{ $item->created_at }}</td>
                             <td>{{ $item->jumlah_barang }}</td>
@@ -201,6 +210,17 @@
                         @endforeach
                     </tbody>
                 </table>
+                <div style="display:flex;justify-content:space-between;align-items: center;">
+                    <div>
+                        Showing
+                        {{ $transaksi->firstItem() }}-{{ $transaksi->lastItem() }}
+                        of
+                        {{ $transaksi->total() }}
+                    </div>
+                    <div>
+                        {{ $transaksi->links() }}
+                    </div>
+                </div>
             </div>
             <p class="body-2" style="margin:32px 0 0 0;text-align: center;color:#777986;">Copyright @Petrokimia Gresik 2023. All Rights Reserved.</p>
         </div>
